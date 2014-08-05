@@ -122,13 +122,31 @@ pour des filtre du second ordre en utilisant le module 'bode.py'
 * bode.py: Module de génération de diagrammes de Bode.
 
 ### Bloc Thermodynamique
-* T1_balles_rebondissantes_en_boite.py
-* T1_particules_en_boite_libre.py
-* T1_particules_en_boite_mouvement_brownien.py
-* T2_diagramme_PT_coolprop.py
-* T2_diagramme_Pv_coolprop.py
-* T2_reseau_d_isothermes_coolprop.py
-* T5_isentropique_GP_vs_gaz_reel_coolprop.py
-* T6_cycle_de_carnot_reel_et_GP.py
-* T6_diagramme_Ph_coolprop.py
-* T6_resolution_cycle_diesel.py
+* T1_balles_rebondissantes_en_boite.py: Simulation des billes à 2D coincées 
+dans une boite et soumises à la gravité ainsi qu'aux chocs pour montrer la loi 
+de répartition de Boltzmann de la densité de balles en fonction de l'altitude.
+* T1_particules_en_boite_libre.py: Simulation d'un gaz parfaits avec chocs 
+pour appréhender les notions de libre parcours moyen et de marche aléatoire.
+* T1_particules_en_boite_mouvement_brownien.py (non encore fait): Comme la 
+simulation précédente mais en rajoutant une "grosse" particule au milieu qui 
+serait, sur certains intervalles de temps, la seule visible pour appréhender 
+la notion de mouvement Brownien découvert en observant des grains de pollens 
+dans une solution aqueuse.
+* T2_diagramme_PT_coolprop.py (non encore fait): génération d'un diagramme PT 
+pour un fluide donné à partir du module CoolProp
+* T2_diagramme_Pv_coolprop.py (non encore fair): génération d'un diagramme Pv 
+pour un fluide donné à partir du module CoolProp
+* T2_reseau_d_isothermes_coolprop.py: génération d'un réseau d'isothermes 
+d'Andrews pour montrer comment on peut déterminer "à la main" la courbe de 
+saturation dans un diagramme (P,v)
+* T5_isentropique_GP_vs_gaz_reel_coolprop.py (non encore fait): Comparaison 
+des isentropiques prédites par le modèle du gaz parfait à celles données par 
+le module CoolProp.
+* T6_cycle_de_carnot_reel_et_GP.py: Comparaison des prédictions d'un modèle de 
+gaz parfait à celle du module CoolProp pour un cycle de Carnot (deux 
+isentropiques et deux isothermes).
+* T6_diagramme_Ph_coolprop.py (non encore fait): génération d'un diagramme 
+enthalpique complet à l'aide du module CoolProp.
+* T6_resolution_cycle_diesel.py: résolution d'un exercice classique sur un 
+cycle Diesel à double combustion à l'aide du module CoolProp et de manière 
+théorique avec le modèle du gaz parfait.
