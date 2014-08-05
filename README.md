@@ -20,22 +20,50 @@ d'Hypérion autour de Saturne).
 
 ## Description succincte des fichiers
 
-I1_lignes_champ_magnetique.py
-I2_champ_tournant_diphase.py
-I2_champ_tournant_triphase.py
-I4_couplage_de_deux_circuits.py
-M2_trainee.py
-M2_trainee_portrait_de_phase.py
-M4_oscillateur_de_landau_effets_non_lineaires.py
-M4_oscillateur_de_landau_portrait_de_phase.py
-M4_pendule_simple_non_isochronisme.py
-M4_pendule_simple_oscillations_amorties.py
-M4_pendule_simple_portrait_de_phase.py
-M5_mouvement_dans_champ_E_et_B.py
-M5_mouvement_helicoidal.py
-M_hyperion.py
-M_papillon_de_lorentz.py
-M_pendule_double.py
+### Bloc Induction
+* I1_lignes_champ_magnetique.py: Code écrit par Sylvain Condamin (adapté d'un 
+code de Thierry Pré) pour simuler les lignes de champ magnétique autour de 
+divers objets (fil infini, dipôle magnétique ou spire)
+* I2_champ_tournant_diphase.py (non encore écrit): Fabrique une petite 
+animation pour illustrer la notion de champ tournant à partir de deux bobines 
+en quadrature de phase.
+* I2_champ_tournant_triphase.py (non encore écrit): Comme le précédent, mais 
+en triphasé.
+* I4_couplage_de_deux_circuits.py: résolution numérique d'un couplage de 
+circuits oscillants pour illustrer notamment la notion de battements en cas de 
+couplage faible.
+
+### Bloc Mécanique
+* M2_trainee.py (non encore fait): illustration de l'influence de la traînée 
+sur un tir d'obus.
+* M2_trainee_portrait_de_phase.py (non encore fait): pareil via un portrait de 
+phase.
+* M4_oscillateur_de_landau_effets_non_lineaires.py (non encore fait): Non 
+isochronisme des oscillations dans le cas d'un oscillateur de Landau.
+* M4_oscillateur_de_landau_portrait_de_phase.py (non encore fait): Portrait de 
+phase pour un oscillateur de Landau
+* M4_pendule_simple_non_isochronisme.py (non encore fait): Non isochronisme 
+des oscillations pour un pendule simple.
+* M4_pendule_simple_oscillations_amorties.py (non encore fait): Oscillations 
+amorties dans le cadre du pendule simple.
+* M4_pendule_simple_portrait_de_phase.py (non encore fait): fabrication du 
+portrait de phase d'un pendule simple. 
+* M5_mouvement_dans_champ_E_et_B.py (non encore fait): calcul de la 
+trajectoire d'une particule chargée soumise à la fois à un champ E et un champ 
+B.
+* M5_mouvement_helicoidal.py (non encore fait): Trajectoire d'une particule 
+chargée soumise uniquement à un champ magnétique.
+* M_hyperion.py: Étude d'une section de Poincaré pour la rotation propre 
+d'Hypérion (satellite de Saturne) qui mette en avant le caractère chaotique 
+d'une telle rotation (cf Ian Stewart, "Dieu joue-t-il aux dés" pour une 
+introduction à cette problématique).
+* M_papillon_de_lorentz.py (non encore fait): Illustration du concept 
+d'attracteur étrange à l'aide du papillon de Lorentz
+* M_pendule_double.py (non encore fait): Illustration de la dépendance aux 
+conditions initiales pour les mouvements chaotiques sur l'exemple du pendule 
+double rigide.
+
+### Bloc Signal
 S01_oscillateur_harmonique_energie.py
 S01_oscillateur_harmonique_periode.py
 S02_onde_progressive.py
