@@ -62,42 +62,73 @@ d'attracteur étrange à l'aide du papillon de Lorentz
 * M_pendule_double.py (non encore fait): Illustration de la dépendance aux 
 conditions initiales pour les mouvements chaotiques sur l'exemple du pendule 
 double rigide.
+* portrait_de_phase.py (non encore fait): Module générique pour produire un 
+portrait de phase
 
 ### Bloc Signal
-S01_oscillateur_harmonique_energie.py
-S01_oscillateur_harmonique_periode.py
-S02_onde_progressive.py
-S02_onde_progressive_animation_superposition.py
-S03_battements.py
-S03_diffraction.py
-S03_fresnel.py
-S03_interferences.py
-S03_ondes_stationnaires.py
-S04_arc_en_ciel_turtle.py
-S04_lois_de_descartes.py
-S05_distortion_chromatique.py
-S05_gauss_4P.py
-S05_lentilles_construction_graphique.py
-S06_paquet_d_ondes_MQ.py
-S07_elec_resolution_pivot_de_gauss.py
-S08_circuit_premier_ordre_complexe.py
-S08_circuit_premier_ordre_simple.py
-S09_oscillateur_amorti_libre.py
-S10_oscillateur_amorti_force.py
-S11_filtre_bizarre.py
-S11_filtre_derivateur.py
-S11_filtre_diagrammes_en_amplitudes.py
-S11_filtre_integrateur.py
-S11_filtres_second_ordre.py
-T1_balles_rebondissantes_en_boite.py
-T1_particules_en_boite_libre.py
-T1_particules_en_boite_mouvement_brownien.py
-T2_diagramme_PT_coolprop.py
-T2_diagramme_Pv_coolprop.py
-T2_reseau_d_isothermes_coolprop.py
-T5_isentropique_GP_vs_gaz_reel_coolprop.py
-T6_cycle_de_carnot_reel_et_GP.py
-T6_diagramme_Ph_coolprop.py
-T6_resolution_cycle_diesel.py
-bode.py
-portrait_de_phase.py
+* S01_oscillateur_harmonique_energie.py: Illustration de la conservation de 
+l'énergie pour un oscillateur harmonique.
+* S01_oscillateur_harmonique_periode.py: Illustration de l'isochronisme des 
+oscillations pour un oscillateur harmonique.
+* S02_onde_progressive.py: Illustration de la notion d'onde progressive
+* S02_onde_progressive_animation_superposition.py: Petite animation sur 
+l'exemple précédent en superposant plusieurs ondes se déplaçant à diverses 
+vitesses.
+* S03_battements.py: Illustration de la notion de battements lors de la 
+superposition de deux ondes de fréquences voisines.
+* S03_diffraction.py: Diffraction (2D) d'une onde plane après passage d'une 
+ouverture plane. On peut jouer sur l'angle d'incidence sur l'ouverture.
+* S03_fresnel.py: Fabrication d'énoncés et de corrigés pour entraîner les 
+élèves sur les constructions de Fresnel.
+* S03_interferences.py: Animation montrant la mise en place d'interférences 
+lors de la superposition des signaux en provenance de deux points sources.
+* S03_ondes_stationnaires.py (non encore fait): Illustration de la notion 
+d'onde stationnaire lors de la superposition d'ondes progressives de sens 
+opposés
+* S04_arc_en_ciel_turtle.py: Programme 'turtle' écrit par Tom Morel pour 
+expliquer la réfraction à l'intérieur d'une goutte d'eau.
+* S04_lois_de_descartes.py (non encore fait): Illustration de la loi de 
+Descartes via une animation de réfraction pour de multiples incidences.
+* S05_distortion_chromatique.py: Programme 'turtle' écrit par Tom Morel pour 
+mettre en avant la dépendance de la distance focale avec la couleur des rayons 
+incidents
+* S05_gauss_4P.py: Programme 'turtle' écrit par Tom Morel pour illustrer la 
+règle des "4P" (Plus Plat, Plus Près)
+* S05_lentilles_construction_graphique.py (non encore fait): Illustration des 
+construction graphique pour les lentilles
+* S06_paquet_d_ondes_MQ.py: Programme écrit par Miriam Heckmann pour simuler 
+un paquet d'ondes en mécanique quantique
+* S07_elec_resolution_pivot_de_gauss.py (non encore fait): Résolution d'un 
+système électrique linéaire sans dérivées temporelles à l'aide d'un pivot de 
+Gauss
+* S08_circuit_premier_ordre_complexe.py (non encore fait): Résolution d'un 
+système électrique complexe en se contentant d'écrire les lois des mailles, 
+des noeuds et relations électriques de chaque dipôle.
+* S08_circuit_premier_ordre_simple.py (non encore fait): Résolution d'un    
+système électrique simple en se contentant d'écrire les lois des mailles,   
+des noeuds et relations électriques de chaque dipôle.
+* S09_oscillateur_amorti_libre.py (non encore fait): 
+* S10_oscillateur_amorti_force.py (non encore fait):
+* S11_filtre_bizarre.py: Dessine le diagramme de Bode d'un filtre du type 
+(A+jw/w1)/(1+jw/w2)
+* S11_filtre_derivateur.py: Diagramme de Bode pour deux filtres où il faut 
+déterminer la zone qui se comporte comme un dérivateur
+* S11_filtre_diagrammes_en_amplitudes.py: Diagrammes de Bode en amplitude pour 
+détermination graphique de w0 et Q.
+* S11_filtre_integrateur.py: Diagramme de Bode pour deux filtres où il faut 
+déterminer la zone qui se comporte comme un intégrateur
+* S11_filtres_second_ordre.py: Exemples de génération de diagramme de Bode 
+pour des filtre du second ordre en utilisant le module 'bode.py'
+* bode.py: Module de génération de diagrammes de Bode.
+
+### Bloc Thermodynamique
+* T1_balles_rebondissantes_en_boite.py
+* T1_particules_en_boite_libre.py
+* T1_particules_en_boite_mouvement_brownien.py
+* T2_diagramme_PT_coolprop.py
+* T2_diagramme_Pv_coolprop.py
+* T2_reseau_d_isothermes_coolprop.py
+* T5_isentropique_GP_vs_gaz_reel_coolprop.py
+* T6_cycle_de_carnot_reel_et_GP.py
+* T6_diagramme_Ph_coolprop.py
+* T6_resolution_cycle_diesel.py
