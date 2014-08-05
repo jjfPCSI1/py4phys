@@ -21,10 +21,8 @@ d'Hypérion autour de Saturne).
 ## Description succincte des fichiers
 
 ### Bloc Induction
-* "I1_lignes_champ_magnetique.py":lib/I1_lignes_champ_magnetique.py: Code 
-écrit par Sylvain Condamin (adapté 
-d'un 
-code de Thierry Pré) pour simuler les lignes de champ magnétique autour de 
+* I1_lignes_champ_magnetique.py: Code écrit par Sylvain Condamin (adapté 
+d'un code de Thierry Pré) pour simuler les lignes de champ magnétique autour de 
 divers objets (fil infini, dipôle magnétique ou spire)
 * I2_champ_tournant_diphase.py (non encore écrit): Fabrique une petite 
 animation pour illustrer la notion de champ tournant à partir de deux bobines 
