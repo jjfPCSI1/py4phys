@@ -134,7 +134,7 @@ la notion de mouvement Brownien découvert en observant des grains de pollens
 dans une solution aqueuse.
 * T2_diagramme_PT_coolprop.py (non encore fait): génération d'un diagramme PT 
 pour un fluide donné à partir du module CoolProp
-* T2_diagramme_Pv_coolprop.py (non encore fair): génération d'un diagramme Pv 
+* T2_diagramme_Pv_coolprop.py: génération d'un diagramme Pv 
 pour un fluide donné à partir du module CoolProp
 * T2_reseau_d_isothermes_coolprop.py: génération d'un réseau d'isothermes 
 d'Andrews pour montrer comment on peut déterminer "à la main" la courbe de 
