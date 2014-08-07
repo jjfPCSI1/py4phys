@@ -14,36 +14,21 @@
 
 
 
+
+"""
+Fabrication simple d'un diagramme PT avec CoolProp. Malheureusement, on n'a 
+accès qu'à la partie "fluide" du diagramme donc l'équilibre liquide/vapeur, 
+mais c'est déjà pas mal.
+"""
+
+import matplotlib.pyplot as plt
 from CoolProp.Plots import PropsPlot
 
-ts_plot = PropsPlot('R290', 'Ts')
-ts_plot.show()
-
-from CoolProp.Plots import PropsPlot
-
-ref_fluid = 'n-Pentane'
-ts_plot = PropsPlot(ref_fluid, 'Ts')
-ts_plot.draw_isolines('Q', [0.3, 0.5, 0.7, 0.8])
-ts_plot.draw_isolines('P', [100, 2000], num=5)
-ts_plot.draw_isolines('D', [2, 600], num=7)
-ts_plot.set_axis_limits([-2, 1.5, 200, 500])
-ts_plot.show()
-
-
-from matplotlib import pyplot
-from CoolProp.Plots import PropsPlot
-
-ref_fluid = 'R600a'
-fig = pyplot.figure(1, figsize=(10, 10), dpi=100)
-for i, gtype in enumerate(['PT', 'PD', 'PS', 'PH', 'TD', 'TS', 'HS']):
-    ax = pyplot.subplot(4, 2, i+1)
-    if gtype.startswith('P'):
-        ax.set_yscale('log')
-    props_plot = PropsPlot(ref_fluid, gtype, axis=ax)
-    props_plot.title(gtype)
-    props_plot._draw_graph()
-pyplot.tight_layout()
-pyplot.show()
+fluid = 'Water'                  # Le fluide choisi (plus dans CoolProp.CoolProp.FluidsList())
+pt_plot = PropsPlot(fluid, 'PT') # Le type de diagramme
+plt.yscale('log')                # Échelle logarithmique en pression
+pt_plot._draw_graph()            # Dessin du graphe obligatoire avant sauvegarde
+plt.savefig('PNG/T2_diagramme_PT_coolprop_{}.png'.format(fluid))
 
 
 

@@ -132,7 +132,7 @@ simulation précédente mais en rajoutant une "grosse" particule au milieu qui
 serait, sur certains intervalles de temps, la seule visible pour appréhender 
 la notion de mouvement Brownien découvert en observant des grains de pollens 
 dans une solution aqueuse.
-* T2_diagramme_PT_coolprop.py (non encore fait): génération d'un diagramme PT 
+* T2_diagramme_PT_coolprop.py: génération d'un diagramme PT 
 pour un fluide donné à partir du module CoolProp
 * T2_diagramme_Pv_coolprop.py: génération d'un diagramme Pv 
 pour un fluide donné à partir du module CoolProp
