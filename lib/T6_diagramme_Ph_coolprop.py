@@ -33,22 +33,22 @@ iso_s = True                     # et les isentropiques ?
 iso_v = True                     # et les isochores ?
 
 # Données pour les isothermes
-dT = 50                                 # Incrément de températures
+dT = 20                                 # Incrément de températures
 Ttriple = CP.PropsSI(fluide,'Ttriple')  # Valeur de la température au point triple
 Tcrit = CP.PropsSI(fluide,'Tcrit')      # et au point critique
 Tmin = int(Ttriple/10)*10 + 10          # Par défaut, on par près du point triple
 val_T = np.arange(Tmin,1.5*Tcrit,dT)    # et on dépasse un peu le point critique
-T_to_show = list(range(1,len(val_T),2)) # Sélection des T à afficher (mettre None pour toutes)
+T_to_show = list(range(2,len(val_T),2)) # Sélection des T à afficher (mettre None pour toutes)
 
 # Données pour les isotitres
 val_x = np.linspace(0.1,0.9,9)          # Les valeurs des isotitres
 
 # Données pour les isentropiques
-ds = 1e3
+ds = 0.5e3
 striple_x0 = CP.PropsSI('S','Q',0,'T',Ttriple,fluide) # Entropie triple à gauche
 striple_x1 = CP.PropsSI('S','Q',1,'T',Ttriple,fluide) # Entropie triple à droite
 val_s = np.arange(striple_x0,striple_x1*1.2,ds)       # Valeurs à tracer
-s_to_show = list(range(1,len(val_s),2))               # et à afficher
+s_to_show = list(range(2,len(val_s),2))               # et à afficher
 
 # Données pour les isochores (réparties de manière logarithmique par défaut)
 vcrit = 1/CP.PropsSI(fluide,'rhocrit')                 # Volume massique critique
@@ -150,8 +150,8 @@ if iso_x: # Les lignes isotitres sont un peu spéciales, donc ont leur code propr
         place_label(x,y,label,indice=len(x)//20)
 
 # Ici, on fait toutes les autres isolignes (le boulot a été fait plus haut)
-if iso_T: fait_isolignes('T',val_T,position=0.7,to_show=T_to_show)
-if iso_s: fait_isolignes('S',val_s,position=0.3,to_show=s_to_show)
+if iso_T: fait_isolignes('T',val_T,position=0.8,to_show=T_to_show)
+if iso_s: fait_isolignes('S',val_s,position=0.3,to_show=s_to_show,round_nb=3)
 if iso_v: fait_isolignes('V',val_v,position=0.25,to_show=v_to_show,round_nb=3)
 
 plt.grid(which='both') # Rajout de la grille
