@@ -96,7 +96,8 @@ def place_label(x,y,label,indice=None,cotan=False,color='k'):
     bbox = plt.gca().get_window_extent() # Récupération de la taille de la figure
     a *= bbox.height / bbox.width        # Correction de la pente avec la taille 
     rot = np.degrees(np.arctan(a))       # Calcul de l'angle de rotation
-    if cotan: rot = 90 - rot             # Si on dépasse la verticale
+    if cotan:                            # Si on dépasse la verticale
+        rot = 90 - np.degrees(np.arctan(1/a))
     t = plt.text(x[N],y[N],label,        # On met le texte au bon endroit
     ha='center',va='center',color=color,rotation = rot) # Avec la bonne rotation
     # On se débrouille pour que la "boîte" d'écriture soit semi-transparente
