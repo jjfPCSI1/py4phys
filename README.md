@@ -145,8 +145,10 @@ le module CoolProp.
 * T6_cycle_de_carnot_reel_et_GP.py: Comparaison des prédictions d'un modèle de 
 gaz parfait à celle du module CoolProp pour un cycle de Carnot (deux 
 isentropiques et deux isothermes).
-* T6_diagramme_Ph_coolprop.py (non encore fait): génération d'un diagramme 
+* T6_diagramme_Ph_coolprop.py: génération d'un diagramme 
 enthalpique complet à l'aide du module CoolProp.
+* T6_diagramme_Ts_coolprop.py: génération d'un diagramme 
+entropique complet à l'aide du module CoolProp.
 * T6_resolution_cycle_diesel.py: résolution d'un exercice classique sur un 
 cycle Diesel à double combustion à l'aide du module CoolProp et de manière 
 théorique avec le modèle du gaz parfait.
