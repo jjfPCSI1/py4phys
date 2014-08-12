@@ -50,7 +50,9 @@ def portrait_de_phase(x,vx,titre='Portrait de phase',
             plt.plot(x[-fantome:],vi[-fantome:],color=ci)
         else:
             plt.plot(x,vi,color=ci)
-    
+    if position:
+        for xi,vi,ci in enumerate(x,vx,color):
+            plt.plot(xi[-1],vi[-1],'o',color=ci)
     if file: plt.savefig(file)
     else: plt.show()
     plt.clf()
