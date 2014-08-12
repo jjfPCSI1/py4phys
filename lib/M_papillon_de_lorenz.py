@@ -28,31 +28,35 @@ le chaos (voir Ian Stewart, Dieu joue-t-il aux dés, p196 et suivantes pour
 plus de détails)
 """
 
-import numpy as np
+import numpy as np              # Boîte à outils numérique
 import scipy as sp
-import scipy.integrate
-import matplotlib.pyplot as plt
+import scipy.integrate          # Pour l'intégration numérique
+import matplotlib.pyplot as plt # Boîte à outil graphique
 
 # Nécessaire pour la 3D, même si cela n'apparaît pas explicitement
 from mpl_toolkits.mplot3d import Axes3D 
 
-tmax = 100
-nb_points = 10000
-yvect0 = np.array([1.0,1.0,1.0])
-ecart_relatif = 0.01
+tmax = 30                       # Tfinal d'intégration
+nb_points = 3000                # Nombre de points pour l'échantillonnage en t
+yvect0 = np.array([1.0,1.0,1.0])# Position initiale (x,y,z)
+ecart_relatif = 0.01            # Écart relatif des deux positions initiales
 
-def systeme_de_Lorenz(yvect,t):
-    a,b,c = 10,28,8/3.0
-    x,y,z = yvect
+def systeme_de_Lorenz(yvect,t): # Système différentiel à intégrer
+    a,b,c = 10,28,8/3.0         # Les constantes du système
+    x,y,z = yvect               # Les variables
     return [a*(y-x),b*x-y-x*z,-c*z+x*y]
 
+# Échantillonnage en temps et intégration numérique
 t = np.linspace(0,tmax,nb_points)
 sol1 = sp.integrate.odeint(systeme_de_Lorenz,yvect0,t)
 sol2 = sp.integrate.odeint(systeme_de_Lorenz,yvect0*(1+ecart_relatif),t)
 
+# Récupération des positions pour les deux solutions recherchées
 X1,Y1,Z1 = sol1[:,0],sol1[:,1],sol1[:,2]
 X2,Y2,Z2 = sol2[:,0],sol2[:,1],sol2[:,2]
 
+# Détection des maximum dans l'idée de représenter la position d'un maximum en 
+# fonction de la position du maximum précédent pour Z -> l'ordre dans le chaos!
 def trouve_positions_maximums(X):
     """ Renvoie la liste des indices correspondant aux maximums de la liste X 
     fournie en paramètre. """
@@ -65,57 +69,77 @@ def trouve_positions_maximums(X):
 
 
 def both_plot(ax,X1,Y1,X2,Y2):
-    ax.plot(X1,Y1,'b',X2,Y2,'r')
-    ax.plot(X1[-1],Y1[-1],'o',color='cyan')
-    ax.plot(X2[-1],Y2[-1],'o',color='magenta')
+    ax.plot(X1,Y1,'b',X2,Y2,'r')               # Les deux tracés continus
+    ax.plot(X1[-1],Y1[-1],'o',color='cyan')    # Dernier point premier tracé
+    ax.plot(X2[-1],Y2[-1],'o',color='magenta') # Dernier point second tracé
     
 
-def fait_plot(X,Y,Z,Xp,Yp,Zp,t,i):
-    ax1 = fig.add_subplot(2,4,1)
-    both_plot(ax1,X,Z,Xp,Zp)
-    plt.xlabel('X')
+def fait_plot(X,Y,Z,Xp,Yp,Zp,t,i): # Routine pour faire le plot effectif
+    ax1 = fig.add_subplot(2,4,1)   # Sous-figure 1 (en haut à gauche)
+    both_plot(ax1,X,Z,Xp,Zp)       # Tracé
+    plt.xlabel('X')                # Labels
     plt.ylabel('Z')
-    ax2 = fig.add_subplot(2,4,2)
-    both_plot(ax2,Y,Z,Yp,Zp)
-    plt.xlabel('Y')
-    plt.ylabel('Z')
-    ax3 = fig.add_subplot(2,4,6)
-    both_plot(ax3,Y,X,Yp,Xp)
-    plt.xlabel('Y')
+    plt.xlim(-20,20)               # et limites 
+    plt.ylim(0,50)
+    ax2 = fig.add_subplot(2,4,2)   # Sous-figure 2 (en haut au milieu)
+    both_plot(ax2,Y,Z,Yp,Zp)       # Tracé
+    plt.xlabel('Y')                # Labels
+    plt.ylabel('Z') 
+    plt.xlim(-30,30)               # et limites
+    plt.ylim(0,50)
+    ax3 = fig.add_subplot(2,4,6)   # Sous-figure 6 (en bas au milieu)
+    both_plot(ax3,Y,X,Yp,Xp)       # Tracé
+    plt.xlabel('Y')                # Labels
     plt.ylabel('X')
-    ax4 = fig.add_subplot(2,4,5)
+    plt.ylim(-20,20)               # et limites
+    plt.xlim(-30,30)
+    ax4 = fig.add_subplot(2,4,5)   # Sous-figure 5 (en bas à gauche)
+    # On cherche les maxima de Z et, si on en a trouvé, on trace le maximum 
+    # courant en fonction du précédent
     pos = trouve_positions_maximums(Z)
-    ax4.plot(Z[pos[:-1]], Z[pos[1:]], 'b.')
-    ax4.plot(Z[pos[-1]] , Z[-1], 'o', color='cyan')
+    if len(pos) > 1: ax4.plot(Z[pos[:-1]], Z[pos[1:]], 'b.')
+    if len(pos) > 0: ax4.plot(Z[pos[-1]] , Z[-1], 'o', color='cyan')
+    # Pareil pour la 2e condition initiale
     pos = trouve_positions_maximums(Zp)
-    ax4.plot(Zp[pos[:-1]],Zp[pos[1:]],'r.')
-    ax4.plot(Zp[pos[-1]] ,Zp[-1], 'o', color='magenta')
-    plt.xlabel('Z$_k$')
+    if len(pos) > 1: ax4.plot(Zp[pos[:-1]],Zp[pos[1:]],'r.')
+    if len(pos) > 0: ax4.plot(Zp[pos[-1]] ,Zp[-1], 'o', color='magenta')
+    plt.xlabel('Z$_k$')            # Labels
     plt.ylabel('Z$_{k+1}$')
-    plt.ylim(25,50)
+    plt.ylim(25,50)                # et limites
+    # La dernière sous-figure occupe les 4 carrés de droite
     ax5 = plt.subplot2grid((2,4),(0,2),colspan=2,rowspan=2,projection='3d')
-    ax5.set_xlabel('X')
+    ax5.set_xlabel('X')            # Labels
     ax5.set_ylabel('Y')
     ax5.set_zlabel('Z')
-    ax5.plot(X,Y,Z,'b')
-    ax5.plot([X[-1]],[Y[-1]],[Z[-1]],'o', color='cyan')
+    ax5.set_xlim(-20,20)           # Limites
+    ax5.set_ylim(-30,30)
+    ax5.set_zlim(0,50)
+    ax5.plot(X,Y,Z,'b')            # et tracés
     ax5.plot(Xp,Yp,Zp,'r')
+    ax5.plot([X[-1]],[Y[-1]],[Z[-1]],'o', color='cyan')
     ax5.plot([Xp[-1]],[Yp[-1]],[Zp[-1]],'o', color='magenta')
+    # On modifie l'angle de vue au fur et à mesure
     ax5.view_init(elev=10,azim=i%360)
+    # Titre global de la figure
     plt.suptitle('Papillon de Lorenz, $t={}$'.format(t))
+    # Sauvegarde et nettoyage
     plt.savefig('{}{:05d}.png'.format(base_name,i))
     plt.clf()
 
-base_name = 'PNG/M_papillon_de_lorenz_'
+# Le programme proprement dit
 
-fig = plt.figure(figsize=(16,8))
+base_name = 'PNG/M_papillon_de_lorenz_' # Nom des figures
 
-i = 1000
-fait_plot(X1[:i],Y1[:i],Z1[:i],X2[:i],Y2[:i],Z2[:i],round(t[i],3),i)
+fig = plt.figure(figsize=(16,8))        # Définition de la figure
+
+# For debugging purposes
+#i = 1000
+#fait_plot(X1[:i],Y1[:i],Z1[:i],X2[:i],Y2[:i],Z2[:i],round(t[i],3),i)
 
 
-#for i in range(5,len(t)):
-#    fait_plot(X1[:i],Y1[:i],Z1[:i],X2[:i],Y2[:i],Z2[:i],round(t[i],3),i)
+for i in range(5,len(t)):  # La ronde des images
+    print(i)
+    fait_plot(X1[:i],Y1[:i],Z1[:i],X2[:i],Y2[:i],Z2[:i],round(t[i],2),i)
 
 # Ne reste plus qu'à rassembler en un fichier mpeg à l'aide de convert puis de
 # ppmtoy4m et mpeg2enc (paquet mjpegtools à installer sur la machine)

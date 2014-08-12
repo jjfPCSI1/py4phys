@@ -57,8 +57,9 @@ chargée soumise uniquement à un champ magnétique.
 d'Hypérion (satellite de Saturne) qui mette en avant le caractère chaotique 
 d'une telle rotation (cf Ian Stewart, "Dieu joue-t-il aux dés" pour une 
 introduction à cette problématique).
-* M_papillon_de_lorentz.py (non encore fait): Illustration du concept 
-d'attracteur étrange à l'aide du papillon de Lorentz
+* M_papillon_de_lorentz.py: Illustration du concept 
+d'attracteur étrange à l'aide du papillon de Lorenz (cf encore Ian Stewart 
+dans le même livre)
 * M_pendule_double.py (non encore fait): Illustration de la dépendance aux 
 conditions initiales pour les mouvements chaotiques sur l'exemple du pendule 
 double rigide.
