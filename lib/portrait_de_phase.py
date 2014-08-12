@@ -46,12 +46,12 @@ def portrait_de_phase(x,vx,titre='Portrait de phase',
     if list(color) != color: color = [color]*len(x)
     for xi,vi,ci in enumerate(x,vx,color):
         if fantome and len(x) > fantome:
-            plt.plot(x,vi,color=ci,alpha=0.2)
-            plt.plot(x[-fantome:],vi[-fantome:],color=ci)
+            plt.plot(xi,vi,color=ci,alpha=0.2)
+            plt.plot(xi[-fantome:],vi[-fantome:],color=ci)
         else:
-            plt.plot(x,vi,color=ci)
+            plt.plot(xi,vi,color=ci)
     if position:
-        for xi,vi,ci in enumerate(x,vx,color):
+        for xi,vi,ci in enumerate(xi,vx,color):
             plt.plot(xi[-1],vi[-1],'o',color=ci)
     if file: plt.savefig(file)
     else: plt.show()
