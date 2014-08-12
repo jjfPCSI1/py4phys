@@ -20,7 +20,8 @@ correspondantes..
 """
 
 def portrait_de_phase(x,vx,titre='Portrait de phase',
-    xlabel='$x$',ylabel='$v_x$',file=None,position=True,xlim=None,ylim=None):
+    xlabel='$x$',ylabel='$v_x$',file=None,position=True,
+    xlim=None,ylim=None,fantome=None,color='k'):
     """
     Représentation de vx en fonction de x pour les différentes trajectoires 
     données en entrée (x et vx sont des tableaux de tableaux).
@@ -30,7 +31,29 @@ def portrait_de_phase(x,vx,titre='Portrait de phase',
     la trajectoire.
     Si 'xlim' ou 'ylim' sont spécifiés, ils définissent les bords du graphe. 
     Sinon, c'est matplotlib qui choisit tout seul.
+    On peut actionner le mode "fantome" qui laisse en traits pleins le nombre 
+    de points signalés (par exemple fantome=10 laissera 10 points) et mettra 
+    en "grisé" les points précédents.
+    'color' peut être soit directement une chaîne décrivant la couleur, soit 
+    une liste de couleurs de la même taille que x et vx (chaque trajectoire 
+    étant bien sûr associée à la couleur correspondante).
     """
+    plt.title(titre)
+    if xlim: plt.xlim(xlim)
+    if ylim: plt.ylim(ylim)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    if list(color) != color: color = [color]*len(x)
+    for xi,vi,ci in enumerate(x,vx,color):
+        if fantome and len(x) > fantome:
+            plt.plot(x,vi,color=ci,alpha=0.2)
+            plt.plot(x[-fantome:],vi[-fantome:],color=ci)
+        else:
+            plt.plot(x,vi,color=ci)
+    
+    if file: plt.savefig(file)
+    else: plt.show()
+    plt.clf()
 
 
 
