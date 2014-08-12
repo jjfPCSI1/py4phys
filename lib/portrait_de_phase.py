@@ -19,6 +19,8 @@ Module de génération automatique de portrait de phase et d'animations
 correspondantes..
 """
 
+import matplotlib.pyplot as plt
+
 def portrait_de_phase(x,vx,titre='Portrait de phase',
     xlabel='$x$',ylabel='$v_x$',file=None,position=True,
     xlim=None,ylim=None,fantome=None,color='k'):
@@ -44,14 +46,14 @@ def portrait_de_phase(x,vx,titre='Portrait de phase',
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
     if list(color) != color: color = [color]*len(x)
-    for xi,vi,ci in enumerate(x,vx,color):
+    for xi,vi,ci in zip(x,vx,color):
         if fantome and len(x) > fantome:
             plt.plot(xi,vi,color=ci,alpha=0.2)
             plt.plot(xi[-fantome:],vi[-fantome:],color=ci)
         else:
             plt.plot(xi,vi,color=ci)
     if position:
-        for xi,vi,ci in enumerate(xi,vx,color):
+        for xi,vi,ci in zip(x,vx,color):
             plt.plot(xi[-1],vi[-1],'o',color=ci)
     if file: plt.savefig(file)
     else: plt.show()
