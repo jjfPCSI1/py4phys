@@ -47,7 +47,7 @@ def portrait_de_phase(x,vx,titre='Portrait de phase',
     plt.ylabel(ylabel)
     if list(color) != color: color = [color]*len(x)
     for xi,vi,ci in zip(x,vx,color):
-        if fantome and len(x) > fantome:
+        if fantome and len(xi) > fantome:
             plt.plot(xi,vi,color=ci,alpha=0.2)
             plt.plot(xi[-fantome:],vi[-fantome:],color=ci)
         else:
