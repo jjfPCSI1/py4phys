@@ -18,6 +18,7 @@
 import numpy as np
 import scipy as sp
 import scipy.integrate
+import matplotlib.pyplot as plt
 from portrait_de_phase import portrait_de_phase
 
 tmax = 10
@@ -40,8 +41,12 @@ for xi,vi in zip(x0,v0):
     v.append(sol[:,1])
 
 
+plt.subplot(2,1,1)
+portrait_de_phase(x,v,fantome=50,clearfig=False)
+plt.subplot(2,1,2)
+portrait_de_phase(x,v,fantome=500,clearfig=False)
 
-portrait_de_phase(x,v,fantome=50)
+plt.show()
 
 
 
