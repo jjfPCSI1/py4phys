@@ -23,12 +23,15 @@ import matplotlib.pyplot as plt
 
 def portrait_de_phase(x,vx,titre='Portrait de phase',
     xlabel='$x$',ylabel='$v_x$',file=None,position=True,
-    xlim=None,ylim=None,fantome=None,color='k'):
+    xlim=None,ylim=None,fantome=None,color='k',clearfig=True):
     """
     Représentation de vx en fonction de x pour les différentes trajectoires 
     données en entrée (x et vx sont des tableaux de tableaux).
     Si 'file' est précisé, on enregistre dans le fichier correspond, sinon on 
     affiche à l'écran.
+    Si 'clearfig' est à False et que 'file' n'est pas précisé, il n'y aura ni 
+    savefig, ni show, ni clf, donc la routine pourra servir pour écrire dans 
+    des sous-figures définies à l'extérieur de la routine.
     Si 'position' est True, on affiche sous forme de rond le dernier point de 
     la trajectoire.
     Si 'xlim' ou 'ylim' sont spécifiés, ils définissent les bords du graphe. 
@@ -55,9 +58,10 @@ def portrait_de_phase(x,vx,titre='Portrait de phase',
     if position:
         for xi,vi,ci in zip(x,vx,color):
             plt.plot(xi[-1],vi[-1],'o',color=ci)
-    if file: plt.savefig(file)
-    else: plt.show()
-    plt.clf()
+    if file or clearfig: 
+        if file: plt.savefig(file)
+        else: plt.show()
+        plt.clf()
 
 
 
