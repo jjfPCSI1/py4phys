@@ -27,7 +27,9 @@ Le graphe du bas représente la coupe en intensité (amplitude au carré) sur un
 
 import numpy as np               # Pour les facilités de calcul
 import matplotlib.pyplot as plt  # Pour les dessins
+from matplotlib.colors import LightSource # Pour l'aspect en relief
 
+shading = True                   # Pour un "effet 3D"
 k,w,epsilon = 5,1,1              # Quelques constantes 
 c = w/k                          # La vitesse des ondes
 tmin,tmax = 0,150                # L'intervalle de temps d'étude
@@ -101,14 +103,20 @@ for t in np.arange(tmin,tmax,dt):  # On boucle sur le temps
     plt.ylabel('$y$')
     plt.xlim((xmin,xmax))
     plt.ylim((ymin,ymax))
-    plt.imshow(Z,interpolation='bilinear',extent=extent,cmap='jet',vmin=vmin,vmax=vmax)
+    if shading:
+        ls = LightSource(azdeg=20,altdeg=65) # create light source object.
+        rgb = ls.shade(Z,plt.cm.copper)      # shade data, creating an rgb array.
+        plt.imshow(rgb,extent=extent)
+    else:
+        plt.imshow(Z,interpolation='bilinear',extent=extent,cmap='jet',vmin=vmin,vmax=vmax)
     
+    # On rajoute deux barres pour les murs
     plt.annotate('',xytext=(-ext,0),xy=(-trou/2,0),
                  arrowprops=dict(facecolor='black',width=2,frac=0,headwidth=2))
     plt.annotate('',xytext=( ext,0),xy=( trou/2,0),
                  arrowprops=dict(facecolor='black',width=2,headwidth=2,frac=0))
     
-    plt.plot([-ext,ext],[ycut,ycut],'--k')
+    plt.plot([-ext,ext],[ycut,ycut],'--k') # et l'endroit de la section.
 
     # La figure du bas
     ax2= plt.subplot2grid((3,2),(2,0),colspan=2,sharex=ax1)

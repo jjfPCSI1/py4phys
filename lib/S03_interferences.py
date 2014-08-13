@@ -28,6 +28,7 @@ valeurs vmin,vmax qui définissent les extrêmes du code couleur adopté.
 
 import numpy as np               # Pour les facilités de calcul
 import matplotlib.pyplot as plt  # Pour les dessins
+from matplotlib.colors import LightSource # Pour l'aspect en relief
 
 def source(x,y,t,x0=0,y0=0,phi=0):
     '''La fonction représentant notre source située en (x0,y0)'''
@@ -35,10 +36,11 @@ def source(x,y,t,x0=0,y0=0,phi=0):
     r = np.sqrt((x-x0)**2+(y-y0)**2) # La distance à la source
     u = k*r - w*t + phi              # La variable de déplacement
     #res =  np.sin(u)                # Simple sinus
-    res = np.sin(u)/(r+epsilon)      # Ou décroissance de l'amplitude...
+    res = np.sin(u)/(r+epsilon)      # ou décroissance de l'amplitude...
     res[u > 0] = 0.0                 # Pour s'assurer qu'à t<0, il n'y a pas d'onde
     return res
 
+shading = True             # Si on veut un "effet 3D"
 ext = 6.0                  # Les limites de la fenêtre d'étude    
 pos = 3.5                  # Positions des sources symétriquement selon x
 phi = np.pi/2              # Déphasage de la deuxième source
@@ -58,7 +60,6 @@ extent = xmin, xmax, ymin, ymax
 
 base_name = 'PNG/S03_interferences_' # Le nom par défaut
 
-
 i = 0                              # Initialisation du compteur
 for t in np.arange(tmin,tmax,dt):  # On boucle sur le temps
     i += 1                         # Incrémentation du compteur
@@ -71,7 +72,12 @@ for t in np.arange(tmin,tmax,dt):  # On boucle sur le temps
     ax1= plt.subplot2grid((3,3),(0,0),colspan=2,rowspan=2)
     plt.title('Interferences a deux sources, $t={}$'.format(round(t,1)))
     plt.ylabel('$y$')
-    plt.imshow(Z1+Z2,interpolation='bilinear',extent=extent,cmap='jet',vmin=vmin,vmax=vmax)
+    if shading:
+        ls = LightSource(azdeg=20,altdeg=65) # create light source object.
+        rgb = ls.shade(Z1+Z2,plt.cm.copper)  # shade data, creating an rgb array.
+        plt.imshow(rgb,extent=extent)
+    else:
+        plt.imshow(Z1+Z2,interpolation='bilinear',extent=extent,cmap='jet',vmin=vmin,vmax=vmax)
 
     # Pour visualiser les deux plans de coupes
     plt.plot([-ext,ext],[ycut,ycut],'--k') 
