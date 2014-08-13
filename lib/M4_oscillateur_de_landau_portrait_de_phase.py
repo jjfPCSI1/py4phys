@@ -21,8 +21,8 @@ import scipy.integrate
 import matplotlib.pyplot as plt
 from portrait_de_phase import portrait_de_phase,diagramme_energetique
 
-tmax = 30
-nb_points = 3000
+tmax = 40
+nb_points = 2000
 x0 = np.arange(-8,8.1,0.79999999)
 v0 = np.array([0]*len(x0))
 k,m,d,ell0 = 1,1,3,5
@@ -48,15 +48,25 @@ for xi,vi in zip(x0,v0):
 
 fig = plt.figure(figsize=(10,10))
 
-plt.subplot(2,1,1)
-portrait_de_phase(x,v,fantome=50,clearfig=False,color=colors)
-plt.xlabel('')
-plt.subplot(2,1,2)
-diagramme_energetique(x,v,Ep,color=colors,clearfig=False,fantome=50)
+vlim = (np.min(v),np.max(v))
+base_name='PNG/M4_oscillateur_de_landau_portrait_de_phase'
 
-plt.show()
+for i,ti in enumerate(t):
+    print(ti)
+    xi = [xp[:i+1] for xp in x]
+    vi = [vp[:i+1] for vp in v]
+    plt.suptitle('Oscillateur de Landau, $t={}$'.format(round(ti,2)))
+    plt.subplot(2,1,1)
+    portrait_de_phase(xi,vi,fantome=50,clearfig=False,color=colors,ylim=vlim)
+    plt.xlabel('')
+    plt.subplot(2,1,2)
+    diagramme_energetique(xi,vi,Ep,color=colors,clearfig=False,fantome=50)
+    plt.savefig('{}_{:04d}.png'.format(base_name,i))
+    plt.clf()
 
-diagramme_energetique(x,v,Ep,color=colors)
+from film import make_film
+
+make_film(base_name)
 
 
 
