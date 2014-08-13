@@ -19,6 +19,7 @@ Module de génération automatique de portrait de phase et d'animations
 correspondantes..
 """
 
+import numpy as np
 import matplotlib.pyplot as plt
 
 def portrait_de_phase(x,vx,titre='Portrait de phase',
@@ -63,8 +64,8 @@ def portrait_de_phase(x,vx,titre='Portrait de phase',
         else: plt.show()
         plt.clf()
 
-def diagramme_energetique(x,vx,Ep,titre='Portrait de phase',
-    xlabel='$x$',ylabel='$v_x$',file=None,position=True,
+def diagramme_energetique(x,vx,Ep,titre='Diagramme energetique',
+    xlabel='$x$',ylabel='$E_p$',file=None,position=True,
     xlim=None,ylim=None,fantome=None,color='k',clearfig=True):
     """
     Représentation de l'énergie potentielle en fonction de x pour les 
