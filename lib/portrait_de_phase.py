@@ -116,10 +116,10 @@ def diagramme_energetique(x,vx,Ep,titre='Diagramme energetique',
     for xi,vi,ci in zip(x,vx,color):
         Epi = Ep(xi,vi)
         if fantome and len(xi) > fantome:
-            plt.plot(xi,Epi,color=ci,alpha=0.2)
-            plt.plot(xi[-fantome:],Epi[-fantome:],color=ci)
+            plot_avec_discontinuite(xi,Epi,color=ci,alpha=0.2)
+            plot_avec_discontinuite(xi[-fantome:],Epi[-fantome:],color=ci)
         else:
-            plt.plot(xi,Epi,color=ci)
+            plot_avec_discontinuite(xi,Epi,color=ci)
     if position:
         for xi,vi,ci in zip(x,vx,color):
             Epi = Ep(xi,vi)
