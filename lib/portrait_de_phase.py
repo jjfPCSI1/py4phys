@@ -52,10 +52,10 @@ def portrait_de_phase(x,vx,titre='Portrait de phase',
     if list(color) != color: color = [color]*len(x)
     for xi,vi,ci in zip(x,vx,color):
         if fantome and len(xi) > fantome:
-            plt.plot(xi,vi,color=ci,alpha=0.2)
-            plt.plot(xi[-fantome:],vi[-fantome:],color=ci)
+            plot_avec_discontinuite(xi,vi,color=ci,alpha=0.2)
+            plot_avec_discontinuite(xi[-fantome:],vi[-fantome:],color=ci)
         else:
-            plt.plot(xi,vi,color=ci)
+            plot_avec_discontinuite(xi,vi,color=ci)
     if position:
         for xi,vi,ci in zip(x,vx,color):
             plt.plot(xi[-1],vi[-1],'o',color=ci)
@@ -63,6 +63,18 @@ def portrait_de_phase(x,vx,titre='Portrait de phase',
         if file: plt.savefig(file)
         else: plt.show()
         plt.clf()
+
+def plot_avec_discontinuite(x,v,**kargs):
+    disc = cherche_discontinuite(x)
+    for i in range(len(disc)-1):
+        plt.plot(x[disc[i]:disc[i+1]],v[disc[i]:disc[i+1]],**kargs)
+
+def cherche_discontinuite(x,limite=2):
+    disc = [0]
+    for i in range(1,len(x)):
+        if abs(x[i]-x[i-1]) > limite: disc.append(i)
+    disc.append(len(x))
+    return disc
 
 def diagramme_energetique(x,vx,Ep,titre='Diagramme energetique',
     xlabel='$x$',ylabel='$E_p$',file=None,position=True,
