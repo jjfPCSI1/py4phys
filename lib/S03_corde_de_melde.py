@@ -17,12 +17,13 @@
 """
 Simulation d'un corde de Melde. Le but est de visualiser comment une onde de 
 faible amplitude au départ peut s'amplifier à mes que se réflexions 
-successives se superposent.
+successives se superposent. On introduit une atténuation arbitraire de l'onde 
+pour forcer la convergence.
 """
 
-import numpy as np
-import matplotlib.pyplot as plt
-import film 
+import numpy as np              # Boîte à outils numériques
+import matplotlib.pyplot as plt # Boîte à outils graphiques
+import film                     # Boîte à outils vidéos
 
 def corde_de_melde(base_name,w=1,k=1,L=1,A=0.1,tmax=10,N=1000,ylim=None):
     """ 
@@ -47,7 +48,7 @@ def fait_corde(t,file=None,w=1,k=1,L=1,A=0.1,ylim=None,nb_points=400):
     Si 'file' n'est pas renseigné, on l'affiche à l'écran.
     """
     x = np.linspace(0,L,nb_points)
-    plt.plot(x,corde(x,t,w,k,L,A))
+    plt.plot(x,corde(x,t,w,k,L,A),'k',linewidth=2.0)
     if ylim: plt.ylim(ylim)
     plt.title('Corde de Melde, $t={}$'.format(t))
     plt.xlabel('x')
@@ -59,27 +60,39 @@ def fait_corde(t,file=None,w=1,k=1,L=1,A=0.1,ylim=None,nb_points=400):
 
 def corde(x,t,w,k,L,A):
     """ 
-    Écriture récursive de l'état de la corde
+    Calcul itératif de l'état de la corde
     """
     c = w/k
     u = w*t - k*x
+    u0= w*t
     #print(u)
-    gauche = A*np.sin(w*t)
+    gauche = A*f(w*t,u0)
     droite = 0.0
-    resultat = A*f(u)
+    gauche = 0.0
+    resultat = A*f(u,u0)*be_positive(u)
+    plt.plot(x,resultat)
     for i in range(1,int(c*t/L)+1):
-        if i%2 == 0: 
-            resultat += gauche - A*f(u)
-        else:        
-            resultat += list(reversed(droite - A*f(u)))
         u -= k*L
+        if i%2 == 0: 
+            addition = (gauche + A*f(u,u0))*be_positive(u)
+        else:        
+            addition = list(reversed((droite - A*f(u,u0))*be_positive(u)))
+        plt.plot(x,addition)
+        resultat += addition
     return resultat
-    
 
-def f(u): 
-    res = np.sin(u)
+def be_positive(u):
+    res = np.ones(u.shape)
     res[u<0] = 0.0
     return res    
+
+def f(u,u0): 
+#    if u0 == 0: return 0.0
+#    return np.sin(u)*u/u0
+    return np.sin(u)/(1 + u0-u)**0.3
+#    res = np.sin(u)
+#    res[u<0] = 0.0
+#    return res    
 
 #fait_corde(0)
 #fait_corde(1)
@@ -89,7 +102,15 @@ def f(u):
 #fait_corde(2.5)
 #fait_corde(3)
 
-corde_de_melde('PNG/S03_corde_de_melde_essai',L=np.pi,N=300,ylim=(-1,1),tmax=30)
+L=10
+
+lambda1 = 2*L/(3)
+lambda2 = 2*L/(3+0.5)
+
+corde_de_melde('PNG/S03_corde_de_melde_amplif',
+               L=L,k=2*np.pi/lambda1,N=1500,ylim=(-1,1),tmax=150)
+corde_de_melde('PNG/S03_corde_de_melde_non_amplif',
+               L=L,k=2*np.pi/lambda2,N=1500,ylim=(-1,1),tmax=150)
 
 
 
