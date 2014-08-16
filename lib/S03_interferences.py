@@ -102,17 +102,21 @@ for t in np.arange(tmin,tmax,dt):  # On boucle sur le temps
 # Ne reste plus qu'à rassembler en un fichier mpeg à l'aide de convert puis de 
 # ppmtoy4m et mpeg2enc (paquet mjpegtools à installer sur la machine)
 
-import os
+from film import make_film
 
-cmd = '(for f in ' + base_name + '*png ; '
-cmd+= 'do convert -density 100x100 $f -depth 8 -resize 700x500 PNM:- ; done)'
-cmd+= ' | ppmtoy4m -S 420mpeg2'
-cmd+= ' |  mpeg2enc -f1 -b 12000 -q7 -G 30 -o {}film.mpeg'.format(base_name)
+make_film(base_name,resize="700x500")
 
-print("Execution de la commande de conversion")
-print(cmd)
-os.system(cmd)
-print("Fin de la commande de conversion")
+#import os
+#
+#cmd = '(for f in ' + base_name + '*png ; '
+#cmd+= 'do convert -density 100x100 $f -depth 8 -resize 700x500 PNM:- ; done)'
+#cmd+= ' | ppmtoy4m -S 420mpeg2'
+#cmd+= ' |  mpeg2enc -f1 -b 12000 -q7 -G 30 -o {}film.mpeg'.format(base_name)
+#
+#print("Execution de la commande de conversion")
+#print(cmd)
+#os.system(cmd)
+#print("Fin de la commande de conversion")
 
 
 
