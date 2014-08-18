@@ -40,7 +40,7 @@ def source(x,y,t,x0=0,y0=0,phi=0):
     res[u > 0] = 0.0                 # Pour s'assurer qu'à t<0, il n'y a pas d'onde
     return res
 
-shading = True             # Si on veut un "effet 3D"
+shading = False             # Si on veut un "effet 3D"
 ext = 6.0                  # Les limites de la fenêtre d'étude    
 pos = 3.5                  # Positions des sources symétriquement selon x
 phi = np.pi/2              # Déphasage de la deuxième source
@@ -58,7 +58,7 @@ X,Y = np.meshgrid(x,y)     # pour produire la grille
 xmin, xmax, ymin, ymax = np.amin(x), np.amax(x), np.amin(y), np.amax(y)
 extent = xmin, xmax, ymin, ymax    
 
-base_name = 'PNG/S03_interferences_' # Le nom par défaut
+base_name = 'PNG/S03_interferences' # Le nom par défaut
 
 i = 0                              # Initialisation du compteur
 for t in np.arange(tmin,tmax,dt):  # On boucle sur le temps
@@ -96,7 +96,7 @@ for t in np.arange(tmin,tmax,dt):  # On boucle sur le temps
     plt.xlim((0,vmax**2))
     plt.title('Section $x={}$'.format(xcut))
     plt.plot((source(xcut,y,t,-pos,0)+source(xcut,y,t,pos,0,phi))**2,y)
-    plt.savefig(base_name + '{:04d}.png'.format(i))
+    plt.savefig(base_name + '_{:04d}.png'.format(i))
     plt.close()
 
 # Ne reste plus qu'à rassembler en un fichier mpeg à l'aide de convert puis de 
