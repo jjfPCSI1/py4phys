@@ -40,11 +40,11 @@ ylim = None                       # Limites verticales
 # ylim = (0.48,0.52)
 
 feigenvalue = 4.6692016090
-kfinal = 3.575
+kfinal = 3.5701
 delta_k = (kfinal - 3) * (1 - 1/feigenvalue)
-puissance_max = 10
+puissance_max = 7
 k_list = [3]
-nb_par_pallier = 10
+nb_par_pallier = 100
 for i in range(puissance_max):
     intermediaire = np.linspace(1,np.exp(delta_k),nb_par_pallier+1)[1:]
     k_list += list(k_list[-1] + np.log(intermediaire))
