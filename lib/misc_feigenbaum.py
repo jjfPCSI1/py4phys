@@ -82,9 +82,9 @@ for i,k in enumerate(k_list):     # Pour toutes les valeurs de la liste des k
 
 if ylim: feigenbaum.set_ylim(ylim)# Rajout des limites verticales 
 feigenbaum.set_xlim(kmin,kmax)    # et horizontales de la figure principale
-plt.title('Figuier de Feigenbaum')
-plt.xlabel('$k$')
-plt.ylabel('$x$ limite')
+feigenbaum.set_title('Figuier de Feigenbaum')
+feigenbaum.set_xlabel('$k$')
+feigenbaum.set_ylabel('$x$ limite')
 fig.savefig('PNG/misc_feigenbaum.png') # Sauvegarde
 
 
