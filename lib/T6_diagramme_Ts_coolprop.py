@@ -23,7 +23,6 @@ import CoolProp.CoolProp as CP   # Les outils thermodynamiques
 import CoolProp.Plots as CPP     # Les outils thermographiques
 import matplotlib.pyplot as plt  # Les outils graphiques
 
-
 print(CP.FluidsList())           # Pour regarder les fluides disponibles
 fluide= 'Water'                  # Le choix du fluide
 iso_P = True                     # Veut-on des isobares ?
@@ -152,6 +151,9 @@ if iso_x: # Les lignes isotitres sont un peu spéciales, donc ont leur code propr
         label = line['label'] + line['unit']
         x,y = line['x'],line['y']
         place_label(x,y,label,indice=4*len(x)//5,cotan=True)
+else: # On trace tout de même quelque chose (de déjà présent) pour s'assurer
+    Ts_plot.draw_isolines('Q',[0,1],num=2)# une bonne sélection des bornes
+    
 
 # Ici, on fait toutes les autres isolignes (le boulot a été fait plus haut)
 if iso_P: fait_isolignes('P',val_P,position=0.8,to_show=P_to_show,round_nb=3)
