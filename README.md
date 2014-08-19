@@ -24,35 +24,12 @@ d'Hypérion autour de Saturne).
 * I1_lignes_champ_magnetique.py: Code écrit par Sylvain Condamin (adapté 
 d'un code de Thierry Pré) pour simuler les lignes de champ magnétique autour de 
 divers objets (fil infini, dipôle magnétique ou spire)
-* I2_champ_tournant_diphase.py (non encore écrit): Fabrique une petite 
-animation pour illustrer la notion de champ tournant à partir de deux bobines 
-en quadrature de phase.
-* I2_champ_tournant_triphase.py (non encore écrit): Comme le précédent, mais 
-en triphasé.
-* I4_couplage_de_deux_circuits.py: résolution numérique d'un couplage de 
-circuits oscillants pour illustrer notamment la notion de battements en cas de 
-couplage faible.
 
 ### Bloc Mécanique
-* M2_trainee.py (non encore fait): illustration de l'influence de la traînée 
-sur un tir d'obus.
-* M2_trainee_portrait_de_phase.py (non encore fait): pareil via un portrait de 
-phase.
-* M4_oscillateur_de_landau_effets_non_lineaires.py (non encore fait): Non 
-isochronisme des oscillations dans le cas d'un oscillateur de Landau.
-* M4_oscillateur_de_landau_portrait_de_phase.py (non encore fait): Portrait de 
+* M4_oscillateur_de_landau_portrait_de_phase.py: Portrait de 
 phase pour un oscillateur de Landau
-* M4_pendule_simple_non_isochronisme.py (non encore fait): Non isochronisme 
-des oscillations pour un pendule simple.
-* M4_pendule_simple_oscillations_amorties.py (non encore fait): Oscillations 
-amorties dans le cadre du pendule simple.
-* M4_pendule_simple_portrait_de_phase.py (non encore fait): fabrication du 
+* M4_pendule_simple_portrait_de_phase.py: fabrication du 
 portrait de phase d'un pendule simple. 
-* M5_mouvement_dans_champ_E_et_B.py (non encore fait): calcul de la 
-trajectoire d'une particule chargée soumise à la fois à un champ E et un champ 
-B.
-* M5_mouvement_helicoidal.py (non encore fait): Trajectoire d'une particule 
-chargée soumise uniquement à un champ magnétique.
 * M_hyperion.py: Étude d'une section de Poincaré pour la rotation propre 
 d'Hypérion (satellite de Saturne) qui mette en avant le caractère chaotique 
 d'une telle rotation (cf Ian Stewart, "Dieu joue-t-il aux dés" pour une 
@@ -60,10 +37,7 @@ introduction à cette problématique).
 * M_papillon_de_lorentz.py: Illustration du concept 
 d'attracteur étrange à l'aide du papillon de Lorenz (cf encore Ian Stewart 
 dans le même livre)
-* M_pendule_double.py (non encore fait): Illustration de la dépendance aux 
-conditions initiales pour les mouvements chaotiques sur l'exemple du pendule 
-double rigide.
-* portrait_de_phase.py (non encore fait): Module générique pour produire un 
+* portrait_de_phase.py: Module générique pour produire un 
 portrait de phase
 
 ### Bloc Signal
@@ -83,13 +57,8 @@ ouverture plane. On peut jouer sur l'angle d'incidence sur l'ouverture.
 élèves sur les constructions de Fresnel.
 * S03_interferences.py: Animation montrant la mise en place d'interférences 
 lors de la superposition des signaux en provenance de deux points sources.
-* S03_ondes_stationnaires.py (non encore fait): Illustration de la notion 
-d'onde stationnaire lors de la superposition d'ondes progressives de sens 
-opposés
 * S04_arc_en_ciel_turtle.py: Programme 'turtle' écrit par Tom Morel pour 
 expliquer la réfraction à l'intérieur d'une goutte d'eau.
-* S04_lois_de_descartes.py (non encore fait): Illustration de la loi de 
-Descartes via une animation de réfraction pour de multiples incidences.
 * S05_distortion_chromatique.py: Programme 'turtle' écrit par Tom Morel pour 
 mettre en avant la dépendance de la distance focale avec la couleur des rayons 
 incidents
@@ -99,17 +68,6 @@ règle des "4P" (Plus Plat, Plus Près)
 construction graphique pour les lentilles
 * S06_paquet_d_ondes_MQ.py: Programme écrit par Miriam Heckmann pour simuler 
 un paquet d'ondes en mécanique quantique
-* S07_elec_resolution_pivot_de_gauss.py (non encore fait): Résolution d'un 
-système électrique linéaire sans dérivées temporelles à l'aide d'un pivot de 
-Gauss
-* S08_circuit_premier_ordre_complexe.py (non encore fait): Résolution d'un 
-système électrique complexe en se contentant d'écrire les lois des mailles, 
-des noeuds et relations électriques de chaque dipôle.
-* S08_circuit_premier_ordre_simple.py (non encore fait): Résolution d'un    
-système électrique simple en se contentant d'écrire les lois des mailles,   
-des noeuds et relations électriques de chaque dipôle.
-* S09_oscillateur_amorti_libre.py (non encore fait): 
-* S10_oscillateur_amorti_force.py (non encore fait):
 * S11_filtre_bizarre.py: Dessine le diagramme de Bode d'un filtre du type 
 (A+jw/w1)/(1+jw/w2)
 * S11_filtre_derivateur.py: Diagramme de Bode pour deux filtres où il faut 
@@ -153,3 +111,65 @@ entropique complet à l'aide du module CoolProp.
 * T6_resolution_cycle_diesel.py: résolution d'un exercice classique sur un 
 cycle Diesel à double combustion à l'aide du module CoolProp et de manière 
 théorique avec le modèle du gaz parfait.
+
+
+## TODO
+### Bloc Induction
+* I2_champ_tournant_diphase.py (non encore écrit): Fabrique une petite 
+animation pour illustrer la notion de champ tournant à partir de deux bobines 
+en quadrature de phase.
+* I2_champ_tournant_triphase.py (non encore écrit): Comme le précédent, mais 
+en triphasé.
+* I4_couplage_de_deux_circuits.py: résolution numérique d'un couplage de 
+circuits oscillants pour illustrer notamment la notion de battements en cas de 
+couplage faible.
+
+### Bloc Mécanique
+* M2_trainee.py (non encore fait): illustration de l'influence de la traînée 
+sur un tir d'obus.
+* M2_trainee_portrait_de_phase.py (non encore fait): pareil via un portrait de 
+phase.
+* M4_oscillateur_de_landau_effets_non_lineaires.py (non encore fait): Non 
+isochronisme des oscillations dans le cas d'un oscillateur de Landau.
+* M4_pendule_simple_non_isochronisme.py (non encore fait): Non isochronisme 
+des oscillations pour un pendule simple.
+* M4_pendule_simple_oscillations_amorties.py (non encore fait): Oscillations 
+amorties dans le cadre du pendule simple.
+* M5_mouvement_dans_champ_E_et_B.py (non encore fait): calcul de la 
+trajectoire d'une particule chargée soumise à la fois à un champ E et un champ 
+B.
+* M5_mouvement_helicoidal.py (non encore fait): Trajectoire d'une particule 
+chargée soumise uniquement à un champ magnétique.
+* M_pendule_double.py (non encore fait): Illustration de la dépendance aux 
+conditions initiales pour les mouvements chaotiques sur l'exemple du pendule 
+double rigide.
+
+### Bloc Signal
+
+* S03_ondes_stationnaires.py (non encore fait): Illustration de la notion 
+d'onde stationnaire lors de la superposition d'ondes progressives de sens 
+opposés
+* S04_lois_de_descartes.py (non encore fait): Illustration de la loi de 
+Descartes via une animation de réfraction pour de multiples incidences.
+* S07_elec_resolution_pivot_de_gauss.py (non encore fait): Résolution d'un 
+système électrique linéaire sans dérivées temporelles à l'aide d'un pivot de 
+Gauss
+* S08_circuit_premier_ordre_complexe.py (non encore fait): Résolution d'un 
+système électrique complexe en se contentant d'écrire les lois des mailles, 
+des noeuds et relations électriques de chaque dipôle.
+* S08_circuit_premier_ordre_simple.py (non encore fait): Résolution d'un    
+système électrique simple en se contentant d'écrire les lois des mailles,   
+des noeuds et relations électriques de chaque dipôle.
+* S09_oscillateur_amorti_libre.py (non encore fait): 
+* S10_oscillateur_amorti_force.py (non encore fait):
+
+### Bloc Thermodynamique
+* T1_particules_en_boite_mouvement_brownien.py (non encore fait): Comme la 
+simulation précédente mais en rajoutant une "grosse" particule au milieu qui 
+serait, sur certains intervalles de temps, la seule visible pour appréhender 
+la notion de mouvement Brownien découvert en observant des grains de pollens 
+dans une solution aqueuse.
+* T5_isentropique_GP_vs_gaz_reel_coolprop.py (non encore fait): Comparaison 
+des isentropiques prédites par le modèle du gaz parfait à celles données par 
+le module CoolProp.
+
