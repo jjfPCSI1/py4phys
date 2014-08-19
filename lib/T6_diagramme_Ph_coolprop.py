@@ -139,6 +139,7 @@ def fait_isolignes(type,valeurs,position=None,nb_points=1000,to_show=None,round_
 # Le programme proprement dit commence ici.
 
 ph_plot = CPP.PropsPlot(fluide,'Ph')   # On demande gentiment le plot de base
+ph_plot._draw_graph()                  # On s'assure qu'il a discuté avec plt
 if Plogscale: plt.yscale('log')        # Passage en log(P)
 
 if iso_x: # Les lignes isotitres sont un peu spéciales, donc ont leur code propre
@@ -149,6 +150,8 @@ if iso_x: # Les lignes isotitres sont un peu spéciales, donc ont leur code propr
         label = line['label'] + line['unit']
         x,y = line['x'],line['y']
         place_label(x,y,label,indice=len(x)//20)
+else: # On trace tout de même quelque chose (de déjà présent) pour s'assurer
+    ph_plot.draw_isolines('Q',[0,1],num=2)# une bonne sélection des bornes
 
 # Ici, on fait toutes les autres isolignes (le boulot a été fait plus haut)
 if iso_T: fait_isolignes('T',val_T,position=0.8,to_show=T_to_show)
