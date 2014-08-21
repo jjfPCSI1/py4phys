@@ -32,31 +32,31 @@ def source(x,t,x0=0,phi=0):
     res[u > 0] = 0.0                 # Pour s'assurer qu'à t<0, il n'y a pas d'onde
     return res
 
-x2  = 5                    # Position de la deuxième source (première en 0)
-xmin,xmax = 0,x2           # Limites de la fenêtre d'échantillonnage
-nb_points = 1000           # Nombre de points d'échantillonnage
-phi = np.pi/2              # Déphasage de la deuxième source
-tmin,tmax = 0,60           # L'intervalle de temps d'étude
-dt = 0.1                   # Incrément de temps
+x2  = 5                              # Position de la deuxième source (première en 0)
+xmin,xmax = 0,x2                     # Limites de la fenêtre d'échantillonnage
+nb_points = 1000                     # Nombre de points d'échantillonnage
+phi = np.pi/2                        # Déphasage de la deuxième source
+tmin,tmax = 0,60                     # L'intervalle de temps d'étude
+dt = 0.1                             # Incrément de temps
 
 base_name = 'PNG/S03_ondes_stationnaires'
 
 t = tmin
 i = 0
-while t < tmax:
-    print(t)
-    x = np.linspace(xmin,xmax,nb_points)
-    S1 = source(x,t,0)
-    S2 = source(x,t,x2,phi)
-    S =  S1+S2
-    plt.plot(x,S1,alpha=0.5)
-    plt.plot(x,S2,alpha=0.5)
-    plt.plot(x,S,'k',linewidth=2)
-    plt.ylim(-2,2)
-    plt.savefig(base_name + '_{:04d}.png'.format(i))
-    plt.clf()
-    i+= 1
-    t+=dt
+while t < tmax:                      # On commence la boucle temporelle
+    print(t)                         # Un peu de feedback
+    x = np.linspace(xmin,xmax,nb_points) # Échantillonnage horizontal
+    S1= source(x,t,0)                # Effet de la première source
+    S2= source(x,t,x2,phi)           # Effet de la seconde source
+    S =  S1+S2                       # Effet résultant
+    plt.plot(x,S1,alpha=0.5)         # Affichage première source (bleu)
+    plt.plot(x,S2,alpha=0.5)         # Affichage seconde source (vert)
+    plt.plot(x,S,'k',linewidth=2)    # Affichage résultante (noir)
+    plt.ylim(-2,2)                   # On contraint l'échelle verticale
+    plt.savefig(base_name + '_{:04d}.png'.format(i)) # Sauvegarde
+    plt.clf()                        # Nettoyage
+    i+= 1                            # et incrémentation
+    t+=dt                            # des compteurs
 
 film.make_film(base_name)  # Fabrication du film à la fin
 
