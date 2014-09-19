@@ -20,8 +20,9 @@ Ce programme est proposé par Vincent Grenard (PCSI, Lycée Poincaré, Nancy).
 
 Visualisation d'un réseau d'interférences à deux sources en utilisant une 
 animation "au vol" plutôt qu'une conversion en images. Nécessite d'avoir 
-Python installé sur la machine mais cela permet de modifier les paramètres et 
-montrer immédiatement les modifications aux élèves.
+Python installé sur la machine mais cela permet de modifier les paramètres 
+(comme par exemple la valeur de y1 qui détermine la distance entre les deux 
+points sources) et montrer immédiatement les modifications aux élèves.
 
 Néanmoins, une sauvegarde dans un fichier .mp4 est possible: voir la fin du 
 programme !
