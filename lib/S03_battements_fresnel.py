@@ -53,8 +53,8 @@ fig.add_axes([0.1,0.4,0.8,0.5])               # Partie supérieure
 F1, =plt.plot(fleche_x,fleche_y,'g',lw=2)
 F2, =plt.plot(A*fleche_x,A*fleche_y,'b',lw=2)
 # Les flèches pour compléter les parallèlogrammes
-F21,=plt.plot(fleche_x+fleche_x[1],fleche_y+fleche_y[1],'b',lw=2)
-F12,=plt.plot(fleche_x+fleche_x[1],fleche_y+fleche_y[1],'g',lw=2)
+F21,=plt.plot(fleche_x+fleche_x[1],fleche_y+fleche_y[1],'--b',lw=2)
+F12,=plt.plot(fleche_x+fleche_x[1],fleche_y+fleche_y[1],'--g',lw=2)
 # La flèche totale
 Ft ,=plt.plot((1+A)*fleche_x,(1+A)*fleche_y,'r',lw=2)
 plt.axis('equal')                   # Aspect carré
