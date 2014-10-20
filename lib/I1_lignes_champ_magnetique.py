@@ -123,6 +123,19 @@ class Diagramme(object):
             Bx = B[0]
             By = B[1]
             B = np.sqrt(Bx*Bx+By*By)
+            # Remarque: cette équation trace les lignes de champ que l'on 
+            # utilise une puissance 1, 0, ou 4/3. Le problème est que, si on 
+            # utilise une puissance 1 (ce qui est effectivement la façon la 
+            # plus standard de procéder), on se retrouve avec des singularités 
+            # au niveau des dipôles, que l'on atteint en un "temps" fini 
+            # (puisque le "temps" représente simplement la distance dans ce 
+            # cas).  Le coefficient 4/3 est une astuce numérique pour éviter 
+            # ce problème: c'est le plus petit exposant qui permette de faire 
+            # en sorte que les dipôles ne soient atteints qu'en un "temps" 
+            # infini. Inversement, on ne peut pas prendre un exposant plus 
+            # grand, car ce seraient alors les lignes de champ qui vont 
+            # jusqu'à l'infini qui seraient parcourues en un "temps" fini, ce 
+            # qui nous exposerait à une autre singularité.
             return [Bx/pow(B,4./3.),By/pow(B,4./3.)]
 
         t = np.linspace(0,self.k*self.maxint,self.numpoints/2)
