@@ -77,6 +77,11 @@ for j in range(len(longueur)):
     down()                      # et on repose le crayon
     imprime_ecran(j)            # On prends une petite photo pour la route
 
+
+import time
+
+time.sleep(30)
+
 # L'important est bien sûr de montrer le dessin se construire en direct, mais 
 # si on veut en conserver une trace, on peut utiliser ce hack:
 
