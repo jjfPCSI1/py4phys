@@ -17,9 +17,9 @@
 
 """
 
-Travail de Pierre Chary (PCSI, Lycée Buffon, Paris) pour représenter les 
-fonctions d'ondes correspondant aux premiers états propres de l'oscillateur 
-harmonique quantique.
+Travail de Pierre Chary (PC, ENCPB-Lycée Pierre Gilles de Gennes, Paris) pour 
+représenter les fonctions d'ondes correspondant aux premiers états propres de 
+l'oscillateur harmonique quantique.
 
 """
 

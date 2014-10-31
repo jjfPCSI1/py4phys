@@ -17,9 +17,10 @@
 
 """
 
-Travail réalisé par Pierre Chary (PCSI, Lycée Buffon, Paris) pour illustrer le 
-traitement d'image par strioscopie au programme de Physique en PC mais qui 
-peut aussi servir comme projet d'informatique commune en seconde année.
+Travail réalisé par Pierre Chary (PC, ENCPB-Lycée Pierre Gilles de Gennes, 
+Paris) pour illustrer le traitement d'image par strioscopie au programme de 
+Physique en PC mais qui peut aussi servir comme projet d'informatique commune 
+en seconde année.
 
 Le script fait usage du module "requests" qui peut ne pas être installé sur 
 toutes les distributions (WinPython par exemple) afin de charger des images 
