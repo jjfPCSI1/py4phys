@@ -1,16 +1,8 @@
-# coding: latin1
+# coding: utf8
 
-# Sauf mention explicite du contraire par la suite, ce travail a été fait par 
-# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycée Kléber. 
-# Vous êtes libres de le réutiliser et de le modifier selon vos besoins.
-# 
-# Si l'encodage vous pose problème, vous pouvez réencoder le fichier à l'aide 
-# de la commande
-# 
-# recode l1..utf8 monfichier.py
-# 
-# Il faudra alors modifier la première ligne en # coding: utf8
-# pour que Python s'y retrouve.
+# Sauf mention explicite du contraire par la suite, ce travail a Ã©tÃ© fait par 
+# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycÃ©e KlÃ©ber. 
+# Vous Ãªtes libres de le rÃ©utiliser et de le modifier selon vos besoins.
 
 
 
@@ -18,15 +10,15 @@
 """
 Created on Fri May 31 10:33:06 2014
 
-@author: Sylvain Condamin, adapté d'un code de Thierry Pré. 
+@author: Sylvain Condamin, adaptÃ© d'un code de Thierry PrÃ©. 
 
 On prend mu0/(2*Pi) =1 
-Ce programme permet de tracer les lignes de champ magnétique d'un ensemble de
+Ce programme permet de tracer les lignes de champ magnÃ©tique d'un ensemble de
 lignes orthogonales au plan, de spires dont l'axe est dans le plan, et de
-moments magnétiques dans le plan. Il faut commencer par créer un objet
-Diagramme, puis ajouter les différents objets magnétiques à l'aide des
-méthodes dédiées, puis utiliser la méthode draw pour tracer le diagramme.
-Cf. description des méthodes, et exemple final pour plus d'information. 
+moments magnÃ©tiques dans le plan. Il faut commencer par crÃ©er un objet
+Diagramme, puis ajouter les diffÃ©rents objets magnÃ©tiques Ã  l'aide des
+mÃ©thodes dÃ©diÃ©es, puis utiliser la mÃ©thode draw pour tracer le diagramme.
+Cf. description des mÃ©thodes, et exemple final pour plus d'information. 
 """
 
 import numpy as np
@@ -37,15 +29,15 @@ from scipy.integrate import odeint
 
 
 class Diagramme(object):
-    """ La classe Diagramme s'occupe de tout ce qui concerne les tracés."""
+    """ La classe Diagramme s'occupe de tout ce qui concerne les tracÃ©s."""
     def __init__(self,size=1,title="",numpoints=1000,k=1):
         """
         Routine d'initialisation d'un diagramme de lignes de champ:
-        * size est la taille de la fenêtre utilisée. (x et y varient de -size à +size) 
-        * numpoints est le nombre de points utilisé pour le tracé. 
-        * Le coefficient k permet de régler la longueur des lignes
-        tracées. Le défaut k=1 assure normalement que les lignes bouclent
-        correctement, mais il est possible de le réduire pour améliorer le temps
+        * size est la taille de la fenÃªtre utilisÃ©e. (x et y varient de -size Ã  +size) 
+        * numpoints est le nombre de points utilisÃ© pour le tracÃ©. 
+        * Le coefficient k permet de rÃ©gler la longueur des lignes
+        tracÃ©es. Le dÃ©faut k=1 assure normalement que les lignes bouclent
+        correctement, mais il est possible de le rÃ©duire pour amÃ©liorer le temps
         de calcul. 
         """
         self.size = float(size)
@@ -53,14 +45,14 @@ class Diagramme(object):
         self.numpoints=numpoints
         self.objects=[]
         self.startpoints=[]
-        self.maxint=0 # Ceci correspond au temps d'intégration à utiliser pour
-                      # le tracé des courbes.
+        self.maxint=0 # Ceci correspond au temps d'intÃ©gration Ã  utiliser pour
+                      # le tracÃ© des courbes.
         self.k=k
 
     def addLine(self,x,y,I=1,points=20):
         """
         Permet d'ajouter une ligne de courant infinie, orthogonale au
-        plan du tracé. Par défaut cela ajoute des points de départ de
+        plan du tracÃ©. Par dÃ©faut cela ajoute des points de dÃ©part de
         lignes de champ. 
         """
         self.objects.append(Line(x,y,I))
@@ -70,10 +62,10 @@ class Diagramme(object):
 
     def addSpire(self,x,y,a,I=1,theta=0,points=20):
         """
-        Permet de définir une spire: x et y désignent le centre, a le
-        rayon, I l'intensité, et theta l'angle que fait l'axe
-        de la spire par rapport à la verticale. Par défaut cela ajoute
-        des points de départ de lignes de champ. 
+        Permet de dÃ©finir une spire: x et y dÃ©signent le centre, a le
+        rayon, I l'intensitÃ©, et theta l'angle que fait l'axe
+        de la spire par rapport Ã  la verticale. Par dÃ©faut cela ajoute
+        des points de dÃ©part de lignes de champ. 
         """
         self.objects.append(Spire(x,y,a,I,theta))
         for i in range(points):
@@ -83,9 +75,9 @@ class Diagramme(object):
         
     def addDipole(self,x,y,m,theta=0,points=20):
         """
-        Permet d'ajouter un dipôle magnétique m, à la position x et
-        y. theta désigne l'ange que fait la spire par rapport à la
-        verticale. Par défaut cela ajoute des points de départ de
+        Permet d'ajouter un dipÃ´le magnÃ©tique m, Ã  la position x et
+        y. theta dÃ©signe l'ange que fait la spire par rapport Ã  la
+        verticale. Par dÃ©faut cela ajoute des points de dÃ©part de
         lignes de champ. 
         """
         self.objects.append(Dipole(x,y,m,theta))
@@ -99,7 +91,7 @@ class Diagramme(object):
         
     def addStartPoints(self,x,y):
         """
-        Permet d'ajouter des points de départ de lignes de champ.
+        Permet d'ajouter des points de dÃ©part de lignes de champ.
         """
         self.startpoints.append([x,y])
 
@@ -113,9 +105,9 @@ class Diagramme(object):
 
     def draw(self,file=None):
         """
-        Trace l'ensemble des lignes de champ passant par les points de départ 
-        stockés dans Startpoints. Si un nom de fichier est donné, enregistre 
-        la figure dans le fichier mais n'affiche rien à l'écran
+        Trace l'ensemble des lignes de champ passant par les points de dÃ©part 
+        stockÃ©s dans Startpoints. Si un nom de fichier est donnÃ©, enregistre 
+        la figure dans le fichier mais n'affiche rien Ã  l'Ã©cran
         """
 
         def fun(P,t):
@@ -123,19 +115,19 @@ class Diagramme(object):
             Bx = B[0]
             By = B[1]
             B = np.sqrt(Bx*Bx+By*By)
-            # Remarque: cette équation trace les lignes de champ que l'on 
-            # utilise une puissance 1, 0, ou 4/3. Le problème est que, si on 
-            # utilise une puissance 1 (ce qui est effectivement la façon la 
-            # plus standard de procéder), on se retrouve avec des singularités 
-            # au niveau des dipôles, que l'on atteint en un "temps" fini 
-            # (puisque le "temps" représente simplement la distance dans ce 
-            # cas).  Le coefficient 4/3 est une astuce numérique pour éviter 
-            # ce problème: c'est le plus petit exposant qui permette de faire 
-            # en sorte que les dipôles ne soient atteints qu'en un "temps" 
+            # Remarque: cette Ã©quation trace les lignes de champ que l'on 
+            # utilise une puissance 1, 0, ou 4/3. Le problÃ¨me est que, si on 
+            # utilise une puissance 1 (ce qui est effectivement la faÃ§on la 
+            # plus standard de procÃ©der), on se retrouve avec des singularitÃ©s 
+            # au niveau des dipÃ´les, que l'on atteint en un "temps" fini 
+            # (puisque le "temps" reprÃ©sente simplement la distance dans ce 
+            # cas).  Le coefficient 4/3 est une astuce numÃ©rique pour Ã©viter 
+            # ce problÃ¨me: c'est le plus petit exposant qui permette de faire 
+            # en sorte que les dipÃ´les ne soient atteints qu'en un "temps" 
             # infini. Inversement, on ne peut pas prendre un exposant plus 
             # grand, car ce seraient alors les lignes de champ qui vont 
-            # jusqu'à l'infini qui seraient parcourues en un "temps" fini, ce 
-            # qui nous exposerait à une autre singularité.
+            # jusqu'Ã  l'infini qui seraient parcourues en un "temps" fini, ce 
+            # qui nous exposerait Ã  une autre singularitÃ©.
             return [Bx/pow(B,4./3.),By/pow(B,4./3.)]
 
         t = np.linspace(0,self.k*self.maxint,self.numpoints/2)
@@ -191,9 +183,9 @@ class Spire(MagneticObjects):
         x = P[0] - self.x0
         y = P[1] - self.y0
         r = x*np.cos(theta)+y*np.sin(theta)
-        z = -x*np.sin(theta)+y*np.cos(theta) # On se ramène à des
-        # coordonnées cylindriques par rapport à la spire. Pour la
-        # suite des calculs, voir l'aticle de T.Pré
+        z = -x*np.sin(theta)+y*np.cos(theta) # On se ramÃ¨ne Ã  des
+        # coordonnÃ©es cylindriques par rapport Ã  la spire. Pour la
+        # suite des calculs, voir l'aticle de T.PrÃ©
         # http://www.udppc.asso.fr/bupdoc/textes/fichierjoint/918/0918D119.zip 
         k= 4.*abs(r)*a/((a+abs(r))**2+z**2)
         Kk=sp.ellipk(k)
@@ -225,7 +217,7 @@ diag.addSpire(0,0.25,a=0.5,I=1)
 diag.addSpire(0,-0.25,a=0.5,I=1)
 diag.draw('PNG/I1_lignes_champ_magnetique_helmholtz.png')
 
-# Deuxième exemple: un dipôle avec un fil perpendiculaire au plan de la figure.
+# DeuxiÃ¨me exemple: un dipÃ´le avec un fil perpendiculaire au plan de la figure.
 diag = Diagramme()
 diag.addLine(0.5,0.5,I=1)
 diag.addDipole(0,0,m=1,points=10)

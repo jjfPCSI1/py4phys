@@ -1,16 +1,8 @@
-# coding: latin1
+# coding: utf8
 
-# Sauf mention explicite du contraire par la suite, ce travail a été fait par 
-# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycée Kléber. 
-# Vous êtes libres de le réutiliser et de le modifier selon vos besoins.
-# 
-# Si l'encodage vous pose problème, vous pouvez réencoder le fichier à l'aide 
-# de la commande
-# 
-# recode l1..utf8 monfichier.py
-# 
-# Il faudra alors modifier la première ligne en # coding: utf8
-# pour que Python s'y retrouve.
+# Sauf mention explicite du contraire par la suite, ce travail a Ã©tÃ© fait par 
+# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycÃ©e KlÃ©ber. 
+# Vous Ãªtes libres de le rÃ©utiliser et de le modifier selon vos besoins.
 
 
 
@@ -30,14 +22,14 @@ website: http://jakevdp.github.com
 license: BSD
 Please feel free to use and modify this, but keep the above information. Thanks!
 
-Ajout JJF: Je me suis contenté de rajouter un second pendule (tout le travail 
-ayant été fait dans la définition de la classe, c'était facile), l'idée étant 
-de voir comment deux conditions initiales pourtant très voisines donnent assez 
-rapidement des résultats très différents. Néanmoins, il faudra un jour 
-regarder les équations en détails car l'énergie n'est plus conservée quand on 
-s'amuse à changer la longueur d'un pendule.
+Ajout JJF: Je me suis contentÃ© de rajouter un second pendule (tout le travail 
+ayant Ã©tÃ© fait dans la dÃ©finition de la classe, c'Ã©tait facile), l'idÃ©e Ã©tant 
+de voir comment deux conditions initiales pourtant trÃ¨s voisines donnent assez 
+rapidement des rÃ©sultats trÃ¨s diffÃ©rents. NÃ©anmoins, il faudra un jour 
+regarder les Ã©quations en dÃ©tails car l'Ã©nergie n'est plus conservÃ©e quand on 
+s'amuse Ã  changer la longueur d'un pendule.
 
-Je trouve ce spectacle particulièrement hypnotisant :o)
+Je trouve ce spectacle particuliÃ¨rement hypnotisant :o)
 
 """
 

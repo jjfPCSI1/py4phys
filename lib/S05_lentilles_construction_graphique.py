@@ -1,23 +1,15 @@
-# coding: latin1
+# coding: utf8
 
-# Sauf mention explicite du contraire par la suite, ce travail a été fait par 
-# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycée Kléber. 
-# Vous êtes libres de le réutiliser et de le modifier selon vos besoins.
-# 
-# Si l'encodage vous pose problème, vous pouvez réencoder le fichier à l'aide 
-# de la commande
-# 
-# recode l1..utf8 monfichier.py
-# 
-# Il faudra alors modifier la première ligne en # coding: utf8
-# pour que Python s'y retrouve.
+# Sauf mention explicite du contraire par la suite, ce travail a Ã©tÃ© fait par 
+# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycÃ©e KlÃ©ber. 
+# Vous Ãªtes libres de le rÃ©utiliser et de le modifier selon vos besoins.
 
 
 
 """
-Travail proposé par Vincent Grenard (PCSI, Lycée Poincaré, Nancy)
+Travail proposÃ© par Vincent Grenard (PCSI, LycÃ©e PoincarÃ©, Nancy)
 
-objectif : automatiser le tracé de rayon dans des lentilles
+objectif : automatiser le tracÃ© de rayon dans des lentilles
 et sortir le code pstricks
 
 je commence par une seule lentille, et on verra plus tard 
@@ -30,7 +22,7 @@ import matplotlib.pyplot as plt
 #####   data    #####
 
 x_O = 0  # position du centre optique O
-x_A = -3 # position de l'objet, < 0 pour réel, >0 pour virtuel
+x_A = -3 # position de l'objet, < 0 pour rÃ©el, >0 pour virtuel
 AB  = 1  # taille de l'objet
 f_p = 2  # f' : distance focale
 
@@ -45,7 +37,7 @@ delta_y = y_fin - y_deb
 
 #####   calculs    #####
 
-###BUG : gérer le cas x_A = - f_p
+###BUG : gÃ©rer le cas x_A = - f_p
 if x_A == x_O-f_p:
     x_A = x_A*(1+2**-51) #mauvaise triche : trace un rayon mauvais
 
@@ -62,7 +54,7 @@ A_pB_p = AB *  f_p /( (x_A-x_O) + f_p)
 plt.plot([x_deb,x_fin],[0,0],'-k')#axe optique
 deb_fleche = x_fin - 0.025*delta_x
 altitude_fleche = delta_y * 0.025
-plt.plot( [deb_fleche,x_fin,deb_fleche],[altitude_fleche,0,-altitude_fleche],'-k') # flèche
+plt.plot( [deb_fleche,x_fin,deb_fleche],[altitude_fleche,0,-altitude_fleche],'-k') # flÃ¨che
 
 #lentille
 plt.plot([x_O,x_O],[0.95*y_deb,0.95*y_fin],'-k',lw=2)
@@ -78,7 +70,7 @@ plt.plot([x_O-lx_fl,x_O,x_O+lx_fl],[0.95*y_deb+ly_fl,0.95*y_deb,0.95*y_deb+ly_fl
 plt.plot([x_O+f_p]*2,[delta_y*0.01,-delta_y*0.01])
 plt.plot([x_O-f_p]*2,[delta_y*0.01,-delta_y*0.01])
 
-#cas objet réel ou virtuel
+#cas objet rÃ©el ou virtuel
 if(x_A-x_O<0):
     style = '-k'
 else:
@@ -92,7 +84,7 @@ lx_fl = 0.025*delta_x
 ly_fl = sg*0.025*delta_y
 plt.plot([x_A-lx_fl,x_A,x_A+lx_fl],[AB-ly_fl,AB,AB-ly_fl],style)
 
-#image, cas image réelle ou virtuelle
+#image, cas image rÃ©elle ou virtuelle
 if(x_A_p-x_O>0):
     style = '-k'
 else:
@@ -107,11 +99,11 @@ ly_fl = sg*0.025*delta_y
 plt.plot([x_A_p-lx_fl,x_A_p,x_A_p+lx_fl],[A_pB_p-ly_fl,A_pB_p,A_pB_p-ly_fl],style)
 
 #premier rayon facile : par le centre et par l'objet
-#thalès AB/(xO-xA) = y/(x_O-xdeb)
+#thalÃ¨s AB/(xO-xA) = y/(x_O-xdeb)
 plt.plot([x_deb,x_fin],[(x_O-x_deb)/(x_O-x_A)*AB,(x_O-x_fin)/(x_O-x_A)*AB],'-r')
 
-#2e rayon facile : parallèle à l'axe optique puis sort en passant par F'
-#thalès : AB/f_p = -y/(x_fin-x_O-f_p)
+#2e rayon facile : parallÃ¨le Ã  l'axe optique puis sort en passant par F'
+#thalÃ¨s : AB/f_p = -y/(x_fin-x_O-f_p)
 plt.plot([x_deb,x_O,x_fin],[AB,AB,-(x_fin-x_O-f_p)/f_p*AB],'-b')
 plt.plot([x_O,x_A],[AB,AB],'--b') #si objet virtuel
 plt.plot([x_O,x_A_p],[AB,A_pB_p],'--b')
@@ -129,7 +121,7 @@ plt.axis(lim)
 plt.show(False)
 
 
-#### génération du code pstricks
+#### gÃ©nÃ©ration du code pstricks
 print(r"egin{pspicture*}(",x_deb-0.1,",",y_deb-0.1,")(",x_fin+0.1,",",y_fin+0.1,")")
 ## Axe optique
 print(r"% axe optique")
@@ -142,12 +134,12 @@ else:
     arrow = '<->'
 print(r"%Lentille")
 print(r"\psline[linewidth = 2pt,arrowscale = 2]{",arrow,"}(",x_O,",",y_deb,")(",x_O,",",y_fin,")")
-#objet réel ou virtuel
+#objet rÃ©el ou virtuel
 if(x_A-x_O>0):
     style = r',linestyle = dashed]'
 else:
     style = ']'
-print(r"% objet réel ou virtuel")
+print(r"% objet rÃ©el ou virtuel")
 print(r"\psline[linewidth = 1.5pt"+style +"{->}(",x_A,",0)(",x_A,",",AB,")")
 if AB >0:
     sg = 1
@@ -155,8 +147,8 @@ else:
     sg = -1
 print(r"\uput[",-sg*90,"](",x_A,",0){$A$}")
 print(r"\uput[",sg*90,"](",x_A,",",AB,"){$B$}")
-#image réelle ou virtuelle
-print(r"% image réelle ou virtuelle")
+#image rÃ©elle ou virtuelle
+print(r"% image rÃ©elle ou virtuelle")
 if(x_A_p-x_O<0):
     style = r',linestyle = dashed]'
 else:
@@ -169,10 +161,10 @@ else:
 print(r"\uput[",-sg*90,"](",x_A_p,",0){$A'$}")
 print(r"\uput[",sg*90,"](",x_A_p,",",A_pB_p,"){$B'$}")
 #premier rayon facile plt.plot([x_deb,x_fin],[(x_O-x_deb)/(x_O-x_A)*AB,(x_O-x_fin)/(x_O-x_A)*AB],'-r')
-print(r"% rayon non dévié, je mets le 0,0 dedans pour les arrow inside")
+print(r"% rayon non dÃ©viÃ©, je mets le 0,0 dedans pour les arrow inside")
 print(r"\psline[linecolor = red,ArrowInside = ->,arrowscale = 2](",x_deb,",",(x_O-x_deb)/(x_O-x_A)*AB,")(",x_O,",0)(",x_fin,",",(x_O-x_fin)/(x_O-x_A)*AB,")")
-#2e rayon facile : parallèle à l'axe optique puis sort en passant par F'
-print(r"% rayon indicent parallèle à l'axe optique")
+#2e rayon facile : parallÃ¨le Ã  l'axe optique puis sort en passant par F'
+print(r"% rayon indicent parallÃ¨le Ã  l'axe optique")
 print(r"\psline[linecolor = blue,ArrowInside = ->>,arrowscale = 2,ArrowInsideOffset=-0.3](",
       x_deb,",",AB,")(",x_O,",",AB,")(",x_fin,",",
       -(x_fin-x_O-f_p)/f_p*AB,")")

@@ -1,24 +1,16 @@
-# coding: latin1
+# coding: utf8
 
-# Sauf mention explicite du contraire par la suite, ce travail a été fait par 
-# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycée Kléber. 
-# Vous êtes libres de le réutiliser et de le modifier selon vos besoins.
-# 
-# Si l'encodage vous pose problème, vous pouvez réencoder le fichier à l'aide 
-# de la commande
-# 
-# recode l1..utf8 monfichier.py
-# 
-# Il faudra alors modifier la première ligne en # coding: utf8
-# pour que Python s'y retrouve.
+# Sauf mention explicite du contraire par la suite, ce travail a Ã©tÃ© fait par 
+# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycÃ©e KlÃ©ber. 
+# Vous Ãªtes libres de le rÃ©utiliser et de le modifier selon vos besoins.
 
 
 
 
 """
 
-Travail de Pierre Chary (PC, ENCPB-Lycée Pierre Gilles de Gennes, Paris) pour 
-représenter les fonctions d'ondes correspondant aux premiers états propres de 
+Travail de Pierre Chary (PC, ENCPB-LycÃ©e Pierre Gilles de Gennes, Paris) pour 
+reprÃ©senter les fonctions d'ondes correspondant aux premiers Ã©tats propres de 
 l'oscillateur harmonique quantique.
 
 """
@@ -29,7 +21,7 @@ import numpy
 from numpy.polynomial.hermite import hermval
 import matplotlib.pyplot as plt
 
-# Mettre la variable suivante à 'None' pour affichage via plt.show()
+# Mettre la variable suivante Ã  'None' pour affichage via plt.show()
 out_file = 'PNG/S06_etats_propres_oscillateur_harmonique.png' 
 
 n_states = 6

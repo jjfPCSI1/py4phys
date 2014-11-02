@@ -1,24 +1,16 @@
-# coding: latin1
+# coding: utf8
 
-# Sauf mention explicite du contraire par la suite, ce travail a été fait par 
-# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycée Kléber. 
-# Vous êtes libres de le réutiliser et de le modifier selon vos besoins.
-# 
-# Si l'encodage vous pose problème, vous pouvez réencoder le fichier à l'aide 
-# de la commande
-# 
-# recode l1..utf8 monfichier.py
-# 
-# Il faudra alors modifier la première ligne en # coding: utf8
-# pour que Python s'y retrouve.
+# Sauf mention explicite du contraire par la suite, ce travail a Ã©tÃ© fait par 
+# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycÃ©e KlÃ©ber. 
+# Vous Ãªtes libres de le rÃ©utiliser et de le modifier selon vos besoins.
 
 
 
 """
-Ce programme est proposé par Vincent Grenard (PCSI, Lycée Poincaré, Nancy).
+Ce programme est proposÃ© par Vincent Grenard (PCSI, LycÃ©e PoincarÃ©, Nancy).
 
-L'idée est de visualiser l'aspect transverse de la propagation d'une onde 
-électromagnétique pour introduire le cours d'optique et suite au cours sur la 
+L'idÃ©e est de visualiser l'aspect transverse de la propagation d'une onde 
+Ã©lectromagnÃ©tique pour introduire le cours d'optique et suite au cours sur la 
 propagation d'un signal.
 """
 
@@ -35,7 +27,7 @@ fleche_y=np.array([0,0,0.05,0,-0.05,0])
 fleche=np.zeros((2,len(fleche_x)))
 fleche[0,:]=fleche_x
 fleche[1,:]=fleche_y
-#fleche[:,i]=les coordonnées du point i en colonne
+#fleche[:,i]=les coordonnÃ©es du point i en colonne
 theta=np.pi/6+np.pi#rotation pour donner une impression de projection 3D
 fleche_rot_x=0.65*(fleche_x*np.cos(theta)-fleche_y*np.sin(theta))
 fleche_rot_y=0.65*(fleche_x*np.sin(theta)+fleche_y*np.cos(theta))

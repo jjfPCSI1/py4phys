@@ -1,78 +1,70 @@
-# coding: latin1
+# coding: utf8
 
-# Sauf mention explicite du contraire par la suite, ce travail a été fait par 
-# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycée Kléber. 
-# Vous êtes libres de le réutiliser et de le modifier selon vos besoins.
-# 
-# Si l'encodage vous pose problème, vous pouvez réencoder le fichier à l'aide 
-# de la commande
-# 
-# recode l1..utf8 monfichier.py
-# 
-# Il faudra alors modifier la première ligne en # coding: utf8
-# pour que Python s'y retrouve.
+# Sauf mention explicite du contraire par la suite, ce travail a Ã©tÃ© fait par 
+# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycÃ©e KlÃ©ber. 
+# Vous Ãªtes libres de le rÃ©utiliser et de le modifier selon vos besoins.
 
 
 
 
 
 '''
-Programme conçu par Tom Morel (PCSI, lycée Jean Jaurès) pour visualiser
+Programme conÃ§u par Tom Morel (PCSI, lycÃ©e Jean JaurÃ¨s) pour visualiser
 l'influence de la couleur du rayon incident sur la distance focale d'une
-lentille sphérique
+lentille sphÃ©rique
 '''
 
-from math import *      # Pour les fonctions mathématiques
-from turtle import *    # Pour les dessins à l'écran (appelé après math pour radians())
+from math import *      # Pour les fonctions mathÃ©matiques
+from turtle import *    # Pour les dessins Ã  l'Ã©cran (appelÃ© aprÃ¨s math pour radians())
 
 
 def Cauchy(x):
     '''Fonction donnant l'indice du milieu en suivant la loi de Cauchy en
-    fonction de la longueur d'onde x donnée en mètres.'''
+    fonction de la longueur d'onde x donnÃ©e en mÃ¨tres.'''
     A=1.2
     B=171*1e-16
     n=A+(B/x**2)
     return n
 
-N= 10                   # nombre de rayons à dessiner
-xi= - 200               # coordonnée xi de départ
-yi= -50                 # coordonnée yi de départ
-longueur=[400,800]      # différentes longueurs d'onde
-pal=['blue','red']      # et les couleurs associées
+N= 10                   # nombre de rayons Ã  dessiner
+xi= - 200               # coordonnÃ©e xi de dÃ©part
+yi= -50                 # coordonnÃ©e yi de dÃ©part
+longueur=[400,800]      # diffÃ©rentes longueurs d'onde
+pal=['blue','red']      # et les couleurs associÃ©es
 R = 100                 # Le rayon de courbure de la lentille
 
-up()                    # On soulève le crayon
-goto(0,R)               # On va en haut à gauche de la lentille
-right(90)               # On tourne pour commencer à descendre
+up()                    # On soulÃ¨ve le crayon
+goto(0,R)               # On va en haut Ã  gauche de la lentille
+right(90)               # On tourne pour commencer Ã  descendre
 down()                  # On pose le crayon
-forward(2*R)            # On dessine le côté plat de la lentille
+forward(2*R)            # On dessine le cÃ´tÃ© plat de la lentille
 left(90)                # On se remet dans l'axe
-circle(R,180)           # On trace le cercle sur 180 degrés
-up()                    # On soulève
+circle(R,180)           # On trace le cercle sur 180 degrÃ©s
+up()                    # On soulÃ¨ve
 goto(-200,0)            # Pour aller tracer l'axe optique
 down()                  # On pose le stylo
 right(180)              # Retour dans l'axe
-forward(800)            # et tracé effectif
+forward(800)            # et tracÃ© effectif
 
 radians()               # On passe les angles en radians.
 
 for j in range(len(longueur)): # On boucle sur les couleurs
-    color(pal[j])              # Sélection de la couleur
-    n=Cauchy(longueur[j]*1e-9) # On récupère l'indice optique
-    yi=-R/2                    # Ordonnée initiale
-    for i in range(N):         # On boucle sur les rayons à dessiner
-        up()                   # On lève le crayon
+    color(pal[j])              # SÃ©lection de la couleur
+    n=Cauchy(longueur[j]*1e-9) # On rÃ©cupÃ¨re l'indice optique
+    yi=-R/2                    # OrdonnÃ©e initiale
+    for i in range(N):         # On boucle sur les rayons Ã  dessiner
+        up()                   # On lÃ¨ve le crayon
         goto(-200,yi)          # On se place
         down()                 # et c'est parti !
-        goto(sqrt(100**2-yi**2),yi) # On traverse jusqu'à la face sphérique
+        goto(sqrt(100**2-yi**2),yi) # On traverse jusqu'Ã  la face sphÃ©rique
         alpha=asin(yi/100)     # Angle d'incidence sur la face de sortie
-        theta=asin(n*yi/100)   # Angle après réfraction dans l'air
-        right(theta-alpha)     # On tourne de l'angle de déviation
-        forward(450)           # On complète le tracé
+        theta=asin(n*yi/100)   # Angle aprÃ¨s rÃ©fraction dans l'air
+        right(theta-alpha)     # On tourne de l'angle de dÃ©viation
+        forward(450)           # On complÃ¨te le tracÃ©
         left(theta-alpha)      # et on se remet dans l'axe
-        yi=yi+(R/N)            # Définition de la prochaine ordonnée
+        yi=yi+(R/N)            # DÃ©finition de la prochaine ordonnÃ©e
 
-# L'important est bien sûr de montrer le dessin se construire en direct, mais
+# L'important est bien sÃ»r de montrer le dessin se construire en direct, mais
 # si on veut en conserver une trace, on peut utiliser ce hack:
 
 base_name = 'PNG/S05_distortion_chromatique'

@@ -1,81 +1,73 @@
-# coding: latin1
+# coding: utf8
 
-# Sauf mention explicite du contraire par la suite, ce travail a été fait par 
-# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycée Kléber. 
-# Vous êtes libres de le réutiliser et de le modifier selon vos besoins.
-# 
-# Si l'encodage vous pose problème, vous pouvez réencoder le fichier à l'aide 
-# de la commande
-# 
-# recode l1..utf8 monfichier.py
-# 
-# Il faudra alors modifier la première ligne en # coding: utf8
-# pour que Python s'y retrouve.
+# Sauf mention explicite du contraire par la suite, ce travail a Ã©tÃ© fait par 
+# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycÃ©e KlÃ©ber. 
+# Vous Ãªtes libres de le rÃ©utiliser et de le modifier selon vos besoins.
 
 
 
 
 """
-Programme conçu par Tom Morel (PCSI, lycée Jean Jaurès) pour visualiser 
-l'influence de la position du côté plat pour la qualité d'une image. On se 
-rend compte que lorsque le côté plat est du côté où l'objet/image est au plus 
-près (règle des 4P), les aberrations géométriques sont moins prononcées. 
-Effets de bords intéressants: 
- * la lentille étant non-symétrique, le centre optique n'est pas au milieu 
- (d'où le décalage observé pour le foyer dans les deux positions).
+Programme conÃ§u par Tom Morel (PCSI, lycÃ©e Jean JaurÃ¨s) pour visualiser 
+l'influence de la position du cÃ´tÃ© plat pour la qualitÃ© d'une image. On se 
+rend compte que lorsque le cÃ´tÃ© plat est du cÃ´tÃ© oÃ¹ l'objet/image est au plus 
+prÃ¨s (rÃ¨gle des 4P), les aberrations gÃ©omÃ©triques sont moins prononcÃ©es. 
+Effets de bords intÃ©ressants: 
+ * la lentille Ã©tant non-symÃ©trique, le centre optique n'est pas au milieu 
+ (d'oÃ¹ le dÃ©calage observÃ© pour le foyer dans les deux positions).
  * dans le 2e cas, certains rayons ne peuvent pas ressortir de la lentille du 
- fait du phénomène de réflexion totale.
+ fait du phÃ©nomÃ¨ne de rÃ©flexion totale.
 """
 
 from math   import *   # Pour les calculs
 from turtle import *   # Pour la tortue du LOGO
 
 n = 1.4                # Indice choisi pour le verre
-N = 20                 # Nombre de rayons à dessiner
-xi= - 400              # Coordonnée xi de départ des rayons
-yi= 80                 # Coordonnée relative yi de départ du premier rayon
+N = 20                 # Nombre de rayons Ã  dessiner
+xi= - 400              # CoordonnÃ©e xi de dÃ©part des rayons
+yi= 80                 # CoordonnÃ©e relative yi de dÃ©part du premier rayon
 
 R = 100                # Rayon de courbure de la lentille
-decal = 1.5*R          # Moitié du décalage vertical entre les deux images
-ylim = 60              # À partir de quand colorie-t-on les rayons en rouge
+decal = 1.5*R          # MoitiÃ© du dÃ©calage vertical entre les deux images
+ylim = 60              # Ã€ partir de quand colorie-t-on les rayons en rouge
 
-# Dessin de la première lentille
-up()                   # On lève le crayon
-goto(xi+2*R,-R+decal)  # Position de départ en bas à droite
+# Dessin de la premiÃ¨re lentille
+up()                   # On lÃ¨ve le crayon
+goto(xi+2*R,-R+decal)  # Position de dÃ©part en bas Ã  droite
 left(90)               # On va vers le haut
 down()                 # On pose le crayon
-forward(2*R)           # Tracé de la partie plane
+forward(2*R)           # TracÃ© de la partie plane
 left(90)               # On se positionne vers la gauche
 circle(R,180)          # et on fait le demi-cercle
-up()                   # On lève le crayon
-goto(xi,decal)         # Préparation de l'axe optique
+up()                   # On lÃ¨ve le crayon
+goto(xi,decal)         # PrÃ©paration de l'axe optique
 down()                 # On pose le crayon
 forward(800)           # et on le trace
 
 # Dessin de la seconde lentille
-up()                   # On lève le crayon
-goto(xi+R,-R-decal)    # Position de départ en bas à gauche
+up()                   # On lÃ¨ve le crayon
+goto(xi+R,-R-decal)    # Position de dÃ©part en bas Ã  gauche
 left(90)               # On va vers le haut
 down()                 # On pose le crayon
-forward(2*R)           # Tracé de la partie plane
+forward(2*R)           # TracÃ© de la partie plane
 right(90)              # On se positionne vers la droite
 circle(-R,180)         # et on fait le demi-cercle
-up()                   # On lève le crayon
-goto(xi,-decal)        # Préparation de l'axe optique
+up()                   # On lÃ¨ve le crayon
+goto(xi,-decal)        # PrÃ©paration de l'axe optique
 right(180)             # Demi-tour droite !
 down()                 # On pose le crayon
 forward(800)           # et on le trace
 
-radians()              # À partir d'ici, on passe en radians pour les angles
+radians()              # Ã€ partir d'ici, on passe en radians pour les angles
 
-for i in range(N):     # Boucle sur les rayons à tracer
-    up()               # On lève le crayon
-    goto(xi,yi+decal)  # pour se mettre au point de départ
-    down()             # puis on le repose pour commencer le tracé
-    alpha=asin(yi/R)   # Angle par rapport à la normale 1ère interface
-    beta=asin(yi/(n*R))# Angle de réfraction 1ère interface air/verre
-    xa=-R*cos(alpha)-2*R # Là où on va toucher la 1ère interface
-    if abs(yi)>=ylim:  # On met les rayons extrêmes
+for i in range(N):     # Boucle sur les rayons Ã  tracer
+    up()               # On lÃ¨ve le crayon
+    goto(xi,yi+decal)  # pour se mettre au point de dÃ©part
+    down()             # puis on le repose pour commencer le tracÃ©
+    alpha=asin(yi/R)   # Angle par rapport Ã  la normale 1Ã¨re interface
+    beta=asin(yi/(n*R))# Angle de rÃ©fraction 1Ã¨re interface air/verre
+    xa=-R*cos(alpha)-2*R # LÃ  oÃ¹ on va toucher la 1Ã¨re interface
+    if abs(yi)>=ylim:  # On met les rayons extrÃªmes
         color('red')   # en rouge
     else:              # et les autres
         color('blue')  # en bleu
@@ -83,32 +75,32 @@ for i in range(N):     # Boucle sur les rayons à tracer
     # Un petit calcul pour la position du contact avec la 2e interface
     yb=yi+(xa+2*R)*tan(alpha-beta) 
     goto(-2*R,yb+decal)# On y va !
-    # Et on calcule l'angle de réfraction en sortie de cette 2e interaface
+    # Et on calcule l'angle de rÃ©fraction en sortie de cette 2e interaface
     gamma=asin(n*sin(alpha-beta)) 
-    right(gamma)       # La tortue étant toujours horizontale, on tourne de cet angle
+    right(gamma)       # La tortue Ã©tant toujours horizontale, on tourne de cet angle
     forward(550)       # On avance tout droit
-    left(gamma)        # et on se remet à l'horizontale pour le tracé suivant
+    left(gamma)        # et on se remet Ã  l'horizontale pour le tracÃ© suivant
 
-    up()               # On passe à présent au second schéma avec un levé de crayon
-    goto(xi,yi-decal)  # pour se mettre au point de départ
+    up()               # On passe Ã  prÃ©sent au second schÃ©ma avec un levÃ© de crayon
+    goto(xi,yi-decal)  # pour se mettre au point de dÃ©part
     down()             # et on repose le crayon.
-    alpha=asin(yi/R)   # Angle par rapport à la normale 2ère interface
-    xa= R*cos(alpha)-3*R # Contact avec la 2ère interface (la partie plane est sans effet)
-    if abs(yi)>=ylim:  # On met les rayons extrêmes
+    alpha=asin(yi/R)   # Angle par rapport Ã  la normale 2Ã¨re interface
+    xa= R*cos(alpha)-3*R # Contact avec la 2Ã¨re interface (la partie plane est sans effet)
+    if abs(yi)>=ylim:  # On met les rayons extrÃªmes
         color('red')   # en rouge
     else:              # et les autres
         color('blue')  # en bleu
     goto(xa,yi-decal)  # On va jusqu'au contact
-    try:               # Attention, il est possible qu'il y ait réflexion totale
-        beta=asin(n*yi/R) # si ce calcul échoue...
+    try:               # Attention, il est possible qu'il y ait rÃ©flexion totale
+        beta=asin(n*yi/R) # si ce calcul Ã©choue...
         right(-alpha+beta)# Si tout va bien, on tourne
         forward(550)      # on avance
         left(-alpha+beta) # et on se remet dans l'axe
-    except: pass       # Cas de la réflexion totale: on ne fait rien de plus
+    except: pass       # Cas de la rÃ©flexion totale: on ne fait rien de plus
     
     yi=yi-(160/(N-1))      # Passage au rayon suivant.
 
-# L'important est bien sûr de montrer le dessin se construire en direct, mais
+# L'important est bien sÃ»r de montrer le dessin se construire en direct, mais
 # si on veut en conserver une trace, on peut utiliser ce hack:
 
 base_name = 'PNG/S05_gauss_4P'

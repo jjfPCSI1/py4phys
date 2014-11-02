@@ -1,22 +1,14 @@
-# coding: latin1
+# coding: utf8
 
-# Sauf mention explicite du contraire par la suite, ce travail a été fait par 
-# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycée Kléber. 
-# Vous êtes libres de le réutiliser et de le modifier selon vos besoins.
-# 
-# Si l'encodage vous pose problème, vous pouvez réencoder le fichier à l'aide 
-# de la commande
-# 
-# recode l1..utf8 monfichier.py
-# 
-# Il faudra alors modifier la première ligne en # coding: utf8
-# pour que Python s'y retrouve.
+# Sauf mention explicite du contraire par la suite, ce travail a Ã©tÃ© fait par 
+# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycÃ©e KlÃ©ber. 
+# Vous Ãªtes libres de le rÃ©utiliser et de le modifier selon vos besoins.
 
 
 
 '''
-Illustration du phénomène de propagation vers la droite d'une onde de forme 
-quelconque à la fois au cours du temps dans un profil spatial, et spatialement 
+Illustration du phÃ©nomÃ¨ne de propagation vers la droite d'une onde de forme 
+quelconque Ã  la fois au cours du temps dans un profil spatial, et spatialement 
 dans un profil temporel.
 '''
 
@@ -25,23 +17,23 @@ import matplotlib.pyplot as plt  # Pour les dessins
 
 
 def f(u,k=10):
-    '''Le profil de l'onde à propager: une gaussienne multipliée par un cosinus.'''
+    '''Le profil de l'onde Ã  propager: une gaussienne multipliÃ©e par un cosinus.'''
     return np.exp(-3*u**2) * np.cos(k*u-5)
 
-nb_points  = 1000   # Le nombre de points d'échantillonnage du graphe
-nb_courbes = 3      # Le nombre de courbes à représenter
+nb_points  = 1000   # Le nombre de points d'Ã©chantillonnage du graphe
+nb_courbes = 3      # Le nombre de courbes Ã  reprÃ©senter
 
 # Tout d'abord la visualisation spatiale
 
 x = np.linspace(-2,2,nb_points)   # Echantillonnage en position
-t = np.linspace(0,5,nb_courbes)  # On regarde le profil à différents temps
+t = np.linspace(0,5,nb_courbes)  # On regarde le profil Ã  diffÃ©rents temps
 c = 0.2 # Vitesse de propagation de l'onde
 
 for ti in t:
-    fi = f(x-c*ti) # Echantillonnage du profil pour les différents x
+    fi = f(x-c*ti) # Echantillonnage du profil pour les diffÃ©rents x
     plt.plot(x,fi,label='$t={}$'.format(round(ti,1))) # Affichage
 
-# La cosmétique
+# La cosmÃ©tique
 
 plt.title('Profil spatial pour differents temps')
 plt.xlabel('Position $x$')
@@ -53,14 +45,14 @@ plt.clf()
 # Tout d'abord la visualisation spatiale
 
 t = np.linspace(0,10,nb_points)  # Echantillonnage en temps
-x = np.linspace(0,0.6,nb_courbes)  # On regarde le profil à différentes positions
+x = np.linspace(0,0.6,nb_courbes)  # On regarde le profil Ã  diffÃ©rentes positions
 c = 0.2 # Vitesse de propagation de l'onde
 
 for xi in x:
-    fi = f(xi-c*t) # Echantillonnage du profil pour les différents t
+    fi = f(xi-c*t) # Echantillonnage du profil pour les diffÃ©rents t
     plt.plot(t,fi,label='$x={}$'.format(round(xi,1))) # Affichage
 
-# La cosmétique
+# La cosmÃ©tique
 
 plt.title('Profil temporel pour differente positions')
 plt.xlabel('Temps $t$')

@@ -1,102 +1,94 @@
-# coding: latin1
+# coding: utf8
 
-# Sauf mention explicite du contraire par la suite, ce travail a été fait par 
-# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycée Kléber. 
-# Vous êtes libres de le réutiliser et de le modifier selon vos besoins.
-# 
-# Si l'encodage vous pose problème, vous pouvez réencoder le fichier à l'aide 
-# de la commande
-# 
-# recode l1..utf8 monfichier.py
-# 
-# Il faudra alors modifier la première ligne en # coding: utf8
-# pour que Python s'y retrouve.
+# Sauf mention explicite du contraire par la suite, ce travail a Ã©tÃ© fait par 
+# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycÃ©e KlÃ©ber. 
+# Vous Ãªtes libres de le rÃ©utiliser et de le modifier selon vos besoins.
 
 
 
 
 ''' 
-Simulation d'un phénomène de diffraction par une ouverture rectangulaire après 
-arrivée d'une onde plane inclinée d'un certain angle theta0 par rapport à la 
+Simulation d'un phÃ©nomÃ¨ne de diffraction par une ouverture rectangulaire aprÃ¨s 
+arrivÃ©e d'une onde plane inclinÃ©e d'un certain angle theta0 par rapport Ã  la 
 normale.
 
-Le graphe du bas représente la coupe en intensité (amplitude au carré) sur un 
-écran situé à y fixé.
+Le graphe du bas reprÃ©sente la coupe en intensitÃ© (amplitude au carrÃ©) sur un 
+Ã©cran situÃ© Ã  y fixÃ©.
 
 '''
 
-import numpy as np               # Pour les facilités de calcul
+import numpy as np               # Pour les facilitÃ©s de calcul
 import matplotlib.pyplot as plt  # Pour les dessins
 from matplotlib.colors import LightSource # Pour l'aspect en relief
 
 shading = True                   # Pour un "effet 3D"
 k,w,epsilon = 5,1,1              # Quelques constantes 
 c = w/k                          # La vitesse des ondes
-tmin,tmax = 0,150                # L'intervalle de temps d'étude
+tmin,tmax = 0,150                # L'intervalle de temps d'Ã©tude
 dt = 0.1                         # Le pas de temps
 ycut = 9                         # Le plan de coupe en y
-vmin,vmax=-1,1                   # Les valeurs extrêmes de l'amplitude
+vmin,vmax=-1,1                   # Les valeurs extrÃªmes de l'amplitude
 trou = 3                         # La taille du trou
 theta= 0.1                       # L'angle d'incidence (en radians)
-ext = 15.0                       # Les limites de la fenêtre d'étude    
+ext = 15.0                       # Les limites de la fenÃªtre d'Ã©tude    
 dx,dy = 0.1,0.1                  # Resolution
 x = np.arange(-ext,ext,dx)       # Axe en x
-y = np.arange(ext,-4,-dy)        # et  en y (à l'envers du fait de imshow)
+y = np.arange(ext,-4,-dy)        # et  en y (Ã  l'envers du fait de imshow)
 X,Y = np.meshgrid(x,y)           # pour produire la grille
 
-# Pour définir correctement les limites de la fenêtre.
+# Pour dÃ©finir correctement les limites de la fenÃªtre.
 xmin, xmax, ymin, ymax = np.amin(x), np.amax(x), np.amin(y), np.amax(y)
 extent = xmin, xmax, ymin, ymax    
 
-base_name = 'PNG/S03_diffraction_' # Le nom par défaut
+base_name = 'PNG/S03_diffraction_' # Le nom par dÃ©faut
 
 def point_source(x,y,t,x0=0,y0=0,theta=0):
-    '''La fonction représentant une source située en (x0,y0) produite par un 
-    front d'onde incliné de theta.'''
+    '''La fonction reprÃ©sentant une source situÃ©e en (x0,y0) produite par un 
+    front d'onde inclinÃ© de theta.'''
     u0= front(x0,y0,t,theta)         # Le front au niveau de la source secondaire
-    r = np.sqrt((x-x0)**2+(y-y0)**2) # La distance à la source
-    u = u0 + k*r 	                 # La variable de déplacement
-                                     # (w*t est déjà dans le u0)
+    r = np.sqrt((x-x0)**2+(y-y0)**2) # La distance Ã  la source
+    u = u0 + k*r 	                 # La variable de dÃ©placement
+                                     # (w*t est dÃ©jÃ  dans le u0)
     res =  np.sin(u)                 # Simple sinus
-    res[u > 0] = 0.0                 # Le facteur n'est pas passé...
+    res[u > 0] = 0.0                 # Le facteur n'est pas passÃ©...
     return res
 
 def front(x,y,t,theta=0):
-    '''Définition de la ligne du front d'onde plane. 
-    À t=0, le front d'onde passe au point (0,ymin).'''
+    '''DÃ©finition de la ligne du front d'onde plane. 
+    Ã€ t=0, le front d'onde passe au point (0,ymin).'''
     return k*(np.sin(theta)*x + np.cos(theta)*(y-ymin)) - w*t
     
 
 def onde_plane(x,y,t,theta=0):
-    '''Fonction représentative d'une onde plane faisant un angle theta avec 
-    la normale. À t=0, le front d'onde passe au point (0,ymin).'''
+    '''Fonction reprÃ©sentative d'une onde plane faisant un angle theta avec 
+    la normale. Ã€ t=0, le front d'onde passe au point (0,ymin).'''
     u = front(x,y,t,theta)
     res =  np.sin(u)                 # Simple sinus
-    res[u > 0] = 0.0                 # Pour s'assurer qu'à t<0, il n'y a pas d'onde
+    res[u > 0] = 0.0                 # Pour s'assurer qu'Ã  t<0, il n'y a pas d'onde
     return res
 
 def superposition(x,y,t,largeur_trou,theta=0):
-    '''Fonction calculant automatiquement la superposition des ondes après 
+    '''Fonction calculant automatiquement la superposition des ondes aprÃ¨s 
     passage pour l'ouverture de largeur 'largeur_trou'.'''
     # On commence par mettre l'onde plane partout.
     res = onde_plane(x,y,t,theta)
-    # Ensuite, on réfléchit et on corrige pour le valeurs de y > 0
+    # Ensuite, on rÃ©flÃ©chit et on corrige pour le valeurs de y > 0
     x_trou = np.arange(-largeur_trou/2,largeur_trou/2,dx)
     S = sum([point_source(x,y,t,xt,0,theta) for xt in x_trou])/len(x_trou)
     res[y > 0] = S[y > 0]
     print(t)    # Un tout petit peu de feedback
-    return res  # et on renvoie le résultat à afficher
+    return res  # et on renvoie le rÃ©sultat Ã  afficher
 
 i = 0                              # Initialisation du compteur
 for t in np.arange(tmin,tmax,dt):  # On boucle sur le temps
-    i += 1                         # Incrémentation du compteur
+    i += 1                         # IncrÃ©mentation du compteur
     Z = superposition(X,Y,t,trou,theta)
 
-    # Calcul à part pour la section de coupe.
+    # Calcul Ã  part pour la section de coupe.
     x_trou = np.arange(-trou/2,trou/2,dx)
     Zcut = (sum([point_source(x,ycut,t,xt,0,theta) for xt in x_trou])/len(x_trou))**2
 
-    # Ouverture de la figure et définition des sous-figures
+    # Ouverture de la figure et dÃ©finition des sous-figures
     plt.figure(figsize=(8,6.9)) 
     ax1= plt.subplot2grid((3,2),(0,0),colspan=2,rowspan=2)
     plt.title('Diffraction par une ouverture plane, $t={}$'.format(round(t,1)))
@@ -128,8 +120,8 @@ for t in np.arange(tmin,tmax,dt):  # On boucle sur le temps
     plt.savefig(base_name + '{:04d}.png'.format(i))
     plt.close()
 
-# Ne reste plus qu'à rassembler en un fichier mpeg à l'aide de convert puis de 
-# ppmtoy4m et mpeg2enc (paquet mjpegtools à installer sur la machine)
+# Ne reste plus qu'Ã  rassembler en un fichier mpeg Ã  l'aide de convert puis de 
+# ppmtoy4m et mpeg2enc (paquet mjpegtools Ã  installer sur la machine)
 
 import os
 

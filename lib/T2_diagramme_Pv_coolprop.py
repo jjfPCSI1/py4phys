@@ -1,59 +1,51 @@
-# coding: latin1
+# coding: utf8
 
-# Sauf mention explicite du contraire par la suite, ce travail a été fait par 
-# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycée Kléber. 
-# Vous êtes libres de le réutiliser et de le modifier selon vos besoins.
-# 
-# Si l'encodage vous pose problème, vous pouvez réencoder le fichier à l'aide 
-# de la commande
-# 
-# recode l1..utf8 monfichier.py
-# 
-# Il faudra alors modifier la première ligne en # coding: utf8
-# pour que Python s'y retrouve.
+# Sauf mention explicite du contraire par la suite, ce travail a Ã©tÃ© fait par 
+# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycÃ©e KlÃ©ber. 
+# Vous Ãªtes libres de le rÃ©utiliser et de le modifier selon vos besoins.
 
 
 
-import numpy as np               # Les outils mathématiques
+import numpy as np               # Les outils mathÃ©matiques
 import CoolProp.CoolProp as CP   # Les outils thermodynamiques
 import matplotlib.pyplot as plt  # Les outils graphiques
 
 """ 
 Fabrication d'un diagramme (P,v) avec CoolProp, ce qui n'est pas possible 
 en natif car ils travaillent en masse volumique et non en volume massique par 
-défaut.
+dÃ©faut.
 """
 
 def diagramme_Pv(fluide,dico={}):
-    """ Dessine le diagramme Pv pour le fluide demandé avec des 
-    choix par défaut qui peuvent être "overridden" en spécifiant ceux à 
+    """ Dessine le diagramme Pv pour le fluide demandÃ© avec des 
+    choix par dÃ©faut qui peuvent Ãªtre "overridden" en spÃ©cifiant ceux Ã  
     changer dans le dictionnaire 'dico'. Les options disponibles sont:
-    * 'vmin' et 'vmax' pour définir les limites des échantillonnages en volume 
-    massique. Par défaut vtripleL et vtripleG * 10
-    * 'Prange' pour l'intervalle de pression affiché
-    * 'T': une liste des températures pour lesquelles il faut tracer 
-    l'isotherme. (défaut à None)
+    * 'vmin' et 'vmax' pour dÃ©finir les limites des Ã©chantillonnages en volume 
+    massique. Par dÃ©faut vtripleL et vtripleG * 10
+    * 'Prange' pour l'intervalle de pression affichÃ©
+    * 'T': une liste des tempÃ©ratures pour lesquelles il faut tracer 
+    l'isotherme. (dÃ©faut Ã  None)
     * 'x': une liste des titres en vapeur pour lesquels il faut tracer la 
-    courbe isotitre (défaut à np.linspace(0,1,11))
-    * 'titre': le titre (textuel, hein...) à donner au graphique.
+    courbe isotitre (dÃ©faut Ã  np.linspace(0,1,11))
+    * 'titre': le titre (textuel, hein...) Ã  donner au graphique.
     * 'fichier': le nom du fichier dans lequel enregistrer la figure.
-    * 'logx': Booléen indiquant si on veut un axe logarithmique en abscisse
-    * 'logy': Booléen indiquant si on veut un axe logarithmique en ordonnée
-    * 'legend': Booléen indiquant si on veut rajouter les légendes
-    * 'saturation': Booléen indiquant si on veut rajouter la courbe de 
-    saturation au tracé (défaut à True)
+    * 'logx': BoolÃ©en indiquant si on veut un axe logarithmique en abscisse
+    * 'logy': BoolÃ©en indiquant si on veut un axe logarithmique en ordonnÃ©e
+    * 'legend': BoolÃ©en indiquant si on veut rajouter les lÃ©gendes
+    * 'saturation': BoolÃ©en indiquant si on veut rajouter la courbe de 
+    saturation au tracÃ© (dÃ©faut Ã  True)
     """
     Pcritique = CP.PropsSI(fluide,'pcrit')  # Pression
-    Tcritique = CP.PropsSI(fluide,'Tcrit')  # et température critique
+    Tcritique = CP.PropsSI(fluide,'Tcrit')  # et tempÃ©rature critique
     Ptriple = CP.PropsSI(fluide,'ptriple')  # Pression 
-    Ttriple = CP.PropsSI(fluide,'Ttriple')  # et température au point triple
-    # On récupère les volumes massiques via les 'densités' (ie masses 
-    # volumiques) données par CoolProp
+    Ttriple = CP.PropsSI(fluide,'Ttriple')  # et tempÃ©rature au point triple
+    # On rÃ©cupÃ¨re les volumes massiques via les 'densitÃ©s' (ie masses 
+    # volumiques) donnÃ©es par CoolProp
     vtripleL = 1/CP.PropsSI('D','P',Ptriple,'Q',0,fluide)
     vtripleG = 1/CP.PropsSI('D','P',Ptriple,'Q',1,fluide)
     vcritique= 1/CP.PropsSI('D','P',Pcritique,'T',Tcritique,fluide)
     P_sat= np.linspace(Ptriple,Pcritique,1000)
-    # L'ensemble des valeurs par défaut.
+    # L'ensemble des valeurs par dÃ©faut.
     DEFAUTS = {'vmin':vtripleL, 'vmax':vtripleG*10, 
        'Prange': None, 
        'T': None, 'x': np.linspace(0,1,11),
@@ -61,21 +53,21 @@ def diagramme_Pv(fluide,dico={}):
        'fichier': 'PNG/T2_diagramme_Pv_coolprop_{}.png'.format(fluide),
        'logx': True, 'logy': True, 'legend': False,
        'saturation': False}
-    DEFAUTS.update(dico)      # Mise à jour des valeurs par défaut via 'dico' 
-    # L'échantillonnage sera différent
+    DEFAUTS.update(dico)      # Mise Ã  jour des valeurs par dÃ©faut via 'dico' 
+    # L'Ã©chantillonnage sera diffÃ©rent
     if DEFAUTS['logx']:       # si l'axe est logarithmique
        v=np.logspace(np.log10(DEFAUTS['vmin']),np.log10(DEFAUTS['vmax']),1000)
-    else:                     # ou simplement linéaire
+    else:                     # ou simplement linÃ©aire
        v=np.linspace(DEFAUTS['vmin'],DEFAUTS['vmax'],1000)
     if DEFAUTS['T'] != None:
-        for Ti in DEFAUTS['T']:   # Tracé des différentes isothermes
+        for Ti in DEFAUTS['T']:   # TracÃ© des diffÃ©rentes isothermes
             P = CP.PropsSI('P','T',Ti,'D',1/v,fluide)
             plt.plot(v,P,label='$T={}$'.format(Ti))
     if DEFAUTS['x'] != None:
-        for xi in DEFAUTS['x']:   # Tracé des courbes isotitre
+        for xi in DEFAUTS['x']:   # TracÃ© des courbes isotitre
             vxi = 1/CP.PropsSI('D','P',P_sat,'Q',xi,fluide)
             plt.plot(vxi,P_sat,'k',label='$x={}$'.format(xi))
-    if DEFAUTS['saturation']: # Tracé de la courbe de saturation
+    if DEFAUTS['saturation']: # TracÃ© de la courbe de saturation
         v_eb   = 1/CP.PropsSI('D','P',P_sat,'Q',0,fluide)
         v_rosee= 1/CP.PropsSI('D','P',P_sat,'Q',1,fluide)
         plt.plot(v_eb,P_sat,'k',linewidth=4.0)
@@ -84,21 +76,21 @@ def diagramme_Pv(fluide,dico={}):
     plt.xlim((DEFAUTS['vmin'],DEFAUTS['vmax']))       # Intervalle horizontal
     if DEFAUTS['logx']: plt.xscale('log')             # Echelle log en x
     if DEFAUTS['logy']: plt.yscale('log')             # Echelle log en y
-    if DEFAUTS['legend']: plt.legend()                # Rajout des légendes
-    plt.xlabel('Volume massique $v$ en m$^3/$kg')     # Légende en abscisse
-    plt.ylabel('Pression en Pa')                      # Légende en ordonnée
+    if DEFAUTS['legend']: plt.legend()                # Rajout des lÃ©gendes
+    plt.xlabel('Volume massique $v$ en m$^3/$kg')     # LÃ©gende en abscisse
+    plt.ylabel('Pression en Pa')                      # LÃ©gende en ordonnÃ©e
     plt.title(DEFAUTS['titre'])                       # Titre
     plt.savefig(DEFAUTS['fichier'])                   # Enregistrement
     plt.clf()                                         # Nettoyage
 
-# Le fluide à étudier (à choisir parmi ceux donnés par CP.FluidsList())
+# Le fluide Ã  Ã©tudier (Ã  choisir parmi ceux donnÃ©s par CP.FluidsList())
 fluide = 'Water'
 
-# Le diagramme "par défaut"
+# Le diagramme "par dÃ©faut"
 diagramme_Pv(fluide)
 
-# Les valeurs suivantes ont été choisies suite à l'observation du diagramme 
-# par défaut. Il faudra certainement changer les valeurs si vous modifiez le 
+# Les valeurs suivantes ont Ã©tÃ© choisies suite Ã  l'observation du diagramme 
+# par dÃ©faut. Il faudra certainement changer les valeurs si vous modifiez le 
 # fluide
 dico = {'Prange':(1e7,3e7),
         'fichier':'PNG/T2_diagramme_Pv_coolprop_{}_lin.png'.format(fluide),

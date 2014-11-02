@@ -1,21 +1,13 @@
-# coding: latin1
+# coding: utf8
 
-# Sauf mention explicite du contraire par la suite, ce travail a été fait par 
-# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycée Kléber. 
-# Vous êtes libres de le réutiliser et de le modifier selon vos besoins.
-# 
-# Si l'encodage vous pose problème, vous pouvez réencoder le fichier à l'aide 
-# de la commande
-# 
-# recode l1..utf8 monfichier.py
-# 
-# Il faudra alors modifier la première ligne en # coding: utf8
-# pour que Python s'y retrouve.
+# Sauf mention explicite du contraire par la suite, ce travail a Ã©tÃ© fait par 
+# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycÃ©e KlÃ©ber. 
+# Vous Ãªtes libres de le rÃ©utiliser et de le modifier selon vos besoins.
 
 
 
 """
-Module de génération automatique de portrait de phase et d'animations 
+Module de gÃ©nÃ©ration automatique de portrait de phase et d'animations 
 correspondantes..
 """
 
@@ -26,23 +18,23 @@ def portrait_de_phase(x,vx,titre='Portrait de phase',
     xlabel='$x$',ylabel='$v_x$',file=None,position=True,
     xlim=None,ylim=None,fantome=None,color='k',clearfig=True):
     """
-    Représentation de vx en fonction de x pour les différentes trajectoires 
-    données en entrée (x et vx sont des tableaux de tableaux).
-    Si 'file' est précisé, on enregistre dans le fichier correspond, sinon on 
-    affiche à l'écran.
-    Si 'clearfig' est à False et que 'file' n'est pas précisé, il n'y aura ni 
-    savefig, ni show, ni clf, donc la routine pourra servir pour écrire dans 
-    des sous-figures définies à l'extérieur de la routine.
+    ReprÃ©sentation de vx en fonction de x pour les diffÃ©rentes trajectoires 
+    donnÃ©es en entrÃ©e (x et vx sont des tableaux de tableaux).
+    Si 'file' est prÃ©cisÃ©, on enregistre dans le fichier correspond, sinon on 
+    affiche Ã  l'Ã©cran.
+    Si 'clearfig' est Ã  False et que 'file' n'est pas prÃ©cisÃ©, il n'y aura ni 
+    savefig, ni show, ni clf, donc la routine pourra servir pour Ã©crire dans 
+    des sous-figures dÃ©finies Ã  l'extÃ©rieur de la routine.
     Si 'position' est True, on affiche sous forme de rond le dernier point de 
     la trajectoire.
-    Si 'xlim' ou 'ylim' sont spécifiés, ils définissent les bords du graphe. 
+    Si 'xlim' ou 'ylim' sont spÃ©cifiÃ©s, ils dÃ©finissent les bords du graphe. 
     Sinon, c'est matplotlib qui choisit tout seul.
     On peut actionner le mode "fantome" qui laisse en traits pleins le nombre 
-    de points signalés (par exemple fantome=10 laissera 10 points) et mettra 
-    en "grisé" les points précédents.
-    'color' peut être soit directement une chaîne décrivant la couleur, soit 
-    une liste de couleurs de la même taille que x et vx (chaque trajectoire 
-    étant bien sûr associée à la couleur correspondante).
+    de points signalÃ©s (par exemple fantome=10 laissera 10 points) et mettra 
+    en "grisÃ©" les points prÃ©cÃ©dents.
+    'color' peut Ãªtre soit directement une chaÃ®ne dÃ©crivant la couleur, soit 
+    une liste de couleurs de la mÃªme taille que x et vx (chaque trajectoire 
+    Ã©tant bien sÃ»r associÃ©e Ã  la couleur correspondante).
     """
     plt.title(titre)
     if xlim: plt.xlim(xlim)
@@ -80,25 +72,25 @@ def diagramme_energetique(x,vx,Ep,titre='Diagramme energetique',
     xlabel='$x$',ylabel='$E_p$',file=None,position=True,
     xlim=None,ylim=None,fantome=None,color='k',clearfig=True):
     """
-    Représentation de l'énergie potentielle en fonction de x pour les 
-    différentes trajectoires données en entrée (x et vx sont des tableaux de 
-    tableaux). Ep doit être une fonction de variables x,vx et qui gère 
+    ReprÃ©sentation de l'Ã©nergie potentielle en fonction de x pour les 
+    diffÃ©rentes trajectoires donnÃ©es en entrÃ©e (x et vx sont des tableaux de 
+    tableaux). Ep doit Ãªtre une fonction de variables x,vx et qui gÃ¨re 
     correctement les appels sur des np.array.
-    Si 'file' est précisé, on enregistre dans le fichier correspond, sinon on 
-    affiche à l'écran.
-    Si 'clearfig' est à False et que 'file' n'est pas précisé, il n'y aura ni 
-    savefig, ni show, ni clf, donc la routine pourra servir pour écrire dans 
-    des sous-figures définies à l'extérieur de la routine.
+    Si 'file' est prÃ©cisÃ©, on enregistre dans le fichier correspond, sinon on 
+    affiche Ã  l'Ã©cran.
+    Si 'clearfig' est Ã  False et que 'file' n'est pas prÃ©cisÃ©, il n'y aura ni 
+    savefig, ni show, ni clf, donc la routine pourra servir pour Ã©crire dans 
+    des sous-figures dÃ©finies Ã  l'extÃ©rieur de la routine.
     Si 'position' est True, on affiche sous forme de rond le dernier point de 
     la trajectoire.
-    Si 'xlim' ou 'ylim' sont spécifiés, ils définissent les bords du graphe. 
+    Si 'xlim' ou 'ylim' sont spÃ©cifiÃ©s, ils dÃ©finissent les bords du graphe. 
     Sinon, c'est matplotlib qui choisit tout seul.
     On peut actionner le mode "fantome" qui laisse en traits pleins le nombre 
-    de points signalés (par exemple fantome=10 laissera 10 points) et mettra 
-    en "grisé" les points précédents.
-    'color' peut être soit directement une chaîne décrivant la couleur, soit 
-    une liste de couleurs de la même taille que x et vx (chaque trajectoire 
-    étant bien sûr associée à la couleur correspondante).
+    de points signalÃ©s (par exemple fantome=10 laissera 10 points) et mettra 
+    en "grisÃ©" les points prÃ©cÃ©dents.
+    'color' peut Ãªtre soit directement une chaÃ®ne dÃ©crivant la couleur, soit 
+    une liste de couleurs de la mÃªme taille que x et vx (chaque trajectoire 
+    Ã©tant bien sÃ»r associÃ©e Ã  la couleur correspondante).
     """
     plt.title(titre)
     if xlim: plt.xlim(xlim)

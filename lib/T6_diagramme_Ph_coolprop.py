@@ -1,24 +1,16 @@
-# coding: latin1
+# coding: utf8
 
-# Sauf mention explicite du contraire par la suite, ce travail a été fait par 
-# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycée Kléber. 
-# Vous êtes libres de le réutiliser et de le modifier selon vos besoins.
-# 
-# Si l'encodage vous pose problème, vous pouvez réencoder le fichier à l'aide 
-# de la commande
-# 
-# recode l1..utf8 monfichier.py
-# 
-# Il faudra alors modifier la première ligne en # coding: utf8
-# pour que Python s'y retrouve.
+# Sauf mention explicite du contraire par la suite, ce travail a Ã©tÃ© fait par 
+# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycÃ©e KlÃ©ber. 
+# Vous Ãªtes libres de le rÃ©utiliser et de le modifier selon vos besoins.
 
 
 
 """
-Fabrication d'un diagramme (P,h) avec les iso-choses adéquates.
+Fabrication d'un diagramme (P,h) avec les iso-choses adÃ©quates.
 """
 
-import numpy as np               # Les outils mathématiques
+import numpy as np               # Les outils mathÃ©matiques
 import CoolProp.CoolProp as CP   # Les outils thermodynamiques
 import CoolProp.Plots as CPP     # Les outils thermographiques
 import matplotlib.pyplot as plt  # Les outils graphiques
@@ -32,30 +24,30 @@ iso_x = True                     # et les isotitres ?
 iso_s = True                     # et les isentropiques ?
 iso_v = True                     # et les isochores ?
 
-# Données pour les isothermes
-dT = 20                                 # Incrément de températures
-Ttriple = CP.PropsSI(fluide,'Ttriple')  # Valeur de la température au point triple
+# DonnÃ©es pour les isothermes
+dT = 20                                 # IncrÃ©ment de tempÃ©ratures
+Ttriple = CP.PropsSI(fluide,'Ttriple')  # Valeur de la tempÃ©rature au point triple
 Tcrit = CP.PropsSI(fluide,'Tcrit')      # et au point critique
-Tmin = int(Ttriple/10)*10 + 10          # Par défaut, on par près du point triple
-val_T = np.arange(Tmin,1.5*Tcrit,dT)    # et on dépasse un peu le point critique
-T_to_show = list(range(2,len(val_T),2)) # Sélection des T à afficher (mettre None pour toutes)
+Tmin = int(Ttriple/10)*10 + 10          # Par dÃ©faut, on par prÃ¨s du point triple
+val_T = np.arange(Tmin,1.5*Tcrit,dT)    # et on dÃ©passe un peu le point critique
+T_to_show = list(range(2,len(val_T),2)) # SÃ©lection des T Ã  afficher (mettre None pour toutes)
 
-# Données pour les isotitres
+# DonnÃ©es pour les isotitres
 val_x = np.linspace(0.1,0.9,9)          # Les valeurs des isotitres
 
-# Données pour les isentropiques
+# DonnÃ©es pour les isentropiques
 ds = 0.5e3
-striple_x0 = CP.PropsSI('S','Q',0,'T',Ttriple,fluide) # Entropie triple à gauche
-striple_x1 = CP.PropsSI('S','Q',1,'T',Ttriple,fluide) # Entropie triple à droite
-val_s = np.arange(striple_x0,striple_x1*1.2,ds)       # Valeurs à tracer
-s_to_show = list(range(2,len(val_s),2))               # et à afficher
+striple_x0 = CP.PropsSI('S','Q',0,'T',Ttriple,fluide) # Entropie triple Ã  gauche
+striple_x1 = CP.PropsSI('S','Q',1,'T',Ttriple,fluide) # Entropie triple Ã  droite
+val_s = np.arange(striple_x0,striple_x1*1.2,ds)       # Valeurs Ã  tracer
+s_to_show = list(range(2,len(val_s),2))               # et Ã  afficher
 
-# Données pour les isochores (réparties de manière logarithmique par défaut)
+# DonnÃ©es pour les isochores (rÃ©parties de maniÃ¨re logarithmique par dÃ©faut)
 vcrit = 1/CP.PropsSI(fluide,'rhocrit')                 # Volume massique critique
 exp_min = int(np.floor(np.log10(vcrit)))+1             # Puissance de 10 proche
-vtriple_x1 = 1/CP.PropsSI('D','Q',1,'T',Ttriple,fluide)# Point triple à droite
+vtriple_x1 = 1/CP.PropsSI('D','Q',1,'T',Ttriple,fluide)# Point triple Ã  droite
 exp_max = int(np.ceil(np.log10(vtriple_x1)))-1         # Puissance de 10 proche
-# Les valeurs à prendre
+# Les valeurs Ã  prendre
 val_v = [a * 10**b for a in [1,2,5] for b in range(exp_min,exp_max+1)]
 v_to_show = None                                       # On les affiche toutes.
 
@@ -69,23 +61,23 @@ COLOR_MAP = {'T': 'Darkred',
              'S': 'DarkOrange',   
              'Q': 'black'}
 
-# On prépare un format pour impression sur A3 ou presque (dimensions en pouces)
+# On prÃ©pare un format pour impression sur A3 ou presque (dimensions en pouces)
 plt.figure(figsize=(30,21))
 
 def place_label(x,y,label,indice=None,cotan=False,color='k'):
-    """ Routine qui se débrouille pour mettre un label semi-transparent au 
-    niveau de la courbe données par ses coordonnées x et y. Si on sait que le 
-    label sera presque vertical avec possibilité de dépasser 90°, on peut 
-    utiliser cotan=True pour corriger (considération purement esthétique). 
-    'indice' correspond à la position dans les tableaux x et y où devra 
-    s'afficher le label demandé. """
+    """ Routine qui se dÃ©brouille pour mettre un label semi-transparent au 
+    niveau de la courbe donnÃ©es par ses coordonnÃ©es x et y. Si on sait que le 
+    label sera presque vertical avec possibilitÃ© de dÃ©passer 90Â°, on peut 
+    utiliser cotan=True pour corriger (considÃ©ration purement esthÃ©tique). 
+    'indice' correspond Ã  la position dans les tableaux x et y oÃ¹ devra 
+    s'afficher le label demandÃ©. """
     print(x[0],y[0],label) # un peu de feedback pour savoir ce qu'on calcule
-    N = len(x)//2          # Emplacement par défaut
+    N = len(x)//2          # Emplacement par dÃ©faut
     if indice: N=indice    # sauf si l'utilisateur impose la valeur
     xi,xf = plt.xlim()     # Les limites en x du graphe
     yi,yf = plt.ylim()     # Pareil en y
     Xsize = xf - xi        # La largeur
-    # Pour la hauteur et la pente, cela dépend si les ordonnées sont en repère 
+    # Pour la hauteur et la pente, cela dÃ©pend si les ordonnÃ©es sont en repÃ¨re 
     # logarithmique ou non.
     if Plogscale:
         Ysize = np.log10(yf) - np.log10(yi)
@@ -93,44 +85,44 @@ def place_label(x,y,label,indice=None,cotan=False,color='k'):
     else:
         Ysize = yf - yi
         a = (y[N+1]-y[N-1])/(x[N+1]-x[N-1]) * Xsize/Ysize
-    bbox = plt.gca().get_window_extent() # Récupération de la taille de la figure
+    bbox = plt.gca().get_window_extent() # RÃ©cupÃ©ration de la taille de la figure
     a *= bbox.height / bbox.width        # Correction de la pente avec la taille 
     rot = np.degrees(np.arctan(a))       # Calcul de l'angle de rotation
-    if cotan:                            # Si on dépasse la verticale
+    if cotan:                            # Si on dÃ©passe la verticale
         rot = 90 - np.degrees(np.arctan(1/a))
     t = plt.text(x[N],y[N],label,        # On met le texte au bon endroit
     ha='center',va='center',color=color,rotation = rot) # Avec la bonne rotation
-    # On se débrouille pour que la "boîte" d'écriture soit semi-transparente
+    # On se dÃ©brouille pour que la "boÃ®te" d'Ã©criture soit semi-transparente
     t.set_bbox(dict(facecolor='w',edgecolor='None',alpha=0.8))
 
 def fait_isolignes(type,valeurs,position=None,nb_points=1000,to_show=None,round_nb = 0 ):
-    """ S'occupe du calcul et du tracé des isolignes. """
-    if not(to_show):                        # Valeurs par défauts:
+    """ S'occupe du calcul et du tracÃ© des isolignes. """
+    if not(to_show):                        # Valeurs par dÃ©fauts:
         to_show = list(range(len(valeurs))) # toutes !
     Pmin,Pmax = plt.ylim()                  # On regarde les 
     Hmin,Hmax = plt.xlim()                  # limites du graphique
-    # Il y a un bug au niveau des unités du graphe et des points de 
-    # représentation, d'où les 1e3 qui trainent un peu partout
-    # Par défaut, l'échantillonnage en P est linéaire
+    # Il y a un bug au niveau des unitÃ©s du graphe et des points de 
+    # reprÃ©sentation, d'oÃ¹ les 1e3 qui trainent un peu partout
+    # Par dÃ©faut, l'Ã©chantillonnage en P est linÃ©aire
     val_P = np.linspace(Pmin*1e3,Pmax*1e3,nb_points) 
-    # Sinon, on se met en échelle log. (1e3 -> 3)
+    # Sinon, on se met en Ã©chelle log. (1e3 -> 3)
     if Plogscale: val_P = 3+np.logspace(np.log10(Pmin),np.log10(Pmax),nb_points)
-    # Cas où les lignes ne vont pas sur tout l'éventail des pression, on 
-    # échantillonne en températures (car on ne peut pas directement 
-    # échantillonner en enthalpie h)
+    # Cas oÃ¹ les lignes ne vont pas sur tout l'Ã©ventail des pression, on 
+    # Ã©chantillonne en tempÃ©ratures (car on ne peut pas directement 
+    # Ã©chantillonner en enthalpie h)
     Tmin = Ttriple
     Tmax = CP.PropsSI('T','P',Pmax,'H',Hmax,fluide)
     val_T = np.linspace(Tmin,Tmax,nb_points)
-    # Pour chacune des valeurs demandées, 
+    # Pour chacune des valeurs demandÃ©es, 
     for val,i in zip(valeurs,range(len(valeurs))):
-        if type == 'V':  # Cas particulier des volumes massiques: échantillonnage
-            val_P = CP.PropsSI('P','T',val_T,'D',1/val,fluide)  # en température
+        if type == 'V':  # Cas particulier des volumes massiques: Ã©chantillonnage
+            val_P = CP.PropsSI('P','T',val_T,'D',1/val,fluide)  # en tempÃ©rature
             val_H = CP.PropsSI('H','T',val_T,'D',1/val,fluide)  # et non en P
-        else:            # Sinon, on utilise l'éventail des pression
+        else:            # Sinon, on utilise l'Ã©ventail des pression
             val_H = CP.PropsSI('H','P',val_P,type,val,fluide)
         if type == 'S': val /= 1e3 # Pour mettre en kJ/K/kg
         if round_nb >0 : val = str(round(val,round_nb)) # Pour faire joli
-        else: val = str(int(round(val)))                # là aussi...
+        else: val = str(int(round(val)))                # lÃ  aussi...
         label = '${}={}$ {}'.format(LABEL[type],val,UNITS[type])
         plt.plot(val_H,val_P,color=COLOR_MAP[type])     # Affichage courbe
         if i in to_show: # Ainsi que du label s'il fait partie de la liste
@@ -139,21 +131,21 @@ def fait_isolignes(type,valeurs,position=None,nb_points=1000,to_show=None,round_
 # Le programme proprement dit commence ici.
 
 ph_plot = CPP.PropsPlot(fluide,'Ph')   # On demande gentiment le plot de base
-ph_plot._draw_graph()                  # On s'assure qu'il a discuté avec plt
+ph_plot._draw_graph()                  # On s'assure qu'il a discutÃ© avec plt
 if Plogscale: plt.yscale('log')        # Passage en log(P)
 
-if iso_x: # Les lignes isotitres sont un peu spéciales, donc ont leur code propre
-    ph_plot.draw_isolines('Q',val_x)   # Tracé des lignes isotitres
-    # Récupération de la liste des isotitres.
+if iso_x: # Les lignes isotitres sont un peu spÃ©ciales, donc ont leur code propre
+    ph_plot.draw_isolines('Q',val_x)   # TracÃ© des lignes isotitres
+    # RÃ©cupÃ©ration de la liste des isotitres.
     isoQ = CPP.Plots.IsoLines(fluide,'Ph','Q').get_isolines(val_x)
     for line in isoQ:                  # Rajout des label
         label = line['label'] + line['unit']
         x,y = line['x'],line['y']
         place_label(x,y,label,indice=len(x)//20)
-else: # On trace tout de même quelque chose (de déjà présent) pour s'assurer
-    ph_plot.draw_isolines('Q',[0,1],num=2)# une bonne sélection des bornes
+else: # On trace tout de mÃªme quelque chose (de dÃ©jÃ  prÃ©sent) pour s'assurer
+    ph_plot.draw_isolines('Q',[0,1],num=2)# une bonne sÃ©lection des bornes
 
-# Ici, on fait toutes les autres isolignes (le boulot a été fait plus haut)
+# Ici, on fait toutes les autres isolignes (le boulot a Ã©tÃ© fait plus haut)
 if iso_T: fait_isolignes('T',val_T,position=0.8,to_show=T_to_show)
 if iso_s: fait_isolignes('S',val_s,position=0.3,to_show=s_to_show,round_nb=3)
 if iso_v: fait_isolignes('V',val_v,position=0.25,to_show=v_to_show,round_nb=3)

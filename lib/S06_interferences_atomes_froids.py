@@ -1,25 +1,17 @@
-# coding: latin1
+# coding: utf8
 
-# Sauf mention explicite du contraire par la suite, ce travail a été fait par 
-# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycée Kléber. 
-# Vous êtes libres de le réutiliser et de le modifier selon vos besoins.
-# 
-# Si l'encodage vous pose problème, vous pouvez réencoder le fichier à l'aide 
-# de la commande
-# 
-# recode l1..utf8 monfichier.py
-# 
-# Il faudra alors modifier la première ligne en # coding: utf8
-# pour que Python s'y retrouve.
+# Sauf mention explicite du contraire par la suite, ce travail a Ã©tÃ© fait par 
+# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycÃ©e KlÃ©ber. 
+# Vous Ãªtes libres de le rÃ©utiliser et de le modifier selon vos besoins.
 
 
 
 """
-Ce programme est proposé par Vincent Grenard (PCSI, Lycée Poincaré, Nancy).
+Ce programme est proposÃ© par Vincent Grenard (PCSI, LycÃ©e PoincarÃ©, Nancy).
 
 Animation pour le cours "introduction au monde quantique"
-Résultat d'interférence lors d'expérience de lacher d'atome à travers des fentes
-(ou de passage de photon unique à travers des fentes)
+RÃ©sultat d'interfÃ©rence lors d'expÃ©rience de lacher d'atome Ã  travers des fentes
+(ou de passage de photon unique Ã  travers des fentes)
 """
 
 import random as r
@@ -28,8 +20,8 @@ import matplotlib.pyplot as plt
 from matplotlib import animation
 
 # Tire N nombre au pif, calcule 1+cosinus et si c'est plus petit qu'un nombre 
-# aléatoire, on le garde. Ainsi on a une distribution de proba qui a l'air d'être
-# en 1+cos, mais on tire plein de nombres aléatoires pour rien
+# alÃ©atoire, on le garde. Ainsi on a une distribution de proba qui a l'air d'Ãªtre
+# en 1+cos, mais on tire plein de nombres alÃ©atoires pour rien
 N=500000
 L=np.random.uniform(-15,15,N)
 proba_affichage=1+np.cos(L)

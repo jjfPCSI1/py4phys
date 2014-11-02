@@ -1,24 +1,16 @@
-# coding: latin1
+# coding: utf8
 
-# Sauf mention explicite du contraire par la suite, ce travail a été fait par 
-# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycée Kléber. 
-# Vous êtes libres de le réutiliser et de le modifier selon vos besoins.
-# 
-# Si l'encodage vous pose problème, vous pouvez réencoder le fichier à l'aide 
-# de la commande
-# 
-# recode l1..utf8 monfichier.py
-# 
-# Il faudra alors modifier la première ligne en # coding: utf8
-# pour que Python s'y retrouve.
+# Sauf mention explicite du contraire par la suite, ce travail a Ã©tÃ© fait par 
+# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycÃ©e KlÃ©ber. 
+# Vous Ãªtes libres de le rÃ©utiliser et de le modifier selon vos besoins.
 
 
 
 
 """ 
-Suite à une question de Jean-Marie Biansan sur le forum UPS, voici la version 
-de la résolution du pont de Wien utilisant sp.integrate.odeint plutôt qu'une 
-intégration manuelle comme proposé par Simon Laurette.
+Suite Ã  une question de Jean-Marie Biansan sur le forum UPS, voici la version 
+de la rÃ©solution du pont de Wien utilisant sp.integrate.odeint plutÃ´t qu'une 
+intÃ©gration manuelle comme proposÃ© par Simon Laurette.
 """
 
 
@@ -51,18 +43,18 @@ sol = sp.integrate.odeint(f,[e0,dedt0],t)
 e   = sol[:,0]
 dedt= sol[:,1]
 
-# Pour la sortie, on utilise np.where pour ecreter là où e est trop grand
+# Pour la sortie, on utilise np.where pour ecreter lÃ  oÃ¹ e est trop grand
 s = np.where(abs(e)>vsat/K,vsat*np.sign(e),e*K)
 
 # Traces des courbes
 plt.figure(0,figsize=(14,8))
-plt.subplot(2,2,1)     # Figure du haut à gauche
+plt.subplot(2,2,1)     # Figure du haut Ã  gauche
 plt.plot(t,s)          # La sortie de l'AO
 plt.title("Demarrage des oscillations")
 plt.xlabel("$t$ (s)")
 plt.ylabel("$s$ (V)")
 plt.ylim(-16,16)       # Pour bien voir l'ecretage
-plt.subplot(2,2,3)     # Figure du bas à gauche
+plt.subplot(2,2,3)     # Figure du bas Ã  gauche
 plt.plot(t,e)          # L'entree
 plt.xlabel("$t$ (s)")
 plt.ylabel("$e$ (V)")

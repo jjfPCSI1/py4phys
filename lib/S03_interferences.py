@@ -1,73 +1,65 @@
-# coding: latin1
+# coding: utf8
 
-# Sauf mention explicite du contraire par la suite, ce travail a été fait par 
-# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycée Kléber. 
-# Vous êtes libres de le réutiliser et de le modifier selon vos besoins.
-# 
-# Si l'encodage vous pose problème, vous pouvez réencoder le fichier à l'aide 
-# de la commande
-# 
-# recode l1..utf8 monfichier.py
-# 
-# Il faudra alors modifier la première ligne en # coding: utf8
-# pour que Python s'y retrouve.
+# Sauf mention explicite du contraire par la suite, ce travail a Ã©tÃ© fait par 
+# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycÃ©e KlÃ©ber. 
+# Vous Ãªtes libres de le rÃ©utiliser et de le modifier selon vos besoins.
 
 
 
 
 ''' 
-Simulation d'un phénomène d'interférences à deux ondes circulaires (comme 
-des ronds dans l'eau). Les graphes du bas et de la droite représentent des 
-coupes respectivement à x et à y fixé.
+Simulation d'un phÃ©nomÃ¨ne d'interfÃ©rences Ã  deux ondes circulaires (comme 
+des ronds dans l'eau). Les graphes du bas et de la droite reprÃ©sentent des 
+coupes respectivement Ã  x et Ã  y fixÃ©.
 
-On peut simuler une décroissance de l'onde en 1/r (sauf au centre pour éviter 
-toute divergence) ou simplement avoir une fonction sinusoïdale en jouant sur 
-la fonction 'source'. En cas de changement, il faut penser à modifier les 
-valeurs vmin,vmax qui définissent les extrêmes du code couleur adopté.
+On peut simuler une dÃ©croissance de l'onde en 1/r (sauf au centre pour Ã©viter 
+toute divergence) ou simplement avoir une fonction sinusoÃ¯dale en jouant sur 
+la fonction 'source'. En cas de changement, il faut penser Ã  modifier les 
+valeurs vmin,vmax qui dÃ©finissent les extrÃªmes du code couleur adoptÃ©.
 '''
 
-import numpy as np               # Pour les facilités de calcul
+import numpy as np               # Pour les facilitÃ©s de calcul
 import matplotlib.pyplot as plt  # Pour les dessins
 from matplotlib.colors import LightSource # Pour l'aspect en relief
 
 def source(x,y,t,x0=0,y0=0,phi=0):
-    '''La fonction représentant notre source située en (x0,y0)'''
+    '''La fonction reprÃ©sentant notre source situÃ©e en (x0,y0)'''
     k,w,epsilon = 5,1,1              # Quelques constantes 
-    r = np.sqrt((x-x0)**2+(y-y0)**2) # La distance à la source
-    u = k*r - w*t + phi              # La variable de déplacement
+    r = np.sqrt((x-x0)**2+(y-y0)**2) # La distance Ã  la source
+    u = k*r - w*t + phi              # La variable de dÃ©placement
     #res =  np.sin(u)                # Simple sinus
-    res = np.sin(u)/(r+epsilon)      # ou décroissance de l'amplitude...
-    res[u > 0] = 0.0                 # Pour s'assurer qu'à t<0, il n'y a pas d'onde
+    res = np.sin(u)/(r+epsilon)      # ou dÃ©croissance de l'amplitude...
+    res[u > 0] = 0.0                 # Pour s'assurer qu'Ã  t<0, il n'y a pas d'onde
     return res
 
 shading = False             # Si on veut un "effet 3D"
-ext = 6.0                  # Les limites de la fenêtre d'étude    
-pos = 3.5                  # Positions des sources symétriquement selon x
-phi = np.pi/2              # Déphasage de la deuxième source
-tmin,tmax = 0,60           # L'intervalle de temps d'étude
+ext = 6.0                  # Les limites de la fenÃªtre d'Ã©tude    
+pos = 3.5                  # Positions des sources symÃ©triquement selon x
+phi = np.pi/2              # DÃ©phasage de la deuxiÃ¨me source
+tmin,tmax = 0,60           # L'intervalle de temps d'Ã©tude
 dt = 0.1                   # et le pas 
 xcut = 1                   # Les plans de coupe en x
 ycut = 2                   # et en y
-vmin,vmax=-0.5,0.5         # Les valeurs extrêmes de l'amplitude
+vmin,vmax=-0.5,0.5         # Les valeurs extrÃªmes de l'amplitude
 dx,dy = 0.05,0.05          # Resolution
 x = np.arange(-ext,ext, dx)# Axe en x
 y = np.arange(ext,-ext,-dy)# et  en y
 X,Y = np.meshgrid(x,y)     # pour produire la grille
 
-# Pour définir correctement les limites de la fenêtre.
+# Pour dÃ©finir correctement les limites de la fenÃªtre.
 xmin, xmax, ymin, ymax = np.amin(x), np.amax(x), np.amin(y), np.amax(y)
 extent = xmin, xmax, ymin, ymax    
 
-base_name = 'PNG/S03_interferences' # Le nom par défaut
+base_name = 'PNG/S03_interferences' # Le nom par dÃ©faut
 
 i = 0                              # Initialisation du compteur
 for t in np.arange(tmin,tmax,dt):  # On boucle sur le temps
-    i += 1                         # Incrémentation du compteur
+    i += 1                         # IncrÃ©mentation du compteur
     print(t)                       # Un peu de feedback
-    Z1 = source(X,Y,t,-pos,0)      # La première source
+    Z1 = source(X,Y,t,-pos,0)      # La premiÃ¨re source
     Z2 = source(X,Y,t, pos,0,phi)  # et la seconde
 
-    # Ouverture de la figure et définition des sous-figures
+    # Ouverture de la figure et dÃ©finition des sous-figures
     plt.figure(figsize=(8,7.76)) 
     ax1= plt.subplot2grid((3,3),(0,0),colspan=2,rowspan=2)
     plt.title('Interferences a deux sources, $t={}$'.format(round(t,1)))
@@ -99,8 +91,8 @@ for t in np.arange(tmin,tmax,dt):  # On boucle sur le temps
     plt.savefig(base_name + '_{:04d}.png'.format(i))
     plt.close()
 
-# Ne reste plus qu'à rassembler en un fichier mpeg à l'aide de convert puis de 
-# ppmtoy4m et mpeg2enc (paquet mjpegtools à installer sur la machine)
+# Ne reste plus qu'Ã  rassembler en un fichier mpeg Ã  l'aide de convert puis de 
+# ppmtoy4m et mpeg2enc (paquet mjpegtools Ã  installer sur la machine)
 
 from film import make_film
 

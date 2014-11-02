@@ -1,16 +1,8 @@
-# coding: latin1
+# coding: utf8
 
-# Sauf mention explicite du contraire par la suite, ce travail a été fait par 
-# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycée Kléber. 
-# Vous êtes libres de le réutiliser et de le modifier selon vos besoins.
-# 
-# Si l'encodage vous pose problème, vous pouvez réencoder le fichier à l'aide 
-# de la commande
-# 
-# recode l1..utf8 monfichier.py
-# 
-# Il faudra alors modifier la première ligne en # coding: utf8
-# pour que Python s'y retrouve.
+# Sauf mention explicite du contraire par la suite, ce travail a Ã©tÃ© fait par 
+# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycÃ©e KlÃ©ber. 
+# Vous Ãªtes libres de le rÃ©utiliser et de le modifier selon vos besoins.
 
 
 
@@ -19,25 +11,25 @@ Mise en place d'ondes stationnaires par superposition d'ondes qui se propagent
 dans les deux sens
 """
 
-import numpy as np              # Boîte à outils numériques
-import matplotlib.pyplot as plt # Boîte à outils graphiques
-import film                     # Boîte à outils vidéos
+import numpy as np              # BoÃ®te Ã  outils numÃ©riques
+import matplotlib.pyplot as plt # BoÃ®te Ã  outils graphiques
+import film                     # BoÃ®te Ã  outils vidÃ©os
 
 def source(x,t,x0=0,phi=0):
-    '''La fonction représentant notre source située en x0.'''
+    '''La fonction reprÃ©sentant notre source situÃ©e en x0.'''
     k,w = 5,1                        # Quelques constantes 
-    r = np.sqrt((x-x0)**2)           # La distance à la source
-    u = k*r - w*t + phi              # La variable de déplacement
+    r = np.sqrt((x-x0)**2)           # La distance Ã  la source
+    u = k*r - w*t + phi              # La variable de dÃ©placement
     res =  np.sin(u)                 # Simple sinus
-    res[u > 0] = 0.0                 # Pour s'assurer qu'à t<0, il n'y a pas d'onde
+    res[u > 0] = 0.0                 # Pour s'assurer qu'Ã  t<0, il n'y a pas d'onde
     return res
 
-x2  = 5                              # Position de la deuxième source (première en 0)
-xmin,xmax = 0,x2                     # Limites de la fenêtre d'échantillonnage
-nb_points = 1000                     # Nombre de points d'échantillonnage
-phi = np.pi/2                        # Déphasage de la deuxième source
-tmin,tmax = 0,60                     # L'intervalle de temps d'étude
-dt = 0.1                             # Incrément de temps
+x2  = 5                              # Position de la deuxiÃ¨me source (premiÃ¨re en 0)
+xmin,xmax = 0,x2                     # Limites de la fenÃªtre d'Ã©chantillonnage
+nb_points = 1000                     # Nombre de points d'Ã©chantillonnage
+phi = np.pi/2                        # DÃ©phasage de la deuxiÃ¨me source
+tmin,tmax = 0,60                     # L'intervalle de temps d'Ã©tude
+dt = 0.1                             # IncrÃ©ment de temps
 
 base_name = 'PNG/S03_ondes_stationnaires'
 
@@ -45,20 +37,20 @@ t = tmin
 i = 0
 while t < tmax:                      # On commence la boucle temporelle
     print(t)                         # Un peu de feedback
-    x = np.linspace(xmin,xmax,nb_points) # Échantillonnage horizontal
-    S1= source(x,t,0)                # Effet de la première source
+    x = np.linspace(xmin,xmax,nb_points) # Ã‰chantillonnage horizontal
+    S1= source(x,t,0)                # Effet de la premiÃ¨re source
     S2= source(x,t,x2,phi)           # Effet de la seconde source
-    S =  S1+S2                       # Effet résultant
-    plt.plot(x,S1,alpha=0.5)         # Affichage première source (bleu)
+    S =  S1+S2                       # Effet rÃ©sultant
+    plt.plot(x,S1,alpha=0.5)         # Affichage premiÃ¨re source (bleu)
     plt.plot(x,S2,alpha=0.5)         # Affichage seconde source (vert)
-    plt.plot(x,S,'k',linewidth=2)    # Affichage résultante (noir)
-    plt.ylim(-2,2)                   # On contraint l'échelle verticale
+    plt.plot(x,S,'k',linewidth=2)    # Affichage rÃ©sultante (noir)
+    plt.ylim(-2,2)                   # On contraint l'Ã©chelle verticale
     plt.savefig(base_name + '_{:04d}.png'.format(i)) # Sauvegarde
     plt.clf()                        # Nettoyage
-    i+= 1                            # et incrémentation
+    i+= 1                            # et incrÃ©mentation
     t+=dt                            # des compteurs
 
-film.make_film(base_name)  # Fabrication du film à la fin
+film.make_film(base_name)  # Fabrication du film Ã  la fin
 
 
 

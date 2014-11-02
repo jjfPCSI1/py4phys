@@ -1,29 +1,21 @@
-# coding: latin1
+# coding: utf8
 
-# Sauf mention explicite du contraire par la suite, ce travail a été fait par 
-# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycée Kléber. 
-# Vous êtes libres de le réutiliser et de le modifier selon vos besoins.
-# 
-# Si l'encodage vous pose problème, vous pouvez réencoder le fichier à l'aide 
-# de la commande
-# 
-# recode l1..utf8 monfichier.py
-# 
-# Il faudra alors modifier la première ligne en # coding: utf8
-# pour que Python s'y retrouve.
+# Sauf mention explicite du contraire par la suite, ce travail a Ã©tÃ© fait par 
+# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycÃ©e KlÃ©ber. 
+# Vous Ãªtes libres de le rÃ©utiliser et de le modifier selon vos besoins.
 
 
 
 """
-Programme pour construire une section de Poincaré pour Hypérion. L'idée d'une 
-section de Poincaré est de représenter le couple (theta,Omega) à chaque fois 
-que l'on passe dans le plan phi=0. Il suffit donc de demander à scipy les 
+Programme pour construire une section de PoincarÃ© pour HypÃ©rion. L'idÃ©e d'une 
+section de PoincarÃ© est de reprÃ©senter le couple (theta,Omega) Ã  chaque fois 
+que l'on passe dans le plan phi=0. Il suffit donc de demander Ã  scipy les 
 valeurs pour les multiples de 2pi et de tracer les trajectoires pour de 
-multiples conditions initiales. On reconnaîtra les trajectoires 
-quasi-périodiques par le fait que les points successifs tombent proches les 
-uns des autres et dessinent une courbe bien définie alors que pour les 
-trajectoires chaotiques, les points semblent se déposer "au hasard" sur toute 
-une surface de la section de Poincaré.
+multiples conditions initiales. On reconnaÃ®tra les trajectoires 
+quasi-pÃ©riodiques par le fait que les points successifs tombent proches les 
+uns des autres et dessinent une courbe bien dÃ©finie alors que pour les 
+trajectoires chaotiques, les points semblent se dÃ©poser "au hasard" sur toute 
+une surface de la section de PoincarÃ©.
 """
 
 import numpy as np
@@ -31,13 +23,13 @@ import scipy as sp
 import scipy.integrate
 import matplotlib.pyplot as plt
 
-# Les constantes de notre problème
-e = 0.1                # Excentricité de l'orbite d'Hypérion
-BmAsC = 0.265          # Valeur de B Moins A Sur C (B-A)/C pour Hypérion
+# Les constantes de notre problÃ¨me
+e = 0.1                # ExcentricitÃ© de l'orbite d'HypÃ©rion
+BmAsC = 0.265          # Valeur de B Moins A Sur C (B-A)/C pour HypÃ©rion
 
 def hyperion(y,phi):
-    """ Fonction définissant le système différentiel (en phi) régissant 
-    l'évolution de theta et Omega pour Hypérion. """
+    """ Fonction dÃ©finissant le systÃ¨me diffÃ©rentiel (en phi) rÃ©gissant 
+    l'Ã©volution de theta et Omega pour HypÃ©rion. """
     theta,Omega = y
     a_sur_r = (1 + e*np.cos(phi))/(1-e**2)
     dtheta_sur_dphi = 1/a_sur_r**2 * Omega
@@ -45,19 +37,19 @@ def hyperion(y,phi):
     return [dtheta_sur_dphi,dOmega_sur_dphi]
 
 def trajectoire(Omega0,n=200,dphi=2*np.pi):
-    """ Récupération d'une trajectoire dans la section de Poincaré. Renvoie un 
-    triplet contenant les theta mesurés, les Omega et les phicorrespondants. 
+    """ RÃ©cupÃ©ration d'une trajectoire dans la section de PoincarÃ©. Renvoie un 
+    triplet contenant les theta mesurÃ©s, les Omega et les phicorrespondants. 
     """
     y0  = [0,Omega0]                      # Condition initiale (theta=0)
-    phi = np.arange(0,n*dphi,dphi) # n points répartis tous les 2pi
-    sol = sp.integrate.odeint(hyperion,y0,phi)  # Intégration effective
+    phi = np.arange(0,n*dphi,dphi) # n points rÃ©partis tous les 2pi
+    sol = sp.integrate.odeint(hyperion,y0,phi)  # IntÃ©gration effective
     theta = (sol[:,0]+np.pi)%(2*np.pi)-np.pi
     Omega = sol[:,1]
     return theta,Omega,phi
 
-# Les conditions initiales regardées (qui bien sûr doivent dépendre de e et
-# BmAsC pour bien délimiter les zones chaotiques [ici 0.2] des zones 
-# quasi-périodiques [toutes les autres])
+# Les conditions initiales regardÃ©es (qui bien sÃ»r doivent dÃ©pendre de e et
+# BmAsC pour bien dÃ©limiter les zones chaotiques [ici 0.2] des zones 
+# quasi-pÃ©riodiques [toutes les autres])
 L_Omega0 = [0,0.2,0.3,0.7,2.37,2.7,2.85]
 for Omega0 in L_Omega0:
     if Omega0 == 0.2: n = 5000   # Il faut plus de point pour la zone chaotique
@@ -97,17 +89,17 @@ plot_trajectoire_donnee(0.2,400,1000,'Trajectoire chaotique $\\Omega_0=0.2$',
 
 
 
-# Évolution des zones chaotiques quand on modifie progressivement 
-# l'excentricité de l'orbite.
+# Ã‰volution des zones chaotiques quand on modifie progressivement 
+# l'excentricitÃ© de l'orbite.
 
 def fait_diagramme(e,L_Omega0=np.arange(0,3.1,0.2),
                    label=False,n=200,fichier=None):
-    """ Fait automatiquement la section de Poincaré pour l'excentricité e 
+    """ Fait automatiquement la section de PoincarÃ© pour l'excentricitÃ© e 
     fournie et en utilisant les valeurs initiales contenue dans L_Omega0 pour 
-    les vitesses angulaires. N'affiche les label que si 'label' est à True.
-    On peut aussi changer le nombre 'n' de points d'échantillonnage.
-    Si le nom du fichier est donné, on y sauvegarde le résultat. Sinon, on 
-    l'affiche à l'écran.
+    les vitesses angulaires. N'affiche les label que si 'label' est Ã  True.
+    On peut aussi changer le nombre 'n' de points d'Ã©chantillonnage.
+    Si le nom du fichier est donnÃ©, on y sauvegarde le rÃ©sultat. Sinon, on 
+    l'affiche Ã  l'Ã©cran.
     """
     for Omega0 in L_Omega0:
         theta,Omega,phi = trajectoire(Omega0,n=n)
@@ -129,8 +121,8 @@ for e in np.arange(0,0.2,0.0002):
     fichier = base_name + '{:.4f}'.format(e).replace('.','_')
     fait_diagramme(e,fichier=fichier)
     
-# Ne reste plus qu'à rassembler en un fichier mpeg à l'aide de convert puis de
-# ppmtoy4m et mpeg2enc (paquet mjpegtools à installer sur la machine)
+# Ne reste plus qu'Ã  rassembler en un fichier mpeg Ã  l'aide de convert puis de
+# ppmtoy4m et mpeg2enc (paquet mjpegtools Ã  installer sur la machine)
 
 import os
 

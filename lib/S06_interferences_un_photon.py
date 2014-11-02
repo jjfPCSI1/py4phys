@@ -1,39 +1,31 @@
-# coding: latin1
+# coding: utf8
 
-# Sauf mention explicite du contraire par la suite, ce travail a été fait par 
-# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycée Kléber. 
-# Vous êtes libres de le réutiliser et de le modifier selon vos besoins.
-# 
-# Si l'encodage vous pose problème, vous pouvez réencoder le fichier à l'aide 
-# de la commande
-# 
-# recode l1..utf8 monfichier.py
-# 
-# Il faudra alors modifier la première ligne en # coding: utf8
-# pour que Python s'y retrouve.
+# Sauf mention explicite du contraire par la suite, ce travail a Ã©tÃ© fait par 
+# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycÃ©e KlÃ©ber. 
+# Vous Ãªtes libres de le rÃ©utiliser et de le modifier selon vos besoins.
 
 
 
 
 """ 
-Travail inspiré à la fois par un script de Vincent Grenard (PCSI, Lycée 
-Poincaré, Nancy) et un autre de Jean-Pierre Simond (MPSI, Lycée Kléber, 
+Travail inspirÃ© Ã  la fois par un script de Vincent Grenard (PCSI, LycÃ©e 
+PoincarÃ©, Nancy) et un autre de Jean-Pierre Simond (MPSI, LycÃ©e KlÃ©ber, 
 Strasbourg).
 
-L'idée est de présenter une animation de ce qui se passe quand on envoie des 
-photons un par un dans un système de deux fentes fines.
+L'idÃ©e est de prÃ©senter une animation de ce qui se passe quand on envoie des 
+photons un par un dans un systÃ¨me de deux fentes fines.
 
 """
 
 
 
 
-import numpy as np               # Boîte à outils numériques
-import random as rd              # Tirages aléatoire par loi uniforme
+import numpy as np               # BoÃ®te Ã  outils numÃ©riques
+import random as rd              # Tirages alÃ©atoire par loi uniforme
 import scipy as sp               # Simple alias
 import scipy.interpolate         # Pour l'interpolation (interp1d)
-import scipy.integrate           # Pour l'intégration (cumtrapz et quad)
-import matplotlib.pyplot as plt  # Boîte à outils graphiques
+import scipy.integrate           # Pour l'intÃ©gration (cumtrapz et quad)
+import matplotlib.pyplot as plt  # BoÃ®te Ã  outils graphiques
 from matplotlib import animation # Pour l'animation progressive
 
 ####################################################
@@ -47,26 +39,26 @@ Nbre_Photons=10000
 
 ####################################################
 # Densite de probabilite en x, elle est uniforme sur y (donc directement 
-# donnée par rd.random()).
+# donnÃ©e par rd.random()).
 
-# Profil voulu (non normalisé)
+# Profil voulu (non normalisÃ©)
 
 def pb(x):
-    return  1 + np.cos(2*np.pi*x) # Version interférences simples
+    return  1 + np.cos(2*np.pi*x) # Version interfÃ©rences simples
     # Version en incluant la difraction
     # return (1 + np.cos(2*np.pi*x)) * (np.sin(x)/(x+1e-4))**2
 
-# Normalisation (calculée à part pour économiser des calculs)
+# Normalisation (calculÃ©e Ã  part pour Ã©conomiser des calculs)
 pb_norm = sp.integrate.quad(pb,Xmin,Xmax)[0]
 
-# Probabilité normalisée
+# ProbabilitÃ© normalisÃ©e
 def p(x): return pb(x) / pb_norm
 
-# On va échantillonner la proba normalisée pour pouvoir l'intégrer
+# On va Ã©chantillonner la proba normalisÃ©e pour pouvoir l'intÃ©grer
 X = np.linspace(Xmin,Xmax,10000)
 pX= p(X)
 PX= sp.integrate.cumtrapz(pX,X,initial=0)  # Densite de probabilite cumulee en x
-# La fonction réciproque (cf le TP09 sur pcsi.kleber.free.fr/IPT/)
+# La fonction rÃ©ciproque (cf le TP09 sur pcsi.kleber.free.fr/IPT/)
 HX= lambda x: float(sp.interpolate.interp1d(PX,X)(x))
 
 
@@ -77,19 +69,19 @@ ListeY=[]
 #Tirage des valeurs de x et y pour tous les photons
 for i in range(Nbre_Photons):
     # Tirage des valeurs de x et y que l'on range dans deux listes:
-    # * x par la méthode de l'antécédent à partir d'une distribution uniforme 
-    # présentée dans le TP09 sur pcsi.kleber.free.fr/IPT/
+    # * x par la mÃ©thode de l'antÃ©cÃ©dent Ã  partir d'une distribution uniforme 
+    # prÃ©sentÃ©e dans le TP09 sur pcsi.kleber.free.fr/IPT/
     alea=rd.random()
     ListeX.append(HX(alea))
     # * y par une simple distribution uniforme
     ListeY.append(Ymin+(Ymax-Ymin)*rd.random())
-# Conversion en np.array pour les facilités de slicing
+# Conversion en np.array pour les facilitÃ©s de slicing
 ListeX = np.array(ListeX)
 ListeY = np.array(ListeY)
 
 # La figure globale
 fig = plt.figure(figsize=(8,7.76))
-# L'image des interférences
+# L'image des interfÃ©rences
 ax1= plt.subplot2grid((3,3),(0,0),colspan=2,rowspan=2)
 Image = np.zeros((Xpixel,Ypixel))
 im = ax1.imshow(Image,cmap='gray',extent=extent,aspect='auto')
@@ -109,25 +101,25 @@ def init():
 
 
 N  = 1  # Compteur externe du nombre de photon
-dN = 1  # et l'incrément au départ du compteur
+dN = 1  # et l'incrÃ©ment au dÃ©part du compteur
     
 def animate(i):
     global N,dN
-    if i == 100: dN = 10    # Une première accélération
-    if i == 200: dN = 100   # Une seconde accélération
-    N += dN                 # Incrémentation du nombre de photons à afficher
+    if i == 100: dN = 10    # Une premiÃ¨re accÃ©lÃ©ration
+    if i == 200: dN = 100   # Une seconde accÃ©lÃ©ration
+    N += dN                 # IncrÃ©mentation du nombre de photons Ã  afficher
     if N < Nbre_Photons:    # Tant qu'on ne va pas trop loin...
         ax1.set_title('{} photons'.format(N)) # Un peu de feedback
-        for j in range(dN): # On regarde où tapent les photons du lot considéré
-            # Calcul de la Position X et Y du photon reçu (en pixel)
-            # C'est un facteur d'échelle pour passer de [Xmin,Xmax] à [0,Xpixel]
+        for j in range(dN): # On regarde oÃ¹ tapent les photons du lot considÃ©rÃ©
+            # Calcul de la Position X et Y du photon reÃ§u (en pixel)
+            # C'est un facteur d'Ã©chelle pour passer de [Xmin,Xmax] Ã  [0,Xpixel]
             PositionX=int(Xpixel*(ListeX[N-j]-Xmin)/(Xmax-Xmin))
             # Pareil en Y
             PositionY=int(Ypixel*(ListeY[N-j]-Ymin)/(Ymax-Ymin))
-            # Incrémentation de la valeur du pixel où arrive le photon.
+            # IncrÃ©mentation de la valeur du pixel oÃ¹ arrive le photon.
             Image[PositionY][PositionX]+=1
-        im.set_data(Image)  # Mise à jour de l'image
-        im.autoscale()      # Et adaptation de la luminosité
+        im.set_data(Image)  # Mise Ã  jour de l'image
+        im.autoscale()      # Et adaptation de la luminositÃ©
         # On refait les histogrammes
         ax2.clear()
         ax2.hist(ListeX[:N+1],bins=Xpixel,range=(Xmin,Xmax))
@@ -140,8 +132,8 @@ def animate(i):
 # L'animation proprement dite
 anim = animation.FuncAnimation(fig,animate,frames=300,interval=1)
 
-# À décommenter pour sauvegarder dans un fichier .mp4 (il faut alors commenter 
-# plt.show() ou réinitialiser N et dN) 
+# Ã€ dÃ©commenter pour sauvegarder dans un fichier .mp4 (il faut alors commenter 
+# plt.show() ou rÃ©initialiser N et dN) 
 #anim.save('PNG/S06_interferences_un_photon.mp4', fps=30)
 
 plt.show()

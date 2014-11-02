@@ -1,47 +1,39 @@
-# coding: latin1
+# coding: utf8
 
-# Sauf mention explicite du contraire par la suite, ce travail a été fait par 
-# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycée Kléber. 
-# Vous êtes libres de le réutiliser et de le modifier selon vos besoins.
-# 
-# Si l'encodage vous pose problème, vous pouvez réencoder le fichier à l'aide 
-# de la commande
-# 
-# recode l1..utf8 monfichier.py
-# 
-# Il faudra alors modifier la première ligne en # coding: utf8
-# pour que Python s'y retrouve.
+# Sauf mention explicite du contraire par la suite, ce travail a Ã©tÃ© fait par 
+# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycÃ©e KlÃ©ber. 
+# Vous Ãªtes libres de le rÃ©utiliser et de le modifier selon vos besoins.
 
 
 
 """
 Le but de ce script est de tracer un cycle de Carnot (deux isothermes et deux 
-isentropiques) pour un gaz (a priori l'air, mais on peut le modifier) à la 
-fois à partir de données réelles (via CoolProp) et dans la modélisation d'un 
-gaz parfait (le coefficient gamma de Laplace étant aussi obtenu à partir de 
-CoolProp). On suppose que le cycle se fait de la manière suivante (on 
-numérote les point "à l'informaticienne" de 0 à 3):
-* Compression isotherme de (P0,TF) à (P1,TF)
-* Compression isentropique de (P1,TF) à (Pmax,TC)
-* détente isotherme de (Pmax,TC) à (P3,TC)
-* détente isentropique de (P3,TC) à (P0,TF)
-À noter que si jamais Pmax est trop faible, commence par une détente isotherme 
-à TF et on continuera par une compression isotherme à TC
+isentropiques) pour un gaz (a priori l'air, mais on peut le modifier) Ã  la 
+fois Ã  partir de donnÃ©es rÃ©elles (via CoolProp) et dans la modÃ©lisation d'un 
+gaz parfait (le coefficient gamma de Laplace Ã©tant aussi obtenu Ã  partir de 
+CoolProp). On suppose que le cycle se fait de la maniÃ¨re suivante (on 
+numÃ©rote les point "Ã  l'informaticienne" de 0 Ã  3):
+* Compression isotherme de (P0,TF) Ã  (P1,TF)
+* Compression isentropique de (P1,TF) Ã  (Pmax,TC)
+* dÃ©tente isotherme de (Pmax,TC) Ã  (P3,TC)
+* dÃ©tente isentropique de (P3,TC) Ã  (P0,TF)
+Ã€ noter que si jamais Pmax est trop faible, commence par une dÃ©tente isotherme 
+Ã  TF et on continuera par une compression isotherme Ã  TC
 """
 
-import numpy as np               # Les outils mathématiques
+import numpy as np               # Les outils mathÃ©matiques
 import CoolProp.CoolProp as CP   # Les outils thermodynamiques
 import matplotlib.pyplot as plt  # Les outils graphiques
 
-# Les valeurs réglables
+# Les valeurs rÃ©glables
 R   = 8.314   # Constante des gaz parfaits
 gaz = 'Air'   # Type de gaz
-TF  = 300     # Température de l'isotherme "froide"
-TC  = 900     # Température de l'isotherme "chaude"
-P0  = 1e5     # Pression (a priori) la plus faible (et de départ)
+TF  = 300     # TempÃ©rature de l'isotherme "froide"
+TC  = 900     # TempÃ©rature de l'isotherme "chaude"
+P0  = 1e5     # Pression (a priori) la plus faible (et de dÃ©part)
 Pmax= 1e8     # Pression (a priori) la plus importante
 
-# Calcul du coefficient de Laplace (en le supposant inchangé sur tout le cycle)
+# Calcul du coefficient de Laplace (en le supposant inchangÃ© sur tout le cycle)
 cP  = CP.PropsSI('C','T',TF,'P',P0,gaz)
 cV  = CP.PropsSI('O','T',TF,'P',P0,gaz)
 gamma = cP/cV
@@ -53,13 +45,13 @@ print('Gaz choisi:',gaz)
 print('Masse molaire:',M,'kg/mol')
 print('gamma:',gamma)
 
-# Calcul des positions intermédiaires réelles
-S3 = CP.PropsSI('S','T',TF,'P',P0,gaz)    # Entropie de la détente isentropique
+# Calcul des positions intermÃ©diaires rÃ©elles
+S3 = CP.PropsSI('S','T',TF,'P',P0,gaz)    # Entropie de la dÃ©tente isentropique
 S1 = CP.PropsSI('S','T',TC,'P',Pmax,gaz)  # Entropie de la compression isentropique
 P1 = CP.PropsSI('P','T',TF,'S',S1,gaz)    # Pression au point 1
 P3 = CP.PropsSI('P','T',TC,'S',S3,gaz)    # Pression au point 3
 
-# On échantillonne à présent les pressions sur les différents chemins...
+# On Ã©chantillonne Ã  prÃ©sent les pressions sur les diffÃ©rents chemins...
 nb_points = 1000
 P01 = np.linspace(P0,P1,nb_points)
 P12 = np.linspace(P1,Pmax,nb_points)
@@ -67,12 +59,12 @@ P23 = np.linspace(Pmax,P3,nb_points)
 P30 = np.linspace(P3,P0,nb_points)
 
 # ...pour calculer les volumes massiques correspondants (comme d'habitude,
-# CoolProp fournit la masse volumique (densité "D") et non le volume massique 
-# donc il faut passer à l'inverse).
+# CoolProp fournit la masse volumique (densitÃ© "D") et non le volume massique 
+# donc il faut passer Ã  l'inverse).
 v01 = 1/CP.PropsSI('D','P',P01,'T',TF,gaz) # Compression isotherme
 v12 = 1/CP.PropsSI('D','P',P12,'S',S1,gaz) # Compression isentropique
-v23 = 1/CP.PropsSI('D','P',P23,'T',TC,gaz) # Détente isotherme
-v30 = 1/CP.PropsSI('D','P',P30,'S',S3,gaz) # Détente isentropique
+v23 = 1/CP.PropsSI('D','P',P23,'T',TC,gaz) # DÃ©tente isotherme
+v30 = 1/CP.PropsSI('D','P',P30,'S',S3,gaz) # DÃ©tente isentropique
 
 def infos_point(nb,P,T,v):
    print('Infos pour le point {0}: T={1}K, v={3} m^3/kg, P={2} bar'.format(nb,T,round(P/1e5,1),round(v,4)))
@@ -84,7 +76,7 @@ def travail(L_P,L_v):
     return W
 
 # On donne du feedback:
-print('Cas réel:')
+print('Cas rÃ©el:')
 infos_point(0,P0,TF,v01[0])
 infos_point(1,P1,TF,v12[0])
 infos_point(2,Pmax,TC,v23[0])
@@ -92,7 +84,7 @@ infos_point(3,P3,TC,v30[0])
 W = travail([P01,P12,P23,P30],[v01,v12,v23,v30])
 print('Travail total sur le cycle:',round(W/1e3,2),'kJ/kg')
 
-# Reste à représenter le tout
+# Reste Ã  reprÃ©senter le tout
 plt.plot(v01,P01,label='Compression isoT')
 plt.plot(v12,P12,label='Compression isoS')
 plt.plot(v23,P23,label='Detente isoT')
@@ -102,27 +94,27 @@ plt.yscale('log')
 plt.xscale('log')
 #plt.show()
 
-# Maintenant, faisons quelques calculs théoriques.
-# On peut calculer les pressions P1 et P3 grâce aux relations de Laplace sur 
+# Maintenant, faisons quelques calculs thÃ©oriques.
+# On peut calculer les pressions P1 et P3 grÃ¢ce aux relations de Laplace sur 
 # les deux isentropiques
 P3 = P0 * (TF/TC)**(gamma/(1-gamma))
 P1 = Pmax*(TC/TF)**(gamma/(1-gamma))
 
-# On échantillonne à présent les pressions sur les différents chemins...
+# On Ã©chantillonne Ã  prÃ©sent les pressions sur les diffÃ©rents chemins...
 nb_points = 1000
 P01 = np.linspace(P0,P1,nb_points)
 P12 = np.linspace(P1,Pmax,nb_points)
 P23 = np.linspace(Pmax,P3,nb_points)
 P30 = np.linspace(P3,P0,nb_points)
 
-# ... pour calculer les volumes massiques à l'aide des lois de Laplace ou des 
+# ... pour calculer les volumes massiques Ã  l'aide des lois de Laplace ou des 
 # gaz parfaits.
 v01 = R*TF/(M*P01)
 v12 = v01[-1] * (P1/P12)**(1/gamma)
 v23 = R*TC/(M*P23)
 v30 = v23[-1] * (P3/P30)**(1/gamma)
 
-# Reste à représenter le tout
+# Reste Ã  reprÃ©senter le tout
 plt.plot(v01,P01,label='GP Compression isoT')
 plt.plot(v12,P12,label='GP Compression isoS')
 plt.plot(v23,P23,label='GP Detente isoT')

@@ -1,99 +1,91 @@
-# coding: latin1
+# coding: utf8
 
-# Sauf mention explicite du contraire par la suite, ce travail a été fait par 
-# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycée Kléber. 
-# Vous êtes libres de le réutiliser et de le modifier selon vos besoins.
-# 
-# Si l'encodage vous pose problème, vous pouvez réencoder le fichier à l'aide 
-# de la commande
-# 
-# recode l1..utf8 monfichier.py
-# 
-# Il faudra alors modifier la première ligne en # coding: utf8
-# pour que Python s'y retrouve.
+# Sauf mention explicite du contraire par la suite, ce travail a Ã©tÃ© fait par 
+# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycÃ©e KlÃ©ber. 
+# Vous Ãªtes libres de le rÃ©utiliser et de le modifier selon vos besoins.
 
 
 
 """
 
-Ce programme est proposé par Vincent Grenard (PCSI, Lycée Poincaré, Nancy).
+Ce programme est proposÃ© par Vincent Grenard (PCSI, LycÃ©e PoincarÃ©, Nancy).
 
-Visualisation d'un réseau d'interférences à deux sources en utilisant une 
-animation "au vol" plutôt qu'une conversion en images. Nécessite d'avoir 
-Python installé sur la machine mais cela permet de modifier les paramètres 
-(comme par exemple la valeur de y1 qui détermine la distance entre les deux 
-points sources) et montrer immédiatement les modifications aux élèves.
+Visualisation d'un rÃ©seau d'interfÃ©rences Ã  deux sources en utilisant une 
+animation "au vol" plutÃ´t qu'une conversion en images. NÃ©cessite d'avoir 
+Python installÃ© sur la machine mais cela permet de modifier les paramÃ¨tres 
+(comme par exemple la valeur de y1 qui dÃ©termine la distance entre les deux 
+points sources) et montrer immÃ©diatement les modifications aux Ã©lÃ¨ves.
 
-Néanmoins, une sauvegarde dans un fichier .mp4 est possible: voir la fin du 
+NÃ©anmoins, une sauvegarde dans un fichier .mp4 est possible: voir la fin du 
 programme !
 
 """
 
-import numpy as np               # Boîte à outils numériques
-import pylab as py               # Boîte à outils graphiques
-from matplotlib import animation # Pour l'animation en temps réel
+import numpy as np               # BoÃ®te Ã  outils numÃ©riques
+import pylab as py               # BoÃ®te Ã  outils graphiques
+from matplotlib import animation # Pour l'animation en temps rÃ©el
 
 taille=400                       # Largeur en pixels de l'image
 lim=10                           # Largeur maximale de l'image
 x=np.linspace(-lim,lim,taille)   # L'axe des x
-y=x                              # Le même en y
+y=x                              # Le mÃªme en y
 
-X,Y=np.meshgrid(x,y,indexing='xy') # La "grille" sur laquelle seront évaluées les fonctions
+X,Y=np.meshgrid(x,y,indexing='xy') # La "grille" sur laquelle seront Ã©valuÃ©es les fonctions
 
-y1=3                             # Position verticale de la première source
+y1=3                             # Position verticale de la premiÃ¨re source
 y2=-y1                           # Position verticale de la seconde source
-r1=np.sqrt(X**2+(Y-y1)**2)       # Grille des distances à la première source
+r1=np.sqrt(X**2+(Y-y1)**2)       # Grille des distances Ã  la premiÃ¨re source
 r2=np.sqrt(X**2+(Y-y2)**2)       # Pareil pour la seconde
 
 w=4*np.pi                        # Pulsation des oscillations
 delta_t=0.01                     # Intervalle de temps entre deux images
 t=0                              # Temps initial
 k=1.0*np.pi                      # Nombre d'onde
-a1=1                             # Amplitude de la première source
+a1=1                             # Amplitude de la premiÃ¨re source
 a2=1                             # Amplitude de la seconde source
 
-# Calcul de l'amplitude résultante (ne prend pas en compte la décroissance en 
+# Calcul de l'amplitude rÃ©sultante (ne prend pas en compte la dÃ©croissance en 
 # 1/r que devrait avoir les ondes)
 S1 = a1*np.cos(k*r1-w*t)
 S2 = a2*np.cos(k*r2-w*t)
 amplitude= S1 + S2
 
-# Préparation des figures
+# PrÃ©paration des figures
 fig=py.figure(figsize=[16,8],facecolor='w')              # Taille globale
 fig.add_axes([0.5,0.05,0.45,0.9],aspect='equal')         # Figure de droite
 image=py.imshow(amplitude, extent = [-lim,lim,-lim,lim]) # La superposition
 py.plot([0],y1,'wo',markersize=5)                        # Position source 1
 py.plot([0],y2,'wo',markersize=5)                        # Position source 2
-py.axis([-lim,lim,-lim,lim])                             # Avec axes gradués
+py.axis([-lim,lim,-lim,lim])                             # Avec axes graduÃ©s
 #py.axis('off')                                          # ou sans (au choix)
-fig.add_axes([0.05,0.05,0.4,0.4],aspect='equal')         # Figure en bas à gauche
+fig.add_axes([0.05,0.05,0.4,0.4],aspect='equal')         # Figure en bas Ã  gauche
 image2=py.imshow(S1,  extent =[-lim,lim,-lim,lim])       # Action de S1 seule
 py.plot([0],y1,'wo',markersize=5)                        # Position source 1
 py.plot([0],y2,'wo',markersize=5)                        # Position source 2
-py.axis([-lim,lim,-lim,lim])                             # Avec axes gradués
+py.axis([-lim,lim,-lim,lim])                             # Avec axes graduÃ©s
 #py.axis('off')                                          # ou sans
-fig.add_axes([0.05,0.5,0.4,0.4],aspect='equal')          # Figure en haut à gauche
+fig.add_axes([0.05,0.5,0.4,0.4],aspect='equal')          # Figure en haut Ã  gauche
 image3=py.imshow(S2, extent = [-lim,lim,-lim,lim])       # Action de S2 seule
 py.plot([0],y1,'wo',markersize=5)                        # Position source 1
 py.plot([0],y2,'wo',markersize=5)                        # Position source 2
-py.axis([-lim,lim,-lim,lim])                             # Avec axes gradués
+py.axis([-lim,lim,-lim,lim])                             # Avec axes graduÃ©s
 #py.axis('off')                                          # ou sans
 
-def animate(i): # Mise à jour des figures à chaque nouvelle frame
+def animate(i): # Mise Ã  jour des figures Ã  chaque nouvelle frame
     t=i*delta_t                           # Nouveau temps
     print(t)                              # Feedback en cas de sauvegarde
     S1 = a1*np.cos(k*r1-w*t)              # Source 1
     S2 = a2*np.cos(k*r2-w*t)              # Source 2
     amplitude= S1 + S2                    # Superposition
-    image.set_data(amplitude)             # Mise à jour données superposition
+    image.set_data(amplitude)             # Mise Ã  jour donnÃ©es superposition
     py.title('t=%.2f s'%(t))              # Le titre avec l'instant choisi
-    image2.set_data(S1)                   # Mise à jour source 1
-    image3.set_data(S2)                   # Mise à jour source 2
+    image2.set_data(S1)                   # Mise Ã  jour source 1
+    image3.set_data(S2)                   # Mise Ã  jour source 2
 
 # L'animation proprement dite
 anim = animation.FuncAnimation(fig,animate,frames=int(10/delta_t),interval=20)
 
-# À décommenter pour sauvegarder dans un fichier .mp4
+# Ã€ dÃ©commenter pour sauvegarder dans un fichier .mp4
 #anim.save('PNG/S03_interferences_animation.mp4', fps=30)
 
 # Sinon, on montre en direct

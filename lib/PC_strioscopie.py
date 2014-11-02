@@ -1,32 +1,24 @@
-# coding: latin1
+# coding: utf8
 
-# Sauf mention explicite du contraire par la suite, ce travail a été fait par 
-# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycée Kléber. 
-# Vous êtes libres de le réutiliser et de le modifier selon vos besoins.
-# 
-# Si l'encodage vous pose problème, vous pouvez réencoder le fichier à l'aide 
-# de la commande
-# 
-# recode l1..utf8 monfichier.py
-# 
-# Il faudra alors modifier la première ligne en # coding: utf8
-# pour que Python s'y retrouve.
+# Sauf mention explicite du contraire par la suite, ce travail a Ã©tÃ© fait par 
+# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycÃ©e KlÃ©ber. 
+# Vous Ãªtes libres de le rÃ©utiliser et de le modifier selon vos besoins.
 
 
 
 
 """
 
-Travail réalisé par Pierre Chary (PC, ENCPB-Lycée Pierre Gilles de Gennes, 
+Travail rÃ©alisÃ© par Pierre Chary (PC, ENCPB-LycÃ©e Pierre Gilles de Gennes, 
 Paris) pour illustrer le traitement d'image par strioscopie au programme de 
 Physique en PC mais qui peut aussi servir comme projet d'informatique commune 
-en seconde année.
+en seconde annÃ©e.
 
-Le script fait usage du module "requests" qui peut ne pas être installé sur 
+Le script fait usage du module "requests" qui peut ne pas Ãªtre installÃ© sur 
 toutes les distributions (WinPython par exemple) afin de charger des images 
-depuis internet, mais il n'est pas nécessaire à son bon fonctionnement: vous 
+depuis internet, mais il n'est pas nÃ©cessaire Ã  son bon fonctionnement: vous 
 pouvez aussi simplement lire les images sur votre disque que nous supposerons 
-installées dans un dossier SampleImages/ dans le même répertoire où est appelé 
+installÃ©es dans un dossier SampleImages/ dans le mÃªme rÃ©pertoire oÃ¹ est appelÃ© 
 le script.
 
 """
@@ -44,7 +36,7 @@ try:
 except:
     print(""" 
     Attention, votre distribution ne semble pas inclure le module 'requets'
-    Par conséquent, installez-le ou commentez la ligne 'import requests' et
+    Par consÃ©quent, installez-le ou commentez la ligne 'import requests' et
     modifiez les exemples pour qu'il ne fassent pas usage de requests.
     """)
 
@@ -79,7 +71,7 @@ def detramage(spectre, type="horizontale", proportion = 0.03):
      """ Application d'une fente verticale ou horizontale, de largeur proportionnellement a l'image "proportion", sur le spectre de Fourier 2D de l'image"""
      # nombre de lignes et de colonnes de l'image
      nblig, nbcol = spectre.shape         
-     # CoordonnÃ©es du centre
+     # CoordonnÃƒÂ©es du centre
      clig,ccol = nblig//2 , nbcol//2         
      # On applique un masque de 0 et de 1 au spectre pour le filtrer
      taille = int(proportion * (nblig + nbcol) / 2.0)
@@ -102,7 +94,7 @@ def TF_inv(sp_filtre):
      
 def execute(img, type, proportion=0.03,save=None):
      """ Programme principal      
-     Donner une valeur à save (par exemple save='mon_fichier.png') permet de 
+     Donner une valeur Ã  save (par exemple save='mon_fichier.png') permet de 
      sauvegarder la figure produite.
      """
      sp_shifte = TF(img)
@@ -132,7 +124,7 @@ def execute(img, type, proportion=0.03,save=None):
 
 if __name__ == '__main__':
     # Les images doivent etre en .PNG et en noir et blanc, sinon les convertir 
-    # ou utiliser Image de la bibliothèque PIL au lieu de imread
+    # ou utiliser Image de la bibliothÃ¨que PIL au lieu de imread
     
     # Strioscopie sur Lena 
     img = misc.lena()
@@ -143,8 +135,8 @@ if __name__ == '__main__':
     url = "https://raw.githubusercontent.com/scipy-lectures/scipy-lecture-notes/master/data/moonlanding.png"
     response = requests.get(url)
     img = plt.imread(BytesIO(response.content))
-    # Si jamais requests n'est pas installé, commentez les trois lignes 
-    # précédentes et décommentez la ligne suivante
+    # Si jamais requests n'est pas installÃ©, commentez les trois lignes 
+    # prÃ©cÃ©dentes et dÃ©commentez la ligne suivante
     #img = plt.imread('SampleImages/moonlanding.png')
     execute(img, "passe bas", 0.08)
     
@@ -152,8 +144,8 @@ if __name__ == '__main__':
     url = "https://raw.githubusercontent.com/pchary/Image/master/SampleImages/grille.png"
     response = requests.get(url)
     img = plt.imread(BytesIO(response.content))
-    # Si jamais requests n'est pas installé, commentez les trois lignes 
-    # précédentes et décommentez la ligne suivante
+    # Si jamais requests n'est pas installÃ©, commentez les trois lignes 
+    # prÃ©cÃ©dentes et dÃ©commentez la ligne suivante
     #img = plt.imread('SampleImages/grille.png')
     execute(img, "verticale")
     execute(img, "horizontale")

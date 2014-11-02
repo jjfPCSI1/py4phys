@@ -1,51 +1,43 @@
-# coding: latin1
+# coding: utf8
 
-# Sauf mention explicite du contraire par la suite, ce travail a été fait par 
-# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycée Kléber. 
-# Vous êtes libres de le réutiliser et de le modifier selon vos besoins.
-# 
-# Si l'encodage vous pose problème, vous pouvez réencoder le fichier à l'aide 
-# de la commande
-# 
-# recode l1..utf8 monfichier.py
-# 
-# Il faudra alors modifier la première ligne en # coding: utf8
-# pour que Python s'y retrouve.
+# Sauf mention explicite du contraire par la suite, ce travail a Ã©tÃ© fait par 
+# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycÃ©e KlÃ©ber. 
+# Vous Ãªtes libres de le rÃ©utiliser et de le modifier selon vos besoins.
 
 
 
 """
 Simulation d'un corde de Melde. Le but est de visualiser comment une onde de 
-faible amplitude au départ peut s'amplifier à mes que se réflexions 
-successives se superposent. On introduit une atténuation arbitraire de l'onde 
+faible amplitude au dÃ©part peut s'amplifier Ã  mes que se rÃ©flexions 
+successives se superposent. On introduit une attÃ©nuation arbitraire de l'onde 
 pour forcer la convergence.
 """
 
-import numpy as np              # Boîte à outils numériques
-import matplotlib.pyplot as plt # Boîte à outils graphiques
-import film                     # Boîte à outils vidéos
+import numpy as np              # BoÃ®te Ã  outils numÃ©riques
+import matplotlib.pyplot as plt # BoÃ®te Ã  outils graphiques
+import film                     # BoÃ®te Ã  outils vidÃ©os
 
 def corde_de_melde(base_name,w=1,k=1,L=1,A=0.1,tmax=10,N=1000,ylim=None):
     """ 
     Produit un film (base_name + '_film.mpeg') d'une corde de Melde de 
-    longueur L, fixée à droite et excitée à gauche par un moteur de pulsation 
+    longueur L, fixÃ©e Ã  droite et excitÃ©e Ã  gauche par un moteur de pulsation 
     w imposant la propagation d'une onde d'amplitude de nombre d'onde k en 
-    observant les réflexions régulière de l'onde jusqu'au temps tmax sur un 
-    total de N images. Si ylim est précisé, il contiendra les limites 
-    verticales, sinon c'est matplotlib qui décidera, ce qui déclenchera une 
+    observant les rÃ©flexions rÃ©guliÃ¨re de l'onde jusqu'au temps tmax sur un 
+    total de N images. Si ylim est prÃ©cisÃ©, il contiendra les limites 
+    verticales, sinon c'est matplotlib qui dÃ©cidera, ce qui dÃ©clenchera une 
     adaptation progressive de l'amplitude.
     """
-    t = np.linspace(0,tmax,N)  # Échantillonnage en temps
-    for i,ti in enumerate(t):  # On les prends l'un après l'autre
+    t = np.linspace(0,tmax,N)  # Ã‰chantillonnage en temps
+    for i,ti in enumerate(t):  # On les prends l'un aprÃ¨s l'autre
         print(ti)              # Un peu de feedback
         fichier = base_name + '{:04d}'.format(i) # Nom du fichier
         fait_corde(ti,file=fichier,w=w,k=k,L=L,A=A,ylim=ylim) # Dessin de la corde
-    film.make_film(base_name)  # Fabrication du film à la fin
+    film.make_film(base_name)  # Fabrication du film Ã  la fin
 
 def fait_corde(t,file=None,w=1,k=1,L=1,A=0.1,ylim=None,nb_points=400):
     """ 
-    Dessine effectivement la corde de Melde à l'instant t.
-    Si 'file' n'est pas renseigné, on l'affiche à l'écran.
+    Dessine effectivement la corde de Melde Ã  l'instant t.
+    Si 'file' n'est pas renseignÃ©, on l'affiche Ã  l'Ã©cran.
     """
     x = np.linspace(0,L,nb_points)
     plt.plot(x,corde(x,t,w,k,L,A),'k',linewidth=2.0)
@@ -60,38 +52,38 @@ def fait_corde(t,file=None,w=1,k=1,L=1,A=0.1,ylim=None,nb_points=400):
 
 def corde(x,t,w,k,L,A):
     """ 
-    Calcul itératif de l'état de la corde
+    Calcul itÃ©ratif de l'Ã©tat de la corde
     """
     c = w/k                              # Vitesse de l'onde
     u = w*t - k*x                        # Phase courante
     u0= w*t                              # Phase maximale
     resultat = A*f(u,u0)*be_positive(u)  # On commence par l'onde primordiale
-    plt.plot(x,resultat,alpha=0.4)       # que l'on représente en sus
-    for i in range(1,int(c*t/L)+1):      # Puis, on va "déplier la corde"
-        u -= k*L                         # On l'a déjà parcourue une fois
-        if i%2 == 0:                     # Si on cogne à gauche
+    plt.plot(x,resultat,alpha=0.4)       # que l'on reprÃ©sente en sus
+    for i in range(1,int(c*t/L)+1):      # Puis, on va "dÃ©plier la corde"
+        u -= k*L                         # On l'a dÃ©jÃ  parcourue une fois
+        if i%2 == 0:                     # Si on cogne Ã  gauche
             addition = A*f(u,u0)*be_positive(u) # propagation vers la droite
         else:                            # Sinon, il faut inverser (vers la gauche)
             addition = list(reversed(- A*f(u,u0)*be_positive(u)))
-        plt.plot(x,addition,alpha=0.4)   # On représente l'onde après i réflexions
+        plt.plot(x,addition,alpha=0.4)   # On reprÃ©sente l'onde aprÃ¨s i rÃ©flexions
         resultat += addition             # et on ajoute au total
     return resultat                      # que l'on renvoie.
 
 def be_positive(u):
-    """Fonction qui vaut 1 quand la phase est positive et zéro sinon."""
+    """Fonction qui vaut 1 quand la phase est positive et zÃ©ro sinon."""
     res = np.ones(u.shape)
     res[u<0] = 0.0
     return res    
 
 def f(u,u0):
-    """Fonction correspondant à l'onde proprement dite avec une atténuation 
-    (un peu) arbitraire pour améliorer la convergence."""
+    """Fonction correspondant Ã  l'onde proprement dite avec une attÃ©nuation 
+    (un peu) arbitraire pour amÃ©liorer la convergence."""
     return np.sin(u)/(1 + u0-u)**0.3
 
 L=10                     # Longueur totale de la corde
 
-lambda1 = 2*L/(3)        # Résonance:      L = n * lambda/2
-lambda2 = 2*L/(3+0.5)    # Anti-résonance: L = (n+1/2) * lambda/2
+lambda1 = 2*L/(3)        # RÃ©sonance:      L = n * lambda/2
+lambda2 = 2*L/(3+0.5)    # Anti-rÃ©sonance: L = (n+1/2) * lambda/2
 
 # Appel aux fonctions qui font effectivement les films.
 corde_de_melde('PNG/S03_corde_de_melde_amplif',
