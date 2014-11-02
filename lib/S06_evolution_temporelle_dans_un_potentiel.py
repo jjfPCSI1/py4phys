@@ -50,24 +50,23 @@ def funct_potential(x):
     intéressantes pour changer selon les besoins.
     """
     # Potentiel de la boîte fermée:
-    if abs(x) > 3: return 1e150 # Presque l'infini...
-    else:  return 0.0
+    #if abs(x) > 3: return 1e150 # Presque l'infini...
+    #else:  return 0.0
     #
     # Potentiel pour voir l'effet tunnel
-    #if x < -3: return 1e150
-    #elif 3 <= x <= 4: return 1.0
-    #else: return 0.0
+    if x < -3: return 1e150
+    elif 3 <= x <= 4: return 1.0
+    else: return 0.0
     #
     # Potentiel pour un oscillateur harmonique
     #return x**2/9
 
-steps = 200     # Echantillonnage en x et p
-x_min = -10.0
-x_max =  10.0
+steps = 500     # Echantillonnage en x et p
+x_min,x_max = -5.0,30.0
+affiche_xmin,affiche_xmax =-5,10 # On réduit l'affichage pour éviter les effets de bords
 grid_x, dx = np.linspace(x_min, x_max, steps, retstep = True) # Grille des valeurs en x
-#p_max = 1/dx
-#p_min = -p_max
-p_max,p_min = x_max,x_min
+p_max = 1/dx
+p_min = -p_max
 grid_p, dp = np.linspace(p_min, p_max, steps, retstep = True) # ainsi qu'en p
 delta_t = 0.01  # Pas de temps
 t = 0
@@ -132,6 +131,7 @@ ax2 = ax1.twinx()         # Making an evil twin :o)
 psi_line, = ax1.plot(grid_x, np.abs(psi)**2, 'g', linewidth = 2.0, label = '$|\psi(x)|^2$')
 #ax1.set_xlim(-6, 6)
 ax1.set_ylim(0, max(np.abs(psi)**2)*1.5)
+plt.xlim((affiche_xmin,affiche_xmax))
 ax1.set_xlabel('$x$', fontsize = 20)
 ax1.set_ylabel('Densite de probabilite $|\psi|^2$')
 ax1.legend(loc=2)
