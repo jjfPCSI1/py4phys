@@ -30,7 +30,7 @@ from matplotlib import animation # Pour l'animation progressive
 
 ####################################################
 # Les limites du champ de vue
-Xmin,Xmax =-3,3
+Xmin,Xmax =-5,5
 Ymin,Ymax =-1,1
 extent = Xmin,Xmax,Ymin,Ymax
 Xpixel=50 #Nombre de pixels selon X
@@ -44,9 +44,9 @@ Nbre_Photons=10000
 # Profil voulu (non normalisé)
 
 def pb(x):
-    return  1 + np.cos(2*np.pi*x) # Version interférences simples
+    #return  1 + np.cos(2*np.pi*x) # Version interférences simples
     # Version en incluant la difraction
-    # return (1 + np.cos(2*np.pi*x)) * (np.sin(x)/(x+1e-4))**2
+    return (1 + np.cos(2*np.pi*x)) * (np.sin(x)/(x+1e-4))**2
 
 # Normalisation (calculée à part pour économiser des calculs)
 pb_norm = sp.integrate.quad(pb,Xmin,Xmax)[0]
