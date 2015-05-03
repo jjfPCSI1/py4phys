@@ -10,12 +10,8 @@
 """ 
 Programme permettant de visualiser l'effet de l'intégration par méthode de 
 Verlet (aussi appelée leap-frog dans une formulation légèrement différente 
-mais équivalente) sur le problème pythagoricien où trois masses (m=3,4 et 5) 
-sont placées au repos aux sommets d'un triangle pythagoricien, chaque masse à 
-l'opposé du côté dont la longueur lui correspond (voir 
-http://articles.adsabs.harvard.edu/cgi-bin/nph-iarticle_query?1967AJ.....72..876S&amp;data_type=PDF_HIGH&amp;whole_paper=YES&amp;type=PRINTER&amp;filetype=.pdf 
-"Complete solution of a general problem of three bodies" par Szebehely et 
-Peters, 1967 )
+mais équivalente) pour un amas constitué d'un nombre réduit de masses histoire 
+de faire une visualisation en 3D du problème.
 
 L'idée est principalement de vérifier que mon implémentation du schéma 
 d'intégration proposé dans le sujet d'informatique commune Centrale 2015 tient 
@@ -23,17 +19,19 @@ d'intégration proposé dans le sujet d'informatique commune Centrale 2015 tient
 """
 
 # Les paramètres principaux de la simulation
-m = [3.0,4.0,5.0]  # Les masses des trois points
-v0= [[0,0,0] for i in range(3)]    # Les particules sont au repos
-p0= [[1.0,3,0], [-2,-1,0], [1,-1,0]] # Les trois sommets du triangle
-deltat = 0.0001     # Le pas de temps
-tmax = 17           # Le temps total
+m = [1.0]*5
+p0= [[0,1,2],[0,-1,-2],[1.0,3,0], [-2,-1,0], [1,-1,0]] 
+vcom = 0.15 # On va s'arranger pour avoir une quantité de mvt globale nulle
+v0= [[0,0,vcom],[vcom,0,-vcom],[-vcom,vcom,0],[0,-vcom,vcom],[0,0,-vcom]] 
+deltat = 1e-3       # Le pas de temps
+tmax = 57           # Le temps total
 n = int(tmax/deltat)# Le nombre total de pas
 tfantome = 1        # Le temps passé dans le trait fantôme
 ifantome = int(tfantome/deltat) # et le nombre de pas correspondant
 # Coeff multiplicatif pour que les sorties se fassent à intervalle de temps 
 # (ici 0.01) indépendant du pas de temps choisi (sauf s'il est trop petit bien sûr)
 mult = int(0.01/deltat+1) 
+
 
 # D'abord quelques fonctions pour faire "comme si" les listes étaient en fait 
 # des vecteurs.
@@ -147,24 +145,28 @@ positions = np.array(simulation_verlet(deltat,n))
 # Et à présent, les animations proprement dites
 
 import matplotlib.pyplot as plt
+import mpl_toolkits.mplot3d.axes3d as p3
 from matplotlib import animation # Pour l'animation progressive
 
 fig = plt.figure(figsize=(10,10))
-ax = fig.gca()
-plt.title("Probleme Pythagoricien, evolution jusqu'a $t={}$".format(tmax))
+ax = p3.Axes3D(fig) # Attaching 3D axis to the figure
 
-plt.xlim((-3,3))
-plt.ylim((-3,3))
+# Creating line objects.
+# NOTE: Can't pass empty arrays into 3d version of plot()
+data  = [positions[:,i,:] for i in range(len(m))]
+lignes= [ax.plot(dat[:,0], dat[:,1], dat[:,2])[0] for dat in data]
 
-lignes = []
+cote = 3
+ax.set_xlim3d([-cote, cote])
+ax.set_xlabel('X')
+ax.set_ylim3d([-cote, cote])
+ax.set_ylabel('Y')
+ax.set_zlim3d([-cote, cote])
+ax.set_zlabel('Z')
+        
+ax.set_title("Petit amas stellaire, $t={}$".format(tmax))
 
-#print(positions[:,0,0])
-
-for i in range(len(m)):
-    ligne, = plt.plot(positions[:,i,0],positions[:,i,1])
-    lignes.append(ligne)
-
-plt.savefig('PNG/M_schema_de_verlet_total.png')
+plt.savefig('PNG/M_schema_de_verlet3D_total.png')
 
 #plt.show()
 
@@ -172,21 +174,27 @@ def init():
     for l in lignes:
         l.set_xdata([])
         l.set_ydata([])
+        l.set_y3d_properties([])
+
+
 
 def animate(i):
-    ax.set_title('Probleme Pythagoricien, $t={}$'.format(round(mult*i*deltat,1)))
+    ax.set_title('Petit amas stellaire, $t={}$'.format(round(mult*i*deltat,1)))
     for j in range(len(lignes)):
         l = lignes[j]
         if mult*i < ifantome:
             pos = positions[:mult*i,j,:]
         else: pos = positions[mult*i-ifantome:mult*i,j,:]
-        l.set_ydata(pos[:,1])
         l.set_xdata(pos[:,0])
+        l.set_ydata(pos[:,1])
+        l.set_3d_properties(pos[:,2])
+    # On modifie l'angle de vue au fur et à mesure
+    ax.view_init(elev=10,azim=(i/10)%360)
 
 # L'animation proprement dite
 anim = animation.FuncAnimation(fig,animate,frames=int(n/mult),interval=20)
 
-#anim.save('PNG/M_schema_de_verlet.mp4', fps=30)
+#anim.save('PNG/M_schema_de_verlet3D.mp4', fps=30)
 
 plt.show()
 
