@@ -35,10 +35,12 @@ def diagramme_Pv(fluide,dico={}):
     * 'saturation': Booléen indiquant si on veut rajouter la courbe de 
     saturation au tracé (défaut à True)
     """
-    Pcritique = CP.PropsSI(fluide,'pcrit')  # Pression
-    Tcritique = CP.PropsSI(fluide,'Tcrit')  # et température critique
-    Ptriple = CP.PropsSI(fluide,'ptriple')  # Pression 
-    Ttriple = CP.PropsSI(fluide,'Ttriple')  # et température au point triple
+    # On récupère les valeurs critiques et triples, mais on les décale un peu 
+    # pour être sûr d'être bien sous la courbe de saturation.
+    Pcritique = CP.PropsSI(fluide,'pcrit')-2  # Pression
+    Tcritique = CP.PropsSI(fluide,'Tcrit')-2  # et température critique
+    Ptriple = CP.PropsSI(fluide,'ptriple')+2  # Pression 
+    Ttriple = CP.PropsSI(fluide,'Ttriple')+2  # et température au point triple
     # On récupère les volumes massiques via les 'densités' (ie masses 
     # volumiques) données par CoolProp
     vtripleL = 1/CP.PropsSI('D','P',Ptriple,'Q',0,fluide)
