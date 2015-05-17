@@ -33,29 +33,6 @@ unitP = 'bar'
 unitH = 'kJ'
 unitT = 'celsius'
 
-# Points de fonctionnement particuliers couples (P,T) en (bar,celsius)
-# D'après les données de Thibaut:
-Fessenheim = [(65,220),
-              (65,275),
-              (50,264),
-              (11,184),
-              (11,253),
-              (0.07,170),
-              (15,220),
-              (11,100),
-              (11,40),
-              (11,75),
-              (70,220)]
-# D'après le petit film "VAPEUR": http://energie.edf.com/nucleaire/comment-ca-marche-y/les-grands-principes-de-fonctionnement-48400.html
-Fessenheim = [(67.5,220),
-              (67.5,283),  # Entrée turbine "haute pression"
-              (10,180),    # Sortie turbine (cède "moitié de son énergie")
-              (9.4,267),   # Sortie sécheur surchauffeur, arrivée turbines "basses pression"
-              (0.07,40),  # Après condenseur
-              (9,170),   # Sortie réservoir
-              (71.5,227)]  # Sortie TurboPompe
-
-
 # Les utilitaires pour les conversions
 if unitT == 'celsius':
     def kelvin(t): return t + 273.15  # Conversion en kelvin
@@ -224,8 +201,6 @@ if iso_T: fait_isolignes('T',val_T,position=0.9,to_show=T_to_show)
 if iso_s: fait_isolignes('S',val_s,position=0.5,to_show=s_to_show,round_nb=3)
 if iso_v: fait_isolignes('V',val_v,position=0.25,to_show=v_to_show,round_nb=3)
 if iso_x: fait_isolignes('Q',val_x,position=0.1,to_show=x_to_show,round_nb=2)
-
-# affiche_serie_points(Fessenheim)
 
 mettre_Fessenheim = True
 
