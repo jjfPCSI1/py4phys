@@ -153,12 +153,13 @@ fig = plt.figure(figsize=(10,10))
 ax = fig.gca()
 plt.title("Probleme Pythagoricien, evolution jusqu'a $t={}$".format(tmax))
 
-plt.xlim((-3,3))
-plt.ylim((-3,3))
+plt.xlim((-3.2,3.2))
+plt.ylim((-3.2,3.2))
 
 lignes = []
 
 #print(positions[:,0,0])
+
 
 for i in range(len(m)):
     ligne, = plt.plot(positions[:,i,0],positions[:,i,1])
