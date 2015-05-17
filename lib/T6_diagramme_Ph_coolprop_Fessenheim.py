@@ -25,13 +25,36 @@ fluide= 'Water'                  # Le choix du fluide
 Plogscale = True                 # Axe en pression logarithmique ?
 iso_T = True                    # Veut-on des isothermes ?
 iso_x = True                    # et les isotitres ?
-iso_s = False                    # et les isentropiques ?
-iso_v = True                     # et les isochores ?
+iso_s = True                    # et les isentropiques ?
+iso_v = False                     # et les isochores ?
 
 # Les unités dans lesquelles on veut travailler
 unitP = 'bar'
 unitH = 'kJ'
 unitT = 'celsius'
+
+# Points de fonctionnement particuliers couples (P,T) en (bar,celsius)
+# D'après les données de Thibaut:
+Fessenheim = [(65,220),
+              (65,275),
+              (50,264),
+              (11,184),
+              (11,253),
+              (0.07,170),
+              (15,220),
+              (11,100),
+              (11,40),
+              (11,75),
+              (70,220)]
+# D'après le petit film "VAPEUR": http://energie.edf.com/nucleaire/comment-ca-marche-y/les-grands-principes-de-fonctionnement-48400.html
+Fessenheim = [(67.5,220),
+              (67.5,283),  # Entrée turbine "haute pression"
+              (10,180),    # Sortie turbine (cède "moitié de son énergie")
+              (9.4,267),   # Sortie sécheur surchauffeur, arrivée turbines "basses pression"
+              (0.07,40),  # Après condenseur
+              (9,170),   # Sortie réservoir
+              (71.5,227)]  # Sortie TurboPompe
+
 
 # Les utilitaires pour les conversions
 if unitT == 'celsius':
@@ -45,13 +68,13 @@ CONVERSION = {'bar': 1e5, 'kPa': 1e3, 'Pa': 1, 'kJ': 1e3, 'J': 1}
 # Les limites du graphique (en unités du graphique)
 # On part de la pression triple (+ 1Pa pour être sûr)
 #Pmin = (CP.PropsSI(fluide,'ptriple')+1)/CONVERSION[unitP]
-Pmin = 1  # Pour Fessenheim, partons de 1 bar
+Pmin = 0.03  # Pour Fessenheim, partons de 0.03 bar (car on passe en 0.05bar)
 # On va jusqu'à un peu au-dessus du point critique
 Pmax = (1.5*CP.PropsSI(fluide,'pcrit'))/CONVERSION[unitP]
 # On prend l'enthalpie à gauche un peu sous le point triple côté liquide
 Hmin = 0.9*CP.PropsSI('H','P',Pmin*CONVERSION[unitP],'Q',0,fluide)/CONVERSION[unitH]
 # et l'enthalpie à droite un peu au-dessus de celle du point triple côté gaz
-Hmax = 1.5*CP.PropsSI('H','P',Pmin*CONVERSION[unitP],'Q',1,fluide)/CONVERSION[unitH]
+Hmax = 1.9*CP.PropsSI('H','P',Pmin*CONVERSION[unitP],'Q',1,fluide)/CONVERSION[unitH]
 
 # Données pour les isothermes (on veut une représentation sympa en celsius en pratique)
 dT = 20                                 # Incrément de températures
@@ -60,8 +83,8 @@ Tcrit = CP.PropsSI(fluide,'Tcrit')      # et au point critique
 # Par défaut, on part près du point triple avec une valeur arrondi à une 
 # dizaine en celsius.
 Tmin = kelvin(int(celsius(Ttriple)/10)*10 + 10) + 20
-# Pour Fessenheim, on démarre à 100°C
-Tmin = kelvin(100)
+# Pour Fessenheim, on démarre à 40°C
+Tmin = kelvin(20)
 val_T = np.arange(Tmin,1.5*Tcrit,dT)    # et on dépasse un peu le point critique
 T_to_show = list(range(2,len(val_T),2)) # Sélection des T à afficher (mettre None pour toutes)
 
@@ -74,7 +97,7 @@ ds = 0.5e3
 striple_x0 = CP.PropsSI('S','Q',0,'T',Ttriple,fluide) # Entropie triple à gauche
 striple_x1 = CP.PropsSI('S','Q',1,'T',Ttriple,fluide) # Entropie triple à droite
 val_s = np.arange(striple_x0,striple_x1*1.2,ds)       # Valeurs à tracer
-s_to_show = list(range(2,len(val_s),2))               # et à afficher
+s_to_show = list(range(2,len(val_s),2))[:-2]          # et à afficher
 
 # Données pour les isochores (réparties de manière logarithmique par défaut)
 vcrit = 1/CP.PropsSI(fluide,'rhocrit')                 # Volume massique critique
@@ -86,7 +109,7 @@ val_v = [a * 10**b for a in [1,2,5] for b in range(exp_min,exp_max+1)]
 v_to_show = None                                       # On les affiche toutes.
 
 # Quelques constantes
-UNITS = {'T': 'K', 'Q': '', 'S': 'kJ/K/kg', 'V': 'm$^3$/kg'}
+UNITS = {'T': ' K', 'Q': '', 'S': ' kJ/K/kg', 'V': ' m$^3$/kg'}
 if unitT == 'celsius': UNITS['T'] = '$^{\circ}$C'
 LABEL = {'T': 'T', 'Q': 'x','S': 's', 'V': 'v'}
 COLOR_MAP = {'T': 'Darkred',
@@ -96,13 +119,14 @@ COLOR_MAP = {'T': 'Darkred',
              'S': 'DarkOrange',   
              'Q': 'black'}
 LINE_STYLE = {'T': '-.',
-             'V': '--',
-             'S': ':',   
+             'V': ':',
+             'S': '--',   
              'Q': '-'}
           
 
 # On prépare un format pour impression sur A3 ou presque (dimensions en pouces)
-plt.figure(figsize=(30,21))
+#plt.figure(figsize=(30,21))
+plt.figure(figsize=(16.54,11.69))
 
 def place_label(x,y,label,indice=None,cotan=False,color='k'):
     """ Routine qui se débrouille pour mettre un label semi-transparent au 
@@ -171,34 +195,21 @@ def fait_isolignes(type,valeurs,position=None,nb_points=1000,to_show=None,round_
         if type == 'T': val = celsius(val)
         if round_nb >0 : val = str(round(val,round_nb)) # Pour faire joli
         else: val = str(int(round(val)))                # là aussi...
-        label = '${}={}$ {}'.format(LABEL[type],val,UNITS[type])
+        label = '${}={}${}'.format(LABEL[type],val,UNITS[type])
         # Affichage courbe
-        plt.plot(val_H,val_P,
+        plt.plot(val_H,val_P,linewidth=2,
                  color=COLOR_MAP[type],linestyle=LINE_STYLE[type])     
         if i in to_show: # Ainsi que du label s'il fait partie de la liste
             place_label(val_H,val_P,label,int(position*nb_points))
 
+def affiche_serie_points(couples):
+    for P,T in couples:
+        T = kelvin(T)
+        H = CP.PropsSI('H','T',T,'P',P*CONVERSION[unitP],fluide)/CONVERSION[unitH]
+        plt.plot(H,P,'ko',markersize=10)
+
 # Le programme proprement dit commence ici.
 
-#ph_plot = CPP.PropsPlot(fluide,'Ph')   # On demande gentiment le plot de base
-#ph_plot._draw_graph()                  # On s'assure qu'il a discuté avec plt
-#if Plogscale: plt.yscale('log')        # Passage en log(P)
-#plt.savefig('PNG/T6_diagramme_Ph_coolprop_{}_Fessenheim.png'.format(fluide))
-
-#exit()
-
-""" 
-if iso_x: # Les lignes isotitres sont un peu spéciales, donc ont leur code propre
-    ph_plot.draw_isolines('Q',val_x)   # Tracé des lignes isotitres
-    # Récupération de la liste des isotitres.
-    isoQ = CPP.Plots.IsoLines(fluide,'Ph','Q').get_isolines(val_x)
-    for line in isoQ:                  # Rajout des label
-        label = line['label'] + line['unit']
-        x,y = line['x'],line['y']
-        place_label(x,y,label,indice=len(x)//20)
-else: # On trace tout de même quelque chose (de déjà présent) pour s'assurer
-    ph_plot.draw_isolines('Q',[0,1],num=2)# une bonne sélection des bornes
-"""
 
 plt.figure(figsize=(15,10))
 
@@ -209,15 +220,81 @@ if Plogscale: plt.yscale('log')        # Passage en log(P)
 # Tracé de la courbe de saturation
 fait_isolignes('Q',[0,1],position=0,to_show=[''])
 # Ici, on fait toutes les autres isolignes (le boulot a été fait plus haut)
-if iso_T: fait_isolignes('T',val_T,position=0.8,to_show=T_to_show)
-if iso_s: fait_isolignes('S',val_s,position=0.3,to_show=s_to_show,round_nb=3)
+if iso_T: fait_isolignes('T',val_T,position=0.9,to_show=T_to_show)
+if iso_s: fait_isolignes('S',val_s,position=0.5,to_show=s_to_show,round_nb=3)
 if iso_v: fait_isolignes('V',val_v,position=0.25,to_show=v_to_show,round_nb=3)
 if iso_x: fait_isolignes('Q',val_x,position=0.1,to_show=x_to_show,round_nb=2)
 
+# affiche_serie_points(Fessenheim)
+
+mettre_Fessenheim = True
+
+def place_point(H,P,S,T):
+    """ Prend un point en coordonnées SI pour le placer sur le graphe en 
+    coordonnées du graphe. """
+    t = int(P/CONVERSION[unitP]),int(H/1e3),round(S/1e3,2),int(round(celsius(T))),0
+    plt.plot(H/CONVERSION[unitH],P/CONVERSION[unitP],'ko',markersize=8,
+    label = '$P={}$ bars, $h={}$ kJ/kg, $s={}$ kJ/K/kg et $T={}^{{\circ}}$C'.format(*t))
+    #plt.plot(H/CONVERSION[unitH],P/CONVERSION[unitP],'ko',markersize=8,
+    #label = '$s={}$ kJ/K/kg et $T={}^{{\circ}}$C'.format(round(S/1e3,2),int(round(celsius(T)))))
+
+if mettre_Fessenheim:
+    # Sortie de l'échange avec le réacteur: tout est sous forme de vapeur
+    P = 67.5e5
+    H = CP.PropsSI('H','P',P,'Q',1,fluide)
+    S = CP.PropsSI('S','P',P,'Q',1,fluide)
+    T = CP.PropsSI('T','P',P,'Q',1,fluide)
+    place_point(H,P,S,T)
+    # Quand on arrive à la turbine, on fait une isentropique
+    P = 10e5
+    H = CP.PropsSI('H','P',P,'S',S,fluide)
+    T = CP.PropsSI('T','P',P,'S',S,fluide)
+    place_point(H,P,S,T)
+    # Le sécheur surchauffeur le remet jusqu'à 267°C (la pression baisse un peu)
+    P = 9.4e5
+    T = kelvin(267)
+    H = CP.PropsSI('H','P',P,'T',T,fluide)
+    S = CP.PropsSI('S','P',P,'T',T,fluide)
+    place_point(H,P,S,T)
+    # Le turbines refont un passage isentropique pour arriver à 0.07bar
+    P = 0.07e5
+    H = CP.PropsSI('H','P',P,'S',S,fluide)
+    T = CP.PropsSI('T','P',P,'S',S,fluide)
+    place_point(H,P,S,T)
+    # Ensuite, le condenseur permet de remettre tout sous forme liquide
+    H = CP.PropsSI('H','P',P,'Q',0,fluide)
+    S = CP.PropsSI('S','P',P,'Q',0,fluide)
+    T = CP.PropsSI('T','P',P,'Q',0,fluide)
+    place_point(H,P,S,T)
+    # On passe par un intermédiaire qu'on ne sait pas comment on arrive là:
+    P = 9e5
+    T = kelvin(170)
+    H = CP.PropsSI('H','P',P,'T',T,fluide)
+    S = CP.PropsSI('S','P',P,'T',T,fluide)
+    place_point(H,P,S,T)
+    # On finit sur un point à pression légèrement plus forte qu'au départ
+    T = kelvin(227)
+    P = 71.5e5
+    H = CP.PropsSI('H','P',P,'T',T,fluide)
+    S = CP.PropsSI('S','P',P,'T',T,fluide)
+    place_point(H,P,S,T)
+    plt.legend(loc='lower right')
+
+Fessenheim = [(67.5,220),
+              (67.5,283),  # Entrée turbine "haute pression"
+              (10,180),    # Sortie turbine (cède "moitié de son énergie")
+              (9.4,267),   # Sortie sécheur surchauffeur, arrivée turbines "basses pression"
+              (0.07,40),  # Après condenseur
+              (9,170),   # Sortie réservoir
+              (71.5,227)]  # Sortie TurboPompe
+    
+
+plt.xlabel('Enthalpie massique $h$ (en {}/kg)'.format(unitH))
+plt.ylabel('Pression P (en {})'.format(unitP))
+plt.title('Diagramme Pression/Enthalpie pour le fluide {}'.format(fluide))
 
 plt.grid(which='both') # Rajout de la grille
-#ph_plot._draw_graph()  # On oblige le dessin avant la sauvegarde
-plt.savefig('PNG/T6_diagramme_Ph_coolprop_{}_Fessenheim.png'.format(fluide))
+plt.savefig('PNG/T6_diagramme_Ph_coolprop_{}_Fessenheim.pdf'.format(fluide))
 
 
 
