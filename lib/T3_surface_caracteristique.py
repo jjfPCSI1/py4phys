@@ -16,11 +16,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
-V = np.linspace(10,30,100)
-T = np.linspace(200,450,100)
+plt.xkcd()
+
+V = np.linspace(10,30,200)
+T = np.linspace(200,450,200)
 V,T = np.meshgrid(V,T)
 R = 8.314
 P = R*T/V
+
 
 fig = plt.figure()
 ax = fig.gca(projection='3d')
