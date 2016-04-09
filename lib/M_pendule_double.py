@@ -92,7 +92,14 @@ class DoublePendulum:
 
         U = G * (M1 * y[0] + M2 * y[1])
         K = 0.5 * (M1 * np.dot(vx, vx) + M2 * np.dot(vy, vy))
-
+        # Correction JJ: vx donne *les* vitesses suivant x pour les deux 
+        # masses et non la vitesse de la masse 1. Malheureusement, cela ne 
+        # suffit pas à résoudre le problème de non conservation de l'énergie, 
+        # peut-être un problème lors de l'intégration ? On va essayer de 
+        # reprendre le problème "from scratsh" dans un autre fichier pour 
+        # voir.
+        masses = np.array([M1,M2])
+        K = 0.5*np.sum(masses * (vx**2 + vy**2))
         return U + K
 
     def dstate_dt(self, state, t):
