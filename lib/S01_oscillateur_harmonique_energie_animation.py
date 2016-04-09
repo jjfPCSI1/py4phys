@@ -21,7 +21,7 @@ import matplotlib.pyplot as plt    # Pour les dessins
 from matplotlib import animation   # Pour l'animation progressive
 
 m = 1                              # Masse du mobile
-k = 1                              # Constante de raideur du ressort
+k = 10                              # Constante de raideur du ressort
 omega0 = (k/m)**0.5                # On définit la pulsation propre
 
 def equadiff(y,t):
@@ -30,11 +30,11 @@ def equadiff(y,t):
     x,vx = y                        # y contient position et vitesse
     return [vx,- omega0**2 * x]     # On renvoie un doublet pour [dx/dt,dvx/dt]
 
-nb_CI = 2 # Nombre de conditions initiales explorées
+nb_CI = 1 # Nombre de conditions initiales explorées
 
 t = np.linspace(0,10,1000)          # Le temps total d'intégration
-x0= np.linspace(5,1,nb_CI)          # Les positions initiales choisies
-v0= np.linspace(0,3,nb_CI)          # Les vitesses  initiales choisies
+x0= np.linspace(2,1,nb_CI)          # Les positions initiales choisies
+v0= np.linspace(-1,3,nb_CI)          # Les vitesses  initiales choisies
 
 oscillateurs = []
 lignes = []
@@ -49,11 +49,11 @@ for i in range(nb_CI):              # Pour chaque condition initiale
     Ec = 0.5*m*v**2                 # Energie cinétique
     Ep = 0.5*k*x**2                 # Energie potentielle
     Em = Ec + Ep                    # Energie mécanique
-    lab = ' pour x0={} et v0={}'.format(round(x0[i],1),round(v0[i],1))
+    lab = ' pour $x_0={}$ et $v_0={}$'.format(round(x0[i],1),round(v0[i],1))
     l1,=plt.plot(t,Ec,label='$E_c$'+lab)# Affichage Ec
     l2,=plt.plot(t,Ep,label='$E_p$'+lab)# Affichage Ep
     l3,=plt.plot(t,Em,label='$E_m$'+lab)# Affichage Em
-    oscillateurs.extend([Ep,Ec,Em])
+    oscillateurs.extend([Ec,Ep,Em])
     lignes.extend([l1,l2,l3])
 
 def init():
