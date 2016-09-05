@@ -8,7 +8,7 @@
 
 
 """
-Programme proposé par Sylvain Condamin (MP*).
+Programme proposé par Sylvain Condamin (MP*, Lycée Albert Schweitzer, Le Raincy).
 Permet la création de cartes de champ électrique, avec possibilité d'inclure 
 des dipôles. Il pourrait sans doute être mieux optimisé mais il fonctionne 
 tant qu'on ne lui en demande pas trop.

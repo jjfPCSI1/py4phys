@@ -8,7 +8,7 @@
 
 
 """
-Programme proposé par Antoine Senger (MP*, Lycée Poincaré, Nancy).
+Programme proposé par Sylvain Condamin (MP*, Lycée Albert Schweitzer, Le Raincy).
 Il s'agit d'une résolution numérique de l'équation de la diffusion 1D, avec 
 une conductivité et une capacité thermique variables, et diverses conditions 
 aux bords possibles.
