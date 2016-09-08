@@ -1,0 +1,15 @@
+
+# Veuillez saisir le message de validation pour vos modifications. Les lignes
+# commençant par '#' seront ignorées, et un message vide abandonne la validation.
+# Chemins explicites spécifiés sans -i ni -o ; --only supposé...
+# Sur la branche master
+# Votre branche est à jour avec 'origin/master'.
+#
+# Modifications qui seront validées :
+#	modifié :         aindexjulia.ipynb
+#	nouveau fichier : ajrlc.ipynb
+#	nouveau fichier : rlc.ipynb
+#
+# Fichiers non suivis:
+#	.ipynb_checkpoints/
+#
