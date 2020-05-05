@@ -22,7 +22,7 @@ import scipy as sp
 import scipy.integrate
 import matplotlib.pyplot as plt
 
-v = 1         # Vitesse du chien
+v = 1.2         # Vitesse du chien
 v0= 1         # Vitesse du maître
 
 # Position initiale du chien (cf coordonnees de l'exercice)

@@ -18,14 +18,14 @@ import scipy.integrate
 import matplotlib.pyplot as plt
 
 v0= 1         
-alpha = np.pi/2 + np.pi/2 * 0.1
+alpha = np.pi/2 + np.pi/2 * 0.05
 
 theta0 = 0
 r0     = 4
 y0 = [r0,theta0]
 
 # Distribution des temps
-tmin, tmax, dt = 0, 30, 0.01
+tmin, tmax, dt = 0, 30, 0.1
 nb_t = int((tmax-tmin)/dt)
 t = np.linspace(tmin,tmax,nb_t)
 
