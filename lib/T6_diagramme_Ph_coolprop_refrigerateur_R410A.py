@@ -24,7 +24,7 @@ fluide= 'R410A'                  # Le choix du fluide
 Plogscale = True                 # Axe en pression logarithmique ?
 iso_T = True                    # Veut-on des isothermes ?
 iso_x = False                    # et les isotitres ?
-iso_s = True                    # et les isentropiques ?
+iso_s = False                    # et les isentropiques ?
 iso_v = False                     # et les isochores ?
 
 # Les unités dans lesquelles on veut travailler
@@ -163,6 +163,15 @@ def fait_isolignes(type,valeurs,position=None,nb_points=1000,to_show=None,round_
             val_T = np.linspace(Ttriple,Tcrit,nb_points)
             val_P = CP.PropsSI('P','T',val_T,'Q',val,fluide)
             val_H = CP.PropsSI('H','T',val_T,'Q',val,fluide)
+        elif type == 'T' and val < Tcrit:# Cas particulier des isothermes pour la partie horizontale
+            Hgauche = CP.PropsSI('H','T',val,'Q',0,fluide)
+            Hdroite = CP.PropsSI('H','T',val,'Q',1,fluide)
+            Psat    = CP.PropsSI('P','T',val,'Q',1,fluide)
+            val_P = np.array(val_P0)
+            val_Hgauche = CP.PropsSI('H','P',val_P[val_P>Psat],type,val,fluide)
+            val_Hdroite = CP.PropsSI('H','P',val_P[val_P<Psat],type,val,fluide)
+            val_P = np.array(list(val_P[val_P<Psat]) + [Psat,Psat] + list(val_P[val_P>Psat]))
+            val_H = np.array(list(val_Hdroite) + [Hdroite,Hgauche] + list(val_Hgauche))
         else:            # Sinon, on utilise l'éventail des pression
             val_P = np.array(val_P0)
             val_H = CP.PropsSI('H','P',val_P,type,val,fluide)
@@ -175,7 +184,7 @@ def fait_isolignes(type,valeurs,position=None,nb_points=1000,to_show=None,round_
         else: val = str(int(round(val)))                # là aussi...
         label = '${}={}${}'.format(LABEL[type],val,UNITS[type])
         # Affichage courbe
-        plt.plot(val_H,val_P,linewidth=2,
+        plt.plot(val_H,val_P,'-',linewidth=2,
                  color=COLOR_MAP[type],linestyle=LINE_STYLE[type])     
         if i in to_show: # Ainsi que du label s'il fait partie de la liste
             place_label(val_H,val_P,label,int(position*nb_points))
@@ -281,7 +290,7 @@ if False:
     H = CP.PropsSI('H','P',P,'T',T,fluide)
     S = CP.PropsSI('S','P',P,'T',T,fluide)
     place_point(H,P,S,T)
-plt.legend(loc='lower right')
+#plt.legend(loc='lower right')
 
 Fessenheim = [(67.5,220),
               (67.5,283),  # Entrée turbine "haute pression"
