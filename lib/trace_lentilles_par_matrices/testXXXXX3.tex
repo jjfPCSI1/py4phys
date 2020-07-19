@@ -1,0 +1,107 @@
+%généré automatiquement par lentilles_matricielles.py
+%paramètres : 
+%liste_pos_lentilles = [-4, -2, 3, 8]
+%liste_dists_focales = [2, -5, 2, inf]    % remarque : si la dernière valeur est inf, c'est une lentille fictive pour faciliter le code
+%x_A = -7.5
+%AB = 0.25
+%liste_angle = [30, 10, 5, 0, -5, -10, -20, -30]
+% et pour les limites : 
+%lim = [-8, 8, -2.5, 2.5]
+%marge = 0.05
+\begin{pspicture*}( -8.05 , -2.55 )( 8.05 , 2.55 )
+% axe optique
+\psline[arrowscale = 3]{->}( -8 ,0)( 8 ,0)
+\uput[90]( 7.9 ,0.1){$\Delta$}
+%affichage des lentilles
+    %Lentille en -4 de distance focale 2
+    \psline[linewidth = 2pt,arrowscale = 2]{ <-> }( -4 , -2.5 )( -4 , 2.5 )
+    %Lentille en -2 de distance focale -5
+    \psline[linewidth = 2pt,arrowscale = 2]{ >-< }( -2 , -2.5 )( -2 , 2.5 )
+    %Lentille en 3 de distance focale 2
+    \psline[linewidth = 2pt,arrowscale = 2]{ <-> }( 3 , -2.5 )( 3 , 2.5 )
+% objet réel ou virtuel
+\psline[linewidth = 1.5pt]{->}( -7.5 ,0)( -7.5 , 0.25 )
+\uput[ -90 ]( -7.5 ,0){$A$}
+\uput[ 90 ]( -7.5 , 0.25 ){$B$}
+%positionnement des différentes images
+    %position de l'image 1
+    \psline[linewidth = 1.5pt,linestyle = dashed]{->}( 0.666666666666667 ,0)( 0.666666666666667 , -0.3333333333333333 )
+    \uput[ 90 ]( 0.666666666666667 ,0){$ A_1 $}
+    \uput[ -90 ]( 0.666666666666667 , -0.3333333333333333 ){$ B_1 $}
+    %position de l'image 2
+    \psline[linewidth = 1.5pt,linestyle = dashed]{->}( 3.714285714285716 ,0)( 3.714285714285716 , -0.7142857142857143 )
+    \uput[ 90 ]( 3.714285714285716 ,0){$ A_2 $}
+    \uput[ -90 ]( 3.714285714285716 , -0.7142857142857143 ){$ B_2 $}
+    %position de l'image 3
+    \psline[linewidth = 1.5pt]{->}( 3.5263157894736854 ,0)( 3.5263157894736854 , -0.5263157894736838 )
+    \uput[ 90 ]( 3.5263157894736854 ,0){$ A' $}
+    \uput[ -90 ]( 3.5263157894736854 , -0.5263157894736838 ){$ B' $}
+%tracé des rayons pour les différents angles de [30, 10, 5, 0, -5, -10, -20, -30]
+    %tracé du rayon pour l'angle initial 30 ° en couleur blue
+        %pointillés parce que l'image n'est pas entre les deux lentilles
+        \psline[linecolor = blue,linewidth = 0.75pt, linestyle = dashed](-4.000000,2.082596)(0.666667,-0.333333)
+        %pointillés parce que l'image n'est pas entre les deux lentilles
+        \psline[linecolor = blue,linewidth = 0.75pt, linestyle = dashed](-2.000000,1.047198)(3.714286,-0.714286)
+    \psline[linecolor = blue,ArrowInside = ->,arrowscale = 2](-8,-0.011799387799149408)(-7.5,0.25)(-4,2.0825957145940457)(-2,1.0471975511965976)(3,-0.494100306100425)(8,-0.8001473981463851)
+    %tracé du rayon pour l'angle initial 10 ° en couleur red
+        %pointillés parce que l'image n'est pas entre les deux lentilles
+        \psline[linecolor = red,linewidth = 0.75pt, linestyle = dashed](-4.000000,0.860865)(0.666667,-0.333333)
+        %pointillés parce que l'image n'est pas entre les deux lentilles
+        \psline[linecolor = red,linewidth = 0.75pt, linestyle = dashed](-2.000000,0.349066)(3.714286,-0.714286)
+    \psline[linecolor = red,ArrowInside = ->,arrowscale = 2](-8,0.1627335374002835)(-7.5,0.25)(-4,0.8608652381980153)(-2,0.34906585039886595)(3,-0.5813667687001415)(8,-0.058382466048795156)
+    %tracé du rayon pour l'angle initial 5 ° en couleur green
+        %pointillés parce que l'image n'est pas entre les deux lentilles
+        \psline[linecolor = green,linewidth = 0.75pt, linestyle = dashed](-4.000000,0.555433)(0.666667,-0.333333)
+        %pointillés parce que l'image n'est pas entre les deux lentilles
+        \psline[linecolor = green,linewidth = 0.75pt, linestyle = dashed](-2.000000,0.174533)(3.714286,-0.714286)
+    \psline[linecolor = green,ArrowInside = ->,arrowscale = 2](-8,0.20636676870014176)(-7.5,0.25)(-4,0.5554326190990077)(-2,0.17453292519943298)(3,-0.6031833843500708)(8,0.12705876697560237)
+    %tracé du rayon pour l'angle initial 0 ° en couleur cyan
+        %pointillés parce que l'image n'est pas entre les deux lentilles
+        \psline[linecolor = cyan,linewidth = 0.75pt, linestyle = dashed](-4.000000,0.250000)(0.666667,-0.333333)
+        %pointillés parce que l'image n'est pas entre les deux lentilles
+        \psline[linecolor = cyan,linewidth = 0.75pt, linestyle = dashed](-2.000000,0.000000)(3.714286,-0.714286)
+    \psline[linecolor = cyan,ArrowInside = ->,arrowscale = 2](-8,0.25)(-7.5,0.25)(-4,0.25)(-2,0.0)(3,-0.625)(8,0.3125)
+    %tracé du rayon pour l'angle initial -5 ° en couleur magenta
+        %pointillés parce que l'image n'est pas entre les deux lentilles
+        \psline[linecolor = magenta,linewidth = 0.75pt, linestyle = dashed](-4.000000,-0.055433)(0.666667,-0.333333)
+        %pointillés parce que l'image n'est pas entre les deux lentilles
+        \psline[linecolor = magenta,linewidth = 0.75pt, linestyle = dashed](-2.000000,-0.174533)(3.714286,-0.714286)
+    \psline[linecolor = magenta,ArrowInside = ->,arrowscale = 2](-8,0.29363323129985824)(-7.5,0.25)(-4,-0.05543261909900765)(-2,-0.17453292519943295)(3,-0.6468166156499292)(8,0.49794123302439763)
+    %tracé du rayon pour l'angle initial -10 ° en couleur yellow
+        %pointillés parce que l'image n'est pas entre les deux lentilles
+        \psline[linecolor = yellow,linewidth = 0.75pt, linestyle = dashed](-4.000000,-0.360865)(0.666667,-0.333333)
+        %pointillés parce que l'image n'est pas entre les deux lentilles
+        \psline[linecolor = yellow,linewidth = 0.75pt, linestyle = dashed](-2.000000,-0.349066)(3.714286,-0.714286)
+    \psline[linecolor = yellow,ArrowInside = ->,arrowscale = 2](-8,0.3372664625997165)(-7.5,0.25)(-4,-0.3608652381980153)(-2,-0.3490658503988659)(3,-0.6686332312998583)(8,0.6833824660487949)
+    %tracé du rayon pour l'angle initial -20 ° en couleur gray
+        %pointillés parce que l'image n'est pas entre les deux lentilles
+        \psline[linecolor = gray,linewidth = 0.75pt, linestyle = dashed](-4.000000,-0.971730)(0.666667,-0.333333)
+        %pointillés parce que l'image n'est pas entre les deux lentilles
+        \psline[linecolor = gray,linewidth = 0.75pt, linestyle = dashed](-2.000000,-0.698132)(3.714286,-0.714286)
+    \psline[linecolor = gray,ArrowInside = ->,arrowscale = 2](-8,0.424532925199433)(-7.5,0.25)(-4,-0.9717304763960306)(-2,-0.6981317007977318)(3,-0.7122664625997166)(8,1.0542649320975899)
+    %tracé du rayon pour l'angle initial -30 ° en couleur blue
+        %pointillés parce que l'image n'est pas entre les deux lentilles
+        \psline[linecolor = blue,linewidth = 0.75pt, linestyle = dashed](-4.000000,-1.582596)(0.666667,-0.333333)
+        %pointillés parce que l'image n'est pas entre les deux lentilles
+        \psline[linecolor = blue,linewidth = 0.75pt, linestyle = dashed](-2.000000,-1.047198)(3.714286,-0.714286)
+    \psline[linecolor = blue,ArrowInside = ->,arrowscale = 2](-8,0.5117993877991494)(-7.5,0.25)(-4,-1.582595714594046)(-2,-1.0471975511965976)(3,-0.7558996938995746)(8,1.4251473981463851)
+%affichage des foyers des lentilles ; à retoucher à la main si besoin
+    %Lentille en -4 de distance focale 2
+    \psline( -2 , 0.085 )( -2 , -0.085 )
+    \psline( -6 , 0.085 )( -6 , -0.085 )
+    \uput[-90](-6.000000,0.000000){\psframebox[linewidth=0.1pt,linecolor=white,fillstyle=solid,opacity=0.8,framearc=0.3,framesep=0.5pt]{$F'_1$}}
+    \uput[-90](-2.000000,0.000000){\psframebox[linewidth=0.1pt,linecolor=white,fillstyle=solid,opacity=0.8,framearc=0.3,framesep=0.5pt]{$F_1$}}
+    %Lentille en -2 de distance focale -5
+    \psline( -7 , 0.085 )( -7 , -0.085 )
+    \psline( 3 , 0.085 )( 3 , -0.085 )
+    \uput[-90](3.000000,0.000000){\psframebox[linewidth=0.1pt,linecolor=white,fillstyle=solid,opacity=0.8,framearc=0.3,framesep=0.5pt]{$F'_2$}}
+    \uput[-90](-7.000000,0.000000){\psframebox[linewidth=0.1pt,linecolor=white,fillstyle=solid,opacity=0.8,framearc=0.3,framesep=0.5pt]{$F_2$}}
+    %Lentille en 3 de distance focale 2
+    \psline( 5 , 0.085 )( 5 , -0.085 )
+    \psline( 1 , 0.085 )( 1 , -0.085 )
+    \uput[-90](1.000000,0.000000){\psframebox[linewidth=0.1pt,linecolor=white,fillstyle=solid,opacity=0.8,framearc=0.3,framesep=0.5pt]{$F'_3$}}
+    \uput[-90](5.000000,0.000000){\psframebox[linewidth=0.1pt,linecolor=white,fillstyle=solid,opacity=0.8,framearc=0.3,framesep=0.5pt]{$F_3$}}
+\end{pspicture*}
+
+
+

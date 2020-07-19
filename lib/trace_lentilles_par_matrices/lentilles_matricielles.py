@@ -1,11 +1,26 @@
-# -*- coding: utf-8 -*-
-"""
+r"""
 Created on Sat Sep 28 23:51:45 2019
 
 @author: Vincent Grenard
 
 Génération automatique de tracés optiques au travers d'un nombre (a priori 
 arbitraire) de lentilles consécutives (voir fichier test.pdf pour un exemple).
+
+Pour inclure les fichiers produits, vous pouvez utiliser l'exemple minimal suivant
+
+\documentclass[12pt,a4paper]{article}
+\usepackage{pstricks}
+\usepackage{pstricks-add}
+
+\begin{document}
+
+\input testXXXXX3.tex
+
+\end{document}
+
+Et compiler (obligatoirement) en passant par la moulinette
+latex -> dvips -> ps2pdf
+car pstricks ne fonctionne pas directement avec pdflatex
 
 """
 
@@ -27,7 +42,7 @@ nom_fichier = "testXXXXX3.tex"
 
 #ci-dessous un exemple avec x_A non infini
 liste_pos_lentilles = [-4, -2, 3] #position sur l'axe des abscisses des différentes lentilles
-liste_dists_focales = [2, -5, 20]#distances focales correspondantes
+liste_dists_focales = [2, -5, 2]#distances focales correspondantes
 x_A = -7.5 #position de l'objet
 AB = 0.25  #ordonnée/taille de l'objet ; si XA est inf, alors représente l'angle des rayons incidents
 liste_angle = [30, 10, 5, 0, -5, -10, -20, -30]#en degré ; si Xa esdt inf, alors représente la liste des y pour les rayons incidents
