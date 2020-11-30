@@ -1,17 +1,6 @@
-# coding: utf8
-
-# Sauf mention explicite du contraire par la suite, ce travail a été fait par 
-# Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycée Kléber. 
-# Vous êtes libres de le réutiliser et de le modifier selon vos besoins.
-
-
-
-
+# -*- coding: utf-8 -*-
 """
-Programme proposé par Sylvain Condamin (MP*, Lycée Albert Schweitzer, Le Raincy).
-Permet la création de cartes de champ électrique, avec possibilité d'inclure 
-des dipôles. Il pourrait sans doute être mieux optimisé mais il fonctionne 
-tant qu'on ne lui en demande pas trop.
+@author: Sylvain Condamin
 """
 
 import numpy as np
@@ -20,10 +9,8 @@ import matplotlib.pyplot as pl
 from scipy.integrate import odeint
 
 # On prend 1/(4*Pi*Epsilon0) =1 
-
-# Ce programme permet de tracer les lignes de champ magnétique d'un ensemble de
-# lignes orthogonales au plan, de spires dont l'axe est dans le plan, et de
-# moments magnétiques dans le plan. Il faut commencer par créer un objet
+# Ce programme permet de tracer les lignes de champ électrique d'un ensemble de
+# charges ou de dipôles électriques. Il faut commencer par créer un objet
 # Diagramme, puis ajouter les différents objets électriques à l'aide des
 # méthodes dédiées, puis utiliser la méthode draw pour tracer le diagramme.
 # Cf. description des méthodes, et exemples finaux pour plus d'information. 
@@ -122,16 +109,17 @@ class Diagramme(object):
             pl.plot(x,y,'-',color='k')
             k = int(self.numpoints/4)
             if(V0 > 0):
-                pl.arrow(x[k],y[k],x[k+1]-x[k],y[k+1]-y[k],color='k')
+                pl.arrow(x[k],y[k],x[k+1]-x[k],y[k+1]-y[k],color='k',width = 0.01)
             else:
-                pl.arrow(x[k],y[k],x[k-1]-x[k],y[k-1]-y[k],color='k')
-        S = np.linspace(-self.size,self.size,self.numpoints/10)
-        Vs = self.maxV*np.exp(np.linspace(0,2*np.log(self.circle),self.numV))
-        Vs = np.append(Vs,-Vs)
-        Vs = np.append(Vs,0)
-        Vs = np.sort(Vs)
-        P = [[self.V([X,Y]) for X in S]for Y in S]
-        pl.contour(S,S,P,Vs,colors='b')
+                pl.arrow(x[k],y[k],x[k-1]-x[k],y[k-1]-y[k],color='k',width = 0.01)
+        S = np.linspace(-self.size,self.size,int(self.numpoints/10))
+        if(self.numV > 0):
+            Vs = self.maxV*np.exp(np.linspace(0,2*np.log(self.circle),self.numV))
+            Vs = np.append(Vs,-Vs)
+            Vs = np.append(Vs,0)
+            Vs = np.sort(Vs)
+            P = [[self.V([X,Y]) for X in S]for Y in S]
+            pl.contour(S,S,P,Vs,colors='b')
         pl.title(self.title)
         pl.xlim([-self.size,self.size])
         pl.ylim([-self.size,self.size])
@@ -188,12 +176,12 @@ class Dipole(ElectricObjects):
         r = np.sqrt(x*x+y*y)
         return((p/r**3)*(-x*np.sin(theta)+y*np.cos(theta)))
 
-#Tracé pour une charge 
-#diag = Diagramme(numV = 20) #Crée le diagramme. L'option permet d'avoir plus d'équipotentielles
-#diag.addCharge(0,0,q=1) #Ajoute une charge q=1 à la position désirée
-#diag.draw() #Réalise le tracé
+###Tracé pour une charge 
+diag = Diagramme(numV = 20) #Crée le diagramme. L'option permet d'avoir plus d'équipotentielles
+diag.addCharge(0,0,q=1) #Ajoute une charge q=1 à la position désirée
+diag.draw() #Réalise le tracé
     
-#Tracé pour deux charges identiques    
+##Tracé pour deux charges identiques    
 ##diag = Diagramme(numV = 20)
 ##diag.addCharge(0,0.2,q=1) 
 ##diag.addCharge(0,-0.2,q=1) #Ajoute une deuxième charge à une position différente
@@ -206,9 +194,7 @@ class Dipole(ElectricObjects):
 ##diag.draw()
 
 #Tracé pour un dipôle 
-diag = Diagramme(startcircle = 0.03) #Diminue la taille du cercle autour du dipôle
-diag.addDipole(0,0,p=1,points=50) #Ajoute un dipôle
-diag.draw()
-
-
+##diag = Diagramme(numV = 20) 
+##diag.addDipole(0,0,p=1,points=0) #Ajoute un dipôle
+##diag.draw()
 
