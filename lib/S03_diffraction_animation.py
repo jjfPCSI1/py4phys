@@ -163,9 +163,11 @@ def animate(i):
 # L'animation proprement dite
 anim = animation.FuncAnimation(fig,animate,frames=int((tmax-tmin)/dt),interval=20)
 
+anim.save('PNG/S03_diffraction_animation.mp4', fps=30)
+
 
 # Sinon, on montre en direct
-plt.show()
+#plt.show()
     
 
 
