@@ -9,8 +9,9 @@ l'opération de filtrage.
 ## Présentation
 
 Introduire la FFT inverse pour retrouver l'amplitude du signal réel.
+Finalement non...
 
 ## Idée
 
-Donner une fonction de transfert à valeurs complexes et un spectre en amplitude.
-Demander une FFT inverse puis calculer l'amplitude du signal réel.
+Donner deux passe-bandes ou passe-bas avec différents Q pour voir la différence 
+en application sur une harmonique particulière.
