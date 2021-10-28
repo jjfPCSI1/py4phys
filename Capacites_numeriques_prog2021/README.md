@@ -1,11 +1,11 @@
 # Capacité numériques en Physique, CPGE, pour le lycée Kléber
 
-## Présentation
+## Présentation 
 
 Le présent dépôt vise à rassembler, sous forme de Notebook Jupyter, les 
 capacités numériques du programme de CPGE. L'idée est de fournir un Notebook à 
 compléter aux élèves et de les laisser explorer. Bien sûr, pour qu'il y ait 
-une certaine «motivation», il faudra associer cela à une note et don trouver 
+une certaine «motivation», il faudra associer cela à une note et donc trouver 
 un moyen de quantifier le travail, c'est pourquoi chaque notebook démarre par 
 l'importation de valeurs numériques stockées dans un fichier externe (que le 
 professeur peut donc changer lors de l'évaluation) et doit terminer par le 

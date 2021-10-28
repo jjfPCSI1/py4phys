@@ -11,6 +11,6 @@ Oscillateur de Landau
 
 ## Idée
 
-Donner une liste d'amplitudes (disons 4), ell, d
+Donner une liste de positions de départ (disons 4), ell, d
 et demander les amplitudes correspondante après intégration.
 Demander une représentation graphique pour observer la non-linéarité.
