@@ -29,7 +29,7 @@ Voici les capacités numériques recensées dans les différents programmes:
 
 * [X] `elec_CapNum_euler_reponse_premier_ordre`: mettre en œuvre la méthode d'Euler pour simuler la réponse d'un système linéaire du premier ordre à une excitation de forme quelconque.
 * [X] `elec_CapNum_action_filtre`: simuler l'action d'un filtre sur un signal périodique dont le spectre est fourni. Mettre en évidence l'influence des caractéristiques du filtre sur l'opération de filtrage.
-* [ ] `meca_CapNum_effets_non_lineaires`: résoudre numériquement une équation différentielle du deuxième ordre non-linéaire et faire apparaître l'effet des termes non-linéaires.
+* [X] `meca_CapNum_effets_non_lineaires`: résoudre numériquement une équation différentielle du deuxième ordre non-linéaire et faire apparaître l'effet des termes non-linéaires.
 * [ ] `meca_CapNum_trajectoires_champ_force_centrale_conservatif`: obtenir des trajectoires d'un point matériel soumis à un champ de force centrale conservatif.
 * [ ] `meca_CapNum_pendule_pesant`: Mettre en évidence le non isochronisme des oscillations.
 
