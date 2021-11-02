@@ -4,6 +4,17 @@ Py4Phys
 Projet pour rassembler l'ensemble des programmes Python qui peuvent être 
 utiles pour illustrer le cours de physique de CPGE.
 
+## Nouveauté
+
+Des notebook Jupyter permettant d'illustrer les différentes capacités 
+numériques du programme de PCSI/MPSI/MP2I apparaissent petite à petit dans le 
+dossier `Capacites_numeriques_prog2021/`. N'hésitez pas à y jeter un œil. 
+L'idée est de proposer aux étudiants des Notebooks à compléter avec plusieurs 
+niveaux d'autonomie:
+* le niveau 1 fait une explication détaillée et propose un exemple avant de demander une application aux étudiants ;
+* le niveau 2 revient à faire la même chose que le niveau 1 (ou presque) mais sans rappel ;
+* le niveau 3 se veut plus ambitieux avec plusieurs outils à utiliser avant d'arriver au résultat demandé.
+
 ## Organisation
 
 * Le fichier py4phys.pdf rassemble les codes et les graphiques qui en sont issus. 
