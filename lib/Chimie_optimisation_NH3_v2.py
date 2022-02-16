@@ -3,7 +3,7 @@
 # Sauf mention explicite du contraire par la suite, ce travail a été fait par 
 # Jean-Julien Fleck, professeur de physique/IPT en PCSI1 au lycée Kléber. 
 # Vous êtes libres de le réutiliser et de le modifier selon vos besoins.
-
+# Port Qt4 -> Qt5 : Eric Bachard  Wed, 16 Feb 2022 09:31:44 +0100
 
 
 
