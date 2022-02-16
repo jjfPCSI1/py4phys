@@ -16,7 +16,7 @@ Adaptation à Qt5 : Eric Bachard
 Travail realise par Yohan Loquais (PC, Lycee Fabert, Metz) permettant de
 visualiser les parametres d'optimisation pour la synthese de HI.
 
-Attention, cela demande que les modules Pyside et PyQt4 soient installes sur
+Attention, cela demande que les modules Pyside et PyQt5 soient installes sur
 la machine pour fonctionner. Ainsi que Python3.
 """
 
