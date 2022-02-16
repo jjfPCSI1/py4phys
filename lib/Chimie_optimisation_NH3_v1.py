@@ -8,6 +8,7 @@
 
 """
 Created on Wed Oct 29 16:03:32 2014
+Adapted to Qt5 interface : Eric Bachard Wed, 16 Feb 2022 08:29:09 +0100
 
 @author: Yohan LOQUAIS
 
@@ -22,7 +23,7 @@ quantite de matiere de gaz initiale et le rapport n(H2)/n(N2). Ce qui permet
 de pouvoir faire varier la composition du systeme avec une quantite de matiere 
 fixee.
 
-Attention, cela demande que les modules Pyside et PyQt4 soient installes sur 
+Attention, cela demande que les modules Pyside et PyQt5 soient installes sur 
 la machine pour fonctionner. Ainsi que Python3.
 
 """
