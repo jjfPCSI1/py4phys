@@ -25,7 +25,7 @@ import sys
 import numpy as np
 
 from matplotlib.figure import Figure
-from matplotlib.backends.backend_qt4agg import (
+from matplotlib.backends.backend_qt5agg import (
     FigureCanvasQTAgg as FigureCanvas,
     NavigationToolbar2QT as NavigationToolbar)
 
