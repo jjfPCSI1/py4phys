@@ -84,7 +84,7 @@ class FenetrePrincipale(QWidget):
         self.doubleSpinBox_n_init.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.doubleSpinBox_n_init.setSuffix(" mol")
         self.doubleSpinBox_n_init.setDecimals(1)
-        self.doubleSpinBox_n_init.setRange(0.1,1000.0)
+        self.doubleSpinBox_n_init.setRange(0.1,10.0)
         self.doubleSpinBox_n_init.setValue(4.0)
     
         #--Rapport n(H2)/n(N2)--
@@ -92,7 +92,7 @@ class FenetrePrincipale(QWidget):
         self.doubleSpinBox_rapportH2N2.setAlignment(QtCore.Qt.AlignRight)
         self.doubleSpinBox_rapportH2N2.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.doubleSpinBox_rapportH2N2.setDecimals(3)
-        self.doubleSpinBox_rapportH2N2.setRange(0.001,1000.0)
+        self.doubleSpinBox_rapportH2N2.setRange(0.001,10.0)
         self.doubleSpinBox_rapportH2N2.setValue(3.0)
         self.doubleSpinBox_rapportH2N2.setEnabled(False)
     
