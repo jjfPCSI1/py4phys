@@ -8,6 +8,7 @@
 
 """
 Created on Wed Oct 29 16:03:32 2014
+Adapted to Qt5 interface : Eric Bachard Wed, 16 Feb 2022 08:29:09 +0100
 
 @author: Yohan LOQUAIS
 
@@ -22,7 +23,7 @@ quantite de matiere de gaz initiale et le rapport n(H2)/n(N2). Ce qui permet
 de pouvoir faire varier la composition du systeme avec une quantite de matiere 
 fixee.
 
-Attention, cela demande que les modules Pyside et PyQt4 soient installes sur 
+Attention, cela demande que les modules Pyside et PyQt5 soient installes sur 
 la machine pour fonctionner. Ainsi que Python3.
 
 """
@@ -33,13 +34,14 @@ import sys
 import numpy as np
 
 from matplotlib.figure import Figure
-from matplotlib.backends.backend_qt4agg import (
+from matplotlib.backends.backend_qt5agg import (
     FigureCanvasQTAgg as FigureCanvas,
     NavigationToolbar2QT as NavigationToolbar)
 
-from PyQt4 import QtCore, QtGui
-from PyQt4.QtGui import *
-from PyQt4.QtCore import *
+from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
 
 
 #--------------------Definition du graphe---------------------------
@@ -67,7 +69,7 @@ class MplCanvas(FigureCanvas):
         
         self.setParent(parent)
         
-        FigureCanvas.setSizePolicy(self, QtGui.QSizePolicy.Expanding,QtGui.QSizePolicy.Expanding)
+        FigureCanvas.setSizePolicy(self, QtWidgets.QSizePolicy.Expanding,QtWidgets.QSizePolicy.Expanding)
         FigureCanvas.updateGeometry(self)
         
 
@@ -82,7 +84,7 @@ class FenetrePrincipale(QWidget):
         self.label_N2 = QLabel("N<sub>2<\sub>")
         self.doubleSpinBox_N2 = QDoubleSpinBox()
         self.doubleSpinBox_N2.setAlignment(QtCore.Qt.AlignRight)
-        self.doubleSpinBox_N2.setButtonSymbols(QtGui.QAbstractSpinBox.NoButtons)
+        self.doubleSpinBox_N2.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.doubleSpinBox_N2.setSuffix(" mol")
         self.doubleSpinBox_N2.setDecimals(2)
         self.doubleSpinBox_N2.setRange(0.01,100.0)
@@ -93,7 +95,7 @@ class FenetrePrincipale(QWidget):
         self.label_H2 = QLabel("3 H<sub>2<\sub>")
         self.doubleSpinBox_H2 = QDoubleSpinBox()
         self.doubleSpinBox_H2.setAlignment(QtCore.Qt.AlignRight)
-        self.doubleSpinBox_H2.setButtonSymbols(QtGui.QAbstractSpinBox.NoButtons)
+        self.doubleSpinBox_H2.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.doubleSpinBox_H2.setSuffix(" mol")
         self.doubleSpinBox_H2.setDecimals(2)
         self.doubleSpinBox_H2.setRange(0.01,100.0)
@@ -115,7 +117,7 @@ class FenetrePrincipale(QWidget):
         #------------Creation des parametres P et T------------
         self.doubleSpinBox_Ptot = QDoubleSpinBox()
         self.doubleSpinBox_Ptot.setAlignment(QtCore.Qt.AlignRight)
-        self.doubleSpinBox_Ptot.setButtonSymbols(QtGui.QAbstractSpinBox.NoButtons)
+        self.doubleSpinBox_Ptot.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.doubleSpinBox_Ptot.setSuffix(" bar")
         self.doubleSpinBox_Ptot.setDecimals(1)
         self.doubleSpinBox_Ptot.setRange(0.1,200.0)
@@ -123,7 +125,7 @@ class FenetrePrincipale(QWidget):
     
         self.doubleSpinBox_T = QDoubleSpinBox()
         self.doubleSpinBox_T.setAlignment(QtCore.Qt.AlignRight)
-        self.doubleSpinBox_T.setButtonSymbols(QtGui.QAbstractSpinBox.NoButtons)
+        self.doubleSpinBox_T.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.doubleSpinBox_T.setSuffix(" K")
         self.doubleSpinBox_T.setDecimals(0)
         self.doubleSpinBox_T.setRange(1.0,1500.0)
@@ -141,12 +143,12 @@ class FenetrePrincipale(QWidget):
         self.radio_H2 = QRadioButton("n(H2)")
         self.radio_Ptot = QRadioButton("Pression")
         self.radio_T = QRadioButton("Temperature")
-        self.connect(self.radio_N2, SIGNAL("toggled(bool)"), self.slot_radio_N2)
-        self.connect(self.radio_H2, SIGNAL("toggled(bool)"), self.slot_radio_H2)   
-        self.connect(self.radio_Ptot, SIGNAL("toggled(bool)"), self.slot_radio_Ptot)
-        self.connect(self.radio_T, SIGNAL("toggled(bool)"), self.slot_radio_T)
 
 
+        self.radio_N2.clicked.connect(self.slot_radio_N2)
+        self.radio_H2.clicked.connect(self.slot_radio_H2)
+        self.radio_Ptot.clicked.connect(self.slot_radio_Ptot)
+        self.radio_T.clicked.connect(self.slot_radio_T)
     
     
         self.hlayout_radio = QHBoxLayout()
@@ -157,14 +159,14 @@ class FenetrePrincipale(QWidget):
     
         self.doubleSpinBox_variation_1 = QDoubleSpinBox()
         self.doubleSpinBox_variation_1.setAlignment(QtCore.Qt.AlignRight)
-        self.doubleSpinBox_variation_1.setButtonSymbols(QtGui.QAbstractSpinBox.NoButtons)
+        self.doubleSpinBox_variation_1.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.doubleSpinBox_variation_1.setDecimals(self.doubleSpinBox_N2.decimals())
         self.doubleSpinBox_variation_1.setRange(self.doubleSpinBox_N2.minimum(),self.doubleSpinBox_N2.maximum())
         self.doubleSpinBox_variation_1.setValue(self.doubleSpinBox_N2.minimum())
     
         self.doubleSpinBox_variation_2 = QDoubleSpinBox()
         self.doubleSpinBox_variation_2.setAlignment(QtCore.Qt.AlignRight)
-        self.doubleSpinBox_variation_2.setButtonSymbols(QtGui.QAbstractSpinBox.NoButtons)
+        self.doubleSpinBox_variation_2.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.doubleSpinBox_variation_2.setDecimals(self.doubleSpinBox_N2.decimals())
         self.doubleSpinBox_variation_2.setRange(self.doubleSpinBox_N2.minimum(),self.doubleSpinBox_N2.maximum())
         self.doubleSpinBox_variation_2.setValue(self.doubleSpinBox_N2.maximum())
@@ -177,7 +179,7 @@ class FenetrePrincipale(QWidget):
     
         self.doubleSpinBox_variation_pas = QDoubleSpinBox()
         self.doubleSpinBox_variation_pas.setAlignment(QtCore.Qt.AlignRight)
-        self.doubleSpinBox_variation_pas.setButtonSymbols(QtGui.QAbstractSpinBox.NoButtons)
+        self.doubleSpinBox_variation_pas.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.doubleSpinBox_variation_pas.setDecimals(self.doubleSpinBox_N2.decimals())
         self.doubleSpinBox_variation_pas.setRange(self.doubleSpinBox_N2.minimum(),self.doubleSpinBox_N2.maximum()/2)
         self.doubleSpinBox_variation_pas.setValue(self.doubleSpinBox_N2.minimum())
@@ -188,7 +190,10 @@ class FenetrePrincipale(QWidget):
     
         #--------------------Bouton calculer-------------------
         self.bouton_calculer = QPushButton("Calculer")
-        self.connect(self.bouton_calculer, SIGNAL("clicked(bool)"), self.slot_calculer)
+        # not Qt5 compliant (remove me asap)
+        # self.connect(self.bouton_calculer, SIGNAL("clicked(bool)"), self.slot_calculer)
+        # see : https://www.tutorialspoint.com/pyqt/pyqt_signals_and_slots.htm
+        self.bouton_calculer.clicked.connect(self.slot_calculer)
         
         #----------------------Zone texte---------------------- 
         self.texte_resultat = "n(N2)     xi/xi_max     x(NH3)"
@@ -458,7 +463,6 @@ if __name__=="__main__":
     fenetre = FenetrePrincipale()
     fenetre.show()
     app.exec_()
-
 
 
 

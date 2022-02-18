@@ -11,6 +11,7 @@
 Created on Tue Dec  9 14:22:09 2014
 
 @author: Vincent GRENARD : vincent.grenard@gmail.com
+Adaptation à Qt5 : Eric Bachard
 Merci de me contacter pour toute suggestion d'amélioration
 
 Modélise la cinétique de la réaction
@@ -101,9 +102,9 @@ plt.legend()
 #plt.xlabel('t (u.a.)',fontsize = 16) #axe partagé avec la courbe du dessus
 plt.ylabel('$d/dt$ (u.a.)',fontsize = 16)
 
-axk1  = plt.axes([0.15, 0.2, 0.8, 0.03], axisbg=axcolor)
-axkmoins1  = plt.axes([0.15, 0.15, 0.8, 0.03], axisbg=axcolor)
-axk2  = plt.axes([0.15, 0.1, 0.8, 0.03], axisbg=axcolor)
+axk1  = plt.axes([0.15, 0.2, 0.8, 0.03], facecolor=axcolor)
+axkmoins1  = plt.axes([0.15, 0.15, 0.8, 0.03], facecolor=axcolor)
+axk2  = plt.axes([0.15, 0.1, 0.8, 0.03], facecolor=axcolor)
 
 slider_k1 = Slider(axk1, '$k_1$', 0.001, 10.0, valinit=5)
 slider_kmoins1 = Slider(axkmoins1, '$k_{-1}$', 0, 50, valinit=5)
