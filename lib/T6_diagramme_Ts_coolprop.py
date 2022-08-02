@@ -12,7 +12,7 @@ Fabrication d'un diagramme (T,s) avec les iso-choses adéquates.
 
 import numpy as np               # Les outils mathématiques
 import CoolProp.CoolProp as CP   # Les outils thermodynamiques
-import CoolProp.Plots as CPP     # Les outils thermographiques
+import CoolProp.Plots.Plots as CPP     # Les outils thermographiques
 import matplotlib.pyplot as plt  # Les outils graphiques
 
 print(CP.FluidsList())           # Pour regarder les fluides disponibles
